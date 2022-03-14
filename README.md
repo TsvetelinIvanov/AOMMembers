@@ -1,7 +1,7 @@
 # AOMMembers
 Project for exam in SoftUni's course ASP.NET Core (23.II.2022 - 30.IV.2022).
 
-**Project:** AOMMembers
+**Project:** *AOMMembers*
 
 **Type:** HRM(Human Resource Management) System
 
