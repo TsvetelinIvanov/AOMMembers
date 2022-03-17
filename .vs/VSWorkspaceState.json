@@ -1,7 +1,15 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\AOMMembers",
+    "\\AOMMembers\\AOMMembers.Common",
+    "\\AOMMembers\\Data",
+    "\\AOMMembers\\Data\\AOMMembers.Data",
+    "\\AOMMembers\\Data\\AOMMembers.Data.Models",
+    "\\AOMMembers\\Services",
+    "\\AOMMembers\\Tests",
+    "\\AOMMembers\\Tests\\AOMMembers.Services.Data.Tests"
   ],
-  "SelectedNode": "\\README.md",
+  "SelectedNode": "\\AOMMembers\\AOMMembers.sln",
   "PreviewInSolutionExplorer": false
 }
