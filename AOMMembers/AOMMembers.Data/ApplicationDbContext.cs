@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 using AOMMembers.Data.Common.Models;
 using AOMMembers.Data.Models;
 
-
 namespace AOMMembers.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>

@@ -1,25 +1,77 @@
-using AOMMembers.Web.Data;
+using System.Reflection;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using AOMMembers.Data;
+using AOMMembers.Data.Common;
+using AOMMembers.Data.Common.Repositories;
+using AOMMembers.Data.Models;
+using AOMMembers.Data.Repositories;
+using AOMMembers.Data.Seeding;
+using AOMMembers.Services.Data;
+using AOMMembers.Services.Mapping;
+using AOMMembers.Services.Messaging;
+using AOMMembers.Web.ViewModels;
 
-var builder = WebApplication.CreateBuilder(args);
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+string connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
-builder.Services.AddControllersWithViews();
 
-var app = builder.Build();
+builder.Services.Configure<CookiePolicyOptions>(
+                options =>
+                {
+                    options.CheckConsentNeeded = context => true;
+                    options.MinimumSameSitePolicy = SameSiteMode.None;
+                });//
+
+builder.Services.AddControllersWithViews();
+builder.Services.AddRazorPages();
+
+// Data repositories
+builder.Services.AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>));
+builder.Services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
+builder.Services.AddScoped<IDbQueryRunner, DbQueryRunner>();
+
+// Application services
+builder.Services.AddTransient<IEmailSender, NullMessageSender>();
+builder.Services.AddTransient<ISettingsService, SettingsService>();
+
+WebApplication app = builder.Build();
+
+AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);//
+
+//// Seed data on application
+//using (IServiceScope serviceScope = app.Services.CreateScope())
+//{
+//    ApplicationDbContext dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+
+//    if (app.Environment.IsDevelopment())
+//    {
+//        dbContext.Database.Migrate();
+//    }
+
+//    new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
+//}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
+
+    app.UseDeveloperExceptionPage();//   
+    app.UseDatabaseErrorPage();//
 }
 else
 {
@@ -30,12 +82,14 @@ else
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+app.UseCookiePolicy();//
 
 app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");//
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

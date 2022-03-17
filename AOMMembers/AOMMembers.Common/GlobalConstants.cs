@@ -2,8 +2,6 @@
 {
     public class GlobalConstants
     {
-        public const string SystemName = "AOM Members";
-
         public const string AdministratorRoleName = "Administator";
 
         public const string AdministratorUsername = "Admin";
@@ -14,7 +12,9 @@
 
         public const string AdministratorFullName = "Admin Adminov";
 
-        public const string UserRoleName = "User";        
+        public const string UserRoleName = "User";
+
+        public const string SiteName = "AOM Members";
 
         public const string SiteGBKeywords = "automation, automatization, optimization, miritocracy, political party, democracy, liberalism, classical liberalism";
 
