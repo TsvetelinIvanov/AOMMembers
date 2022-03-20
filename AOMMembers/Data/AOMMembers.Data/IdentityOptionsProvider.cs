@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using AOMMembers.Common;
 
 namespace AOMMembers.Data
 {
@@ -10,7 +11,7 @@ namespace AOMMembers.Data
             options.Password.RequireLowercase = false;
             options.Password.RequireUppercase = false;
             options.Password.RequireNonAlphanumeric = false;
-            options.Password.RequiredLength = 6;
+            options.Password.RequiredLength = DataConstants.ApplicationUserPasswordMinLength;
         }
     }
 }

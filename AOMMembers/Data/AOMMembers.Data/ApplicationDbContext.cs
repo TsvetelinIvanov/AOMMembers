@@ -20,8 +20,46 @@ namespace AOMMembers.Data
         {
         }
 
-        public DbSet<Setting> Settings { get; set; }
+        public DbSet<Member> Members { get; set; }
 
+        public DbSet<Citizen> Citizens { get; set; }
+
+        public DbSet<Education> Educations { get; set; }
+
+        public DbSet<Qualification> Qualifications { get; set; }
+
+        public DbSet<Career> Careers { get; set; }
+
+        public DbSet<WorkPosition> WorkPositions { get; set; }
+
+        public DbSet<Relationship> Relationships { get; set; }
+
+        public DbSet<PartyPosition> PartyPositions { get; set; }
+
+        public DbSet<PartyMembership> PartyMemberships { get; set; }
+
+        public DbSet<MaterialState> MaterialStates { get; set; }
+
+        public DbSet<Asset> Assets { get; set; }
+
+        public DbSet<PublicImage> PublicImages { get; set; }
+
+        public DbSet<MediaMaterial> MediaMaterials { get; set; }
+
+        public DbSet<LawState> LawStates { get; set; }
+
+        public DbSet<LawProblem> LawProblems { get; set; }
+
+        public DbSet<SocietyHelp> SocietyHelps { get; set; }
+
+        public DbSet<SocietyActivity> SocietyActivities { get; set; }
+
+        public DbSet<Worldview> Worldviews { get; set; }
+
+        public DbSet<Interest> Interests { get; set; }
+
+        public DbSet<Setting> Settings { get; set; }
+        
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
@@ -47,6 +85,46 @@ namespace AOMMembers.Data
             base.OnModelCreating(builder);
 
             this.ConfigureUserIdentityRelations(builder);
+
+            builder.Entity<Member>()
+                .HasOne(m => m.ApplicationUser)
+                .WithOne(au => au.Member)
+                .HasForeignKey<Member>(m => m.ApplicationUserId);
+
+            builder.Entity<Member>()
+                .HasOne(m => m.Citizen)
+                .WithOne(c => c.Member)
+                .HasForeignKey<Member>(m => m.CitizenId);
+
+            builder.Entity<Member>()
+                .HasOne(m => m.PublicImage)
+                .WithOne(pi => pi.Member)
+                .HasForeignKey<Member>(m => m.PublicImageId);
+
+            builder.Entity<Citizen>()
+                .HasOne(c => c.Education)
+                .WithOne(e => e.Citizen)
+                .HasForeignKey<Citizen>(c => c.EducationId);
+            
+            builder.Entity<Citizen>()
+               .HasOne(c => c.Career)
+               .WithOne(c => c.Citizen)
+               .HasForeignKey<Citizen>(c => c.CareerId);
+
+            builder.Entity<Citizen>()
+               .HasOne(c => c.MaterialState)
+               .WithOne(ms => ms.Citizen)
+               .HasForeignKey<Citizen>(c => c.MaterialStateId);
+
+            builder.Entity<Citizen>()
+               .HasOne(c => c.LawState)
+               .WithOne(ls => ls.Citizen)
+               .HasForeignKey<Citizen>(c => c.LawStateId);
+
+            builder.Entity<Citizen>()
+               .HasOne(c => c.Worldview)
+               .WithOne(w => w.Citizen)
+               .HasForeignKey<Citizen>(c => c.WorldviewId);
 
             EntityIndexesConfiguration.Configure(builder);
 

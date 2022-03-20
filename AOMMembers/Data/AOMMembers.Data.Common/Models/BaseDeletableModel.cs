@@ -1,6 +1,6 @@
 ﻿namespace AOMMembers.Data.Common.Models
 {
-    public abstract class BaseDeletableModel<TKey> : BaseModel<TKey>, IDeletableEntity
+    public abstract class BaseDeletableModel : BaseModel, IDeletableEntity
     {
         public bool IsDeleted { get; set; }
 

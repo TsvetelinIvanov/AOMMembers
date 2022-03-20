@@ -14,4 +14,3 @@ namespace AOMMembers.Web.Areas.Identity.Pages.Account
         }
     }
 }
-

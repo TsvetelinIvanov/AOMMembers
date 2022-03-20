@@ -1,6 +1,6 @@
 ﻿namespace AOMMembers.Common
 {
-    public class GlobalConstants
+    public static class GlobalConstants
     {
         public const string AdministratorRoleName = "Administator";
 
@@ -12,7 +12,7 @@
 
         public const string AdministratorFullName = "Admin Adminov";
 
-        public const string UserRoleName = "User";
+        public const string MemberRoleName = "Member";
 
         public const string SiteName = "AOM Members";
 

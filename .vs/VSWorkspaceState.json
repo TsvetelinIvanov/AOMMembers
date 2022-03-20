@@ -10,6 +10,6 @@
     "\\AOMMembers\\Tests",
     "\\AOMMembers\\Tests\\AOMMembers.Services.Data.Tests"
   ],
-  "SelectedNode": "\\AOMMembers\\AOMMembers.sln",
+  "SelectedNode": "\\AOMMembers\\Data\\AOMMembers.Data.Models\\Asset.cs",
   "PreviewInSolutionExplorer": false
 }

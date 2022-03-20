@@ -1,11 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using static AOMMembers.Common.DataConstants;
 
 namespace AOMMembers.Data.Common.Models
 {
-    public abstract class BaseModel<TKey> : IAuditInfo
+    public abstract class BaseModel : IAuditInfo
     {
         [Key]
-        public TKey Id { get; set; }
+        [MaxLength(IdMaxLength)]
+        public string Id { get; set; } = Guid.NewGuid().ToString();
 
         public DateTime CreatedOn { get; set; }
 
