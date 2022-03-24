@@ -40,7 +40,12 @@ builder.Services.Configure<CookiePolicyOptions>(
                     options.MinimumSameSitePolicy = SameSiteMode.None;
                 });//
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews().AddMvcOptions(options =>
+{
+    options.ModelBinderProviders.Insert(0, new DecimalModelBinderProvider());
+    options.ModelBinderProviders.Insert(1, new DateTimeModelBinderProvider(FormatingConstant.NormalDateFormat));
+    options.ModelBinderProviders.Insert(2, new DoubleModelBinderProvider());
+});
 builder.Services.AddRazorPages();
 
 // Data repositories
@@ -94,7 +99,7 @@ if (app.Environment.IsDevelopment())
     app.UseMigrationsEndPoint();
 
     app.UseDeveloperExceptionPage();//   
-    app.UseDatabaseErrorPage();//
+    //app.UseDatabaseErrorPage();
 }
 else
 {
