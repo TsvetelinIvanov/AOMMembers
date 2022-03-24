@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using AOMMembers.Common;
 using AOMMembers.Data.Common.Repositories;
 using AOMMembers.Data.Models;
-using AOMMembers.Services.Data;
+using AOMMembers.Services.Data.Interfaces;
 using AOMMembers.Web.ViewModels.Settings;
 
 namespace AOMMembers.Web.Controllers

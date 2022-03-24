@@ -1,4 +1,4 @@
-﻿namespace AOMMembers.Services.Data
+﻿namespace AOMMembers.Services.Data.Interfaces
 {
     public interface ISettingsService
     {

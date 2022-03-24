@@ -1,8 +1,9 @@
 ﻿using AOMMembers.Data.Common.Repositories;
 using AOMMembers.Data.Models;
 using AOMMembers.Services.Mapping;
+using AOMMembers.Services.Data.Interfaces;
 
-namespace AOMMembers.Services.Data
+namespace AOMMembers.Services.Data.Services
 {
     public class SettingsService : ISettingsService
     {

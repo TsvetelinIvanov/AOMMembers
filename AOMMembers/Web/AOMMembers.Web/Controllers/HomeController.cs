@@ -1,9 +1,11 @@
-﻿using AOMMembers.Web.ViewModels;
+﻿using System.Diagnostics;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
+using AOMMembers.Web.ViewModels;
 
 namespace AOMMembers.Web.Controllers
 {
+    [AllowAnonymous]
     public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> logger;

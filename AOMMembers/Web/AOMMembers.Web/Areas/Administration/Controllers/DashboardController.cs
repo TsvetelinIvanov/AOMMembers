@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using AOMMembers.Services.Data;
+using AOMMembers.Services.Data.Interfaces;
 using AOMMembers.Web.ViewModels.Administration.Dashboard;
 
 namespace AOMMembers.Web.Areas.Administration.Controllers

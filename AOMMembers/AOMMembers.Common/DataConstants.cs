@@ -18,7 +18,7 @@
         public const int MemberEmailMinLength = 9;
         public const int MemberEmailMaxLength = 60;        
         public const int MemberPhoneNumberMinLength = 4;
-        public const int MemberPhoneNumberMaxLength = 40;        
+        public const int MemberPhoneNumberMaxLength = 40;
 
         public const int CitizenFirstNameMinLength = 1;
         public const int CitizenFirstNameMaxLength = 30;

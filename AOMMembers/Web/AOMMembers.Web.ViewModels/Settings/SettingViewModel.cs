@@ -1,6 +1,8 @@
-﻿using AutoMapper;
+﻿using System.ComponentModel.DataAnnotations;
+using AutoMapper;
 using AOMMembers.Data.Models;
 using AOMMembers.Services.Mapping;
+using static AOMMembers.Common.DataDisplayNames;
 
 namespace AOMMembers.Web.ViewModels.Settings
 {

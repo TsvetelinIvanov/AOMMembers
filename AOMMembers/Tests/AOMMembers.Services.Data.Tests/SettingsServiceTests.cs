@@ -8,6 +8,7 @@ using AOMMembers.Data;
 using AOMMembers.Data.Common.Repositories;
 using AOMMembers.Data.Models;
 using AOMMembers.Data.Repositories;
+using AOMMembers.Services.Data.Services;
 
 namespace AOMMembers.Services.Data.Tests
 {

@@ -10,7 +10,8 @@ using AOMMembers.Data.Common.Repositories;
 using AOMMembers.Data.Models;
 using AOMMembers.Data.Repositories;
 using AOMMembers.Data.Seeding;
-using AOMMembers.Services.Data;
+using AOMMembers.Services.Data.Interfaces;
+using AOMMembers.Services.Data.Services;
 using AOMMembers.Services.Messaging;
 
 namespace Sandbox

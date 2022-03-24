@@ -16,6 +16,8 @@ using AOMMembers.Data.Seeding;
 using AOMMembers.Services.Data;
 using AOMMembers.Services.Mapping;
 using AOMMembers.Services.Messaging;
+using AOMMembers.Services.Data.Interfaces;
+using AOMMembers.Services.Data.Services;
 using AOMMembers.Web.ViewModels;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -48,6 +50,25 @@ builder.Services.AddScoped<IDbQueryRunner, DbQueryRunner>();
 
 // Application services
 builder.Services.AddTransient<IEmailSender, NullMessageSender>();
+builder.Services.AddTransient<IMembersService, MembersService>();
+builder.Services.AddTransient<ICitizensService, CitizensService>();
+builder.Services.AddTransient<IEducationsService, EducationsService>();
+builder.Services.AddTransient<IQualificationsService, QualificationsService>();
+builder.Services.AddTransient<ICareersService, CareersService>();
+builder.Services.AddTransient<IWorkPositionsService, WorkPositionsService>();
+builder.Services.AddTransient<IRelationshipsService, RelationshipsService>();
+builder.Services.AddTransient<IPartyPositionsService, PartyPositionsService>();
+builder.Services.AddTransient<IPartyMembershipsService, PartyMembershipsService>();
+builder.Services.AddTransient<IMaterialStatesService, MaterialStatesService>();
+builder.Services.AddTransient<IAssetsService, AssetsService>();
+builder.Services.AddTransient<IPublicImagesService, PublicImagesService>();
+builder.Services.AddTransient<IMediaMaterialsService, MediaMaterialsService>();
+builder.Services.AddTransient<ILawStatesService, LawStatesService>();
+builder.Services.AddTransient<ILawProblemsService, LawProblemsService>();
+builder.Services.AddTransient<ISocietyHelpsService, SocietyHelpsService>();
+builder.Services.AddTransient<ISocietyActivitiesService, SocietyActivitiesService>();
+builder.Services.AddTransient<IWorldviewsService, WorldviewsService>();
+builder.Services.AddTransient<IInterestsService, InterestsService>();
 builder.Services.AddTransient<ISettingsService, SettingsService>();
 
 WebApplication app = builder.Build();
