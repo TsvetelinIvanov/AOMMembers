@@ -17,7 +17,7 @@ namespace AOMMembers.Data.Models
         public decimal MonthIncome { get; set; }
 
         [Required]
-        [StringLength(MaterialStateDescriptionMaxLength, MinimumLength = MaterialStateDescriptionMinLength)]        
+        [StringLength(MaterialStateDescriptionMaxLength, MinimumLength = MaterialStateDescriptionMinLength)]
         public string Description { get; set; }
 
         public string? TaxDeclarationLink { get; set; }
@@ -25,6 +25,6 @@ namespace AOMMembers.Data.Models
         public string CitizenId { get; set; }
         public virtual Citizen Citizen { get; set; }
 
-        public virtual ICollection<Asset> Assets { get; set; } = new HashSet<Asset>();        
+        public virtual ICollection<Asset> Assets { get; set; } = new HashSet<Asset>();
     }
 }

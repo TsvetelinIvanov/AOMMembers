@@ -13,6 +13,6 @@ namespace AOMMembers.Data.Models
         public string? LawProblemLink { get; set; }
 
         public string LawStateId { get; set; }
-        public virtual LawState LawState { get; set; }        
+        public virtual LawState LawState { get; set; }
     }
 }

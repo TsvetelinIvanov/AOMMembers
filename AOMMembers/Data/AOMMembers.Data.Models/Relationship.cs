@@ -12,7 +12,10 @@ namespace AOMMembers.Data.Models
 
         [Required]
         [StringLength(RelationshipDescriptionMaxLength, MinimumLength = RelationshipDescriptionMinLength)]
-        public string Description { get; set; }        
+        public string Description { get; set; }
+
+        public string MemberId { get; set; }
+        public virtual Member Member { get; set; }
 
         public string CitizenId { get; set; }
         public virtual Citizen Citizen { get; set; }

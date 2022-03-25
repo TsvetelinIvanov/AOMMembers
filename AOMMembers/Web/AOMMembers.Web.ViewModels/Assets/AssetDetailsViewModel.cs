@@ -14,7 +14,7 @@ namespace AOMMembers.Web.ViewModels.Assets
         [Display(Name = AssetWorthinessDisplayName)]
         public decimal Worthiness { get; set; }
 
-        //public string MaterialStateId { get; set; }
+        public string MaterialStateId { get; set; }
 
         [Display(Name = CreatedOnDisplayName)]
         public string CreatedOn { get; set; }

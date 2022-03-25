@@ -11,6 +11,6 @@ namespace AOMMembers.Data.Models
         public string Description { get; set; }
         
         public string WorldviewId { get; set; }
-        public virtual Worldview Worldview { get; set; }        
+        public virtual Worldview Worldview { get; set; }
     }
 }

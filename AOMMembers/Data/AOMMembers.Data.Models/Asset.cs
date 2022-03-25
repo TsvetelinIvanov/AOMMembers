@@ -16,9 +16,9 @@ namespace AOMMembers.Data.Models
         public string Description { get; set; }
 
         [Column(TypeName = "decimal(18, 2)")]
-        public decimal Worthiness { get; set; }        
+        public decimal Worthiness { get; set; }
 
         public string MaterialStateId { get; set; }
-        public virtual MaterialState MaterialState { get; set; }        
+        public virtual MaterialState MaterialState { get; set; }
     }
 }

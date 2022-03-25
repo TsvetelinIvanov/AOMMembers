@@ -5,5 +5,18 @@ namespace AOMMembers.Web.ViewModels.Qualifications
 {
     public class QualificationViewModel
     {
+        [Display(Name = QualificationNameDisplayName)]
+        public string Name { get; set; }
+
+        [Display(Name = QualificationDescriptionDisplayName)]
+        public string Description { get; set; }
+
+        [Display(Name = QualificationStartDateDisplayName)]
+        public string StartDate { get; set; }
+
+        [Display(Name = QualificationEndDateDisplayName)]
+        public string? EndDate { get; set; }
+
+        //public string EducationId { get; set; }
     }
 }

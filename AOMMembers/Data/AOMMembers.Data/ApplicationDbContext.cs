@@ -126,6 +126,16 @@ namespace AOMMembers.Data
                .WithOne(w => w.Citizen)
                .HasForeignKey<Citizen>(c => c.WorldviewId);
 
+            builder.Entity<Relationship>()
+               .HasOne(r => r.Citizen)
+               .WithMany(c => c.Relationships)
+               .HasForeignKey(r => r.CitizenId);
+
+            builder.Entity<Relationship>()
+               .HasOne(r => r.Member)
+               .WithMany(m => m.Relationships)
+               .HasForeignKey(r => r.MemberId);
+
             EntityIndexesConfiguration.Configure(builder);
 
             List<IMutableEntityType> entityTypes = builder.Model.GetEntityTypes().ToList();

@@ -10,10 +10,15 @@ namespace AOMMembers.Web.ViewModels.Settings
     {
         public int Id { get; set; }
 
+        [Display(Name = SettingNameDisplayName)]
         public string Name { get; set; }
 
+        [Display(Name = SettingValueDisplayName)]
         public string Value { get; set; }
 
+        //public string CitizenId { get; set; }
+
+        [Display(Name = SettingNameAndValueDisplayName)]
         public string NameAndValue { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)

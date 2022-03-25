@@ -8,11 +8,11 @@ namespace AOMMembers.Data.Models
     {
         [Required]
         [StringLength(LawStateConditionMaxLength, MinimumLength = LawStateConditionMinLength)]
-        public string Condition { get; set; }        
+        public string Condition { get; set; }
 
         public string CitizenId { get; set; }
         public virtual Citizen Citizen { get; set; }
 
-        public virtual ICollection<LawProblem> LawProblems { get; set; } = new HashSet<LawProblem>();        
+        public virtual ICollection<LawProblem> LawProblems { get; set; } = new HashSet<LawProblem>();
     }
 }

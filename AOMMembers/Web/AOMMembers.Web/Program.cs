@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using AOMMembers.Common;
 using AOMMembers.Data;
 using AOMMembers.Data.Common;
 using AOMMembers.Data.Common.Repositories;
@@ -19,6 +20,7 @@ using AOMMembers.Services.Messaging;
 using AOMMembers.Services.Data.Interfaces;
 using AOMMembers.Services.Data.Services;
 using AOMMembers.Web.ViewModels;
+using AOMMembers.Web.Infrastructure.ModelBinders;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -43,7 +45,7 @@ builder.Services.Configure<CookiePolicyOptions>(
 builder.Services.AddControllersWithViews().AddMvcOptions(options =>
 {
     options.ModelBinderProviders.Insert(0, new DecimalModelBinderProvider());
-    options.ModelBinderProviders.Insert(1, new DateTimeModelBinderProvider(FormatingConstant.NormalDateFormat));
+    options.ModelBinderProviders.Insert(1, new DateTimeModelBinderProvider(GlobalConstants.UsedDateFormat));
     options.ModelBinderProviders.Insert(2, new DoubleModelBinderProvider());
 });
 builder.Services.AddRazorPages();

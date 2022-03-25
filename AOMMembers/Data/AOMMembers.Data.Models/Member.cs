@@ -11,9 +11,15 @@ namespace AOMMembers.Data.Models
         public string FullName { get; set; }
 
         [Required]
-        [StringLength(MemberPhoneNumberMaxLength, MinimumLength = MemberPhoneNumberMinLength)]        
+        [StringLength(MemberEmailMaxLength, MinimumLength = MemberEmailMinLength)]
+        public string Email { get; set; }
+
+        [Required]
+        [StringLength(MemberPhoneNumberMaxLength, MinimumLength = MemberPhoneNumberMinLength)]
         public string PhoneNumber { get; set; }
 
+        [Required]
+        public string PictureUrl { get; set; }
 
         public string ApplicationUserId { get; set; }
         public virtual ApplicationUser ApplicationUser { get; set; }

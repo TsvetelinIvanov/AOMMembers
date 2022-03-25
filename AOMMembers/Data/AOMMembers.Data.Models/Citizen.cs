@@ -51,6 +51,8 @@ namespace AOMMembers.Data.Models
         public string? WorldviewId { get; set; }
         public virtual Worldview? Worldview { get; set; }
 
+        public virtual ICollection<Relationship> Relationships { get; set; } = new HashSet<Relationship>();
+
         public virtual ICollection<PartyMembership> PartyMemberships { get; set; } = new HashSet<PartyMembership>();
 
         public virtual ICollection<SocietyHelp> SocietyHelps { get; set; } = new HashSet<SocietyHelp>();

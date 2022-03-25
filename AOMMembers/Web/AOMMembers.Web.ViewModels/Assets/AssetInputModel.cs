@@ -20,6 +20,6 @@ namespace AOMMembers.Web.ViewModels.Assets
         [Display(Name = AssetWorthinessDisplayName)]
         public decimal Worthiness { get; set; }
 
-        //public string MaterialStateId { get; set; }
+        public string MaterialStateId { get; set; }
     }
 }

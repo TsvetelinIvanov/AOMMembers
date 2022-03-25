@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using AOMMembers.Web.ViewModels.Relationships;
 using AOMMembers.Web.ViewModels.PartyMemberships;
 using AOMMembers.Web.ViewModels.SocietyHelps;
 using AOMMembers.Web.ViewModels.SocietyActivities;
@@ -56,6 +57,8 @@ namespace AOMMembers.Web.ViewModels.Citizens
 
         [Display(Name = CitizenSocietyActivitiesCountDisplayName)]
         public int SocietyActivitiesCount { get; set; }
+
+        public RelationshipListViewModel Relationships { get; set; }
 
         public PartyMembershipListViewModel PartyMemberships { get; set; }
 

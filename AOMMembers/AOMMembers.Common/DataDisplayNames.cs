@@ -8,6 +8,7 @@
         public const string MemberFullNameDisplayName = "Пълно име";
         public const string MemberEmailDisplayName = "Електронна поща";
         public const string MemberPhoneNumberDisplayName = "Телефонен номер";
+        public const string MemberPictureUrlDisplayName = "Визуален образ";
         public const string MemberCurrentPartyPositionDisplayName = "Заемана в момента партийна длъжност";
         public const string MemberRelationshipsCountDisplayName = "Брой на връзките с други хора";
 
@@ -55,6 +56,12 @@
         public const string PartyPositionStartDateDisplayName = "Постъпване";
         public const string PartyPositionEndDateDisplayName = "Оттегляне";
 
+        public const string PartyMembershipPartyNameDisplayName = "Име на партията";
+        public const string PartyMembershipDescriptionDisplayName = "Описание";
+        public const string PartyMembershipIsCurrentDisplayName = "Изпълнява ли се в момента";
+        public const string PartyMembershipStartDateDisplayName = "Постъпване";
+        public const string PartyMembershipEndDateDisplayName = "Оттегляне";
+
         public const string MaterialStateRichesDisplayName = "Финансово състояние (общо богатство в български лева)";
         public const string MaterialStateMoneyDisplayName = "Пари в банкови сметки (в български лева)";
         public const string MaterialStateMonthIncomeDisplayName = "Месечен доход (в български лева)";
@@ -101,5 +108,6 @@
 
         public const string SettingNameDisplayName = "Име";
         public const string SettingValueDisplayName = "Описание";
+        public const string SettingNameAndValueDisplayName = "Име и описание";
     }
 }

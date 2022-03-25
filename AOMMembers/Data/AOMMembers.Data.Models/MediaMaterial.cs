@@ -32,6 +32,6 @@ namespace AOMMembers.Data.Models
         public string? MediaMaterialLink { get; set; }
 
         public string PublicImageId { get; set; }
-        public virtual PublicImage PublicImage { get; set; }        
+        public virtual PublicImage PublicImage { get; set; }
     }
 }

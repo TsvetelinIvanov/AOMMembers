@@ -26,6 +26,8 @@
 
         public const string OverMaxFileSizeExceptionMessage = "Maximum allowed file size is {0} MB!";
 
+        public const string UsedDateFormat = "dd.MM.yyyy";
+
         public static readonly string[] AllowedPictureFileExtensions = { ".jpg", ".jpeg", ".png", ".gif"};
     }
 }
