@@ -7,6 +7,8 @@ namespace AOMMembers.Web.ViewModels.Careers
 {
     public class CareerEditModel
     {
+        public string Id { get; set; }
+
         [Display(Name = CareerDescriptionDisplayName)]
         [Required(ErrorMessage = RequiredErrorMessage)]
         [StringLength(CareerDescriptionMaxLength, MinimumLength = CareerDescriptionMinLength, ErrorMessage = StringLengthErrorMessage)]

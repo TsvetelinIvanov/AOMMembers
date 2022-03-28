@@ -5,6 +5,7 @@ namespace AOMMembers.Web.ViewModels.Educations
 {
     public class EducationViewModel
     {
+        public string Id { get; set; }
 
         [Display(Name = EducationDescriptionDisplayName)]
         public string Description { get; set; }

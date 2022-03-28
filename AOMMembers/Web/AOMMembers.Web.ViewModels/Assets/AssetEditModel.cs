@@ -7,6 +7,8 @@ namespace AOMMembers.Web.ViewModels.Assets
 {
     public class AssetEditModel
     {
+        public string Id { get; set; }
+
         [Display(Name = AssetNameDisplayName)]
         [Required(ErrorMessage = RequiredErrorMessage)]
         [StringLength(AssetNameMaxLength, MinimumLength = AssetNameMinLength, ErrorMessage = StringLengthErrorMessage)]

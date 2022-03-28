@@ -5,6 +5,8 @@ namespace AOMMembers.Web.ViewModels.PartyPositions
 {
     public class PartyPositionDeleteModel
     {
+        public string Id { get; set; }
+
         [Display(Name = PartyPositionNameDisplayName)]
         public string Name { get; set; }
 
@@ -21,5 +23,11 @@ namespace AOMMembers.Web.ViewModels.PartyPositions
         public string? EndDate { get; set; }
 
         //public string MemberId { get; set; }
+
+        [Display(Name = CreatedOnDisplayName)]
+        public string CreatedOn { get; set; }
+
+        [Display(Name = ModifiedOnDisplayName)]
+        public string? ModifiedOn { get; set; }
     }
 }

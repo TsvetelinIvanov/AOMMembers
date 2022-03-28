@@ -12,6 +12,6 @@ namespace AOMMembers.Web.ViewModels.LawStates
         [StringLength(LawStateConditionMaxLength, MinimumLength = LawStateConditionMinLength, ErrorMessage = StringLengthErrorMessage)]
         public string Condition { get; set; }
 
-        public string CitizenId { get; set; }
+        //public string CitizenId { get; set; }
     }
 }

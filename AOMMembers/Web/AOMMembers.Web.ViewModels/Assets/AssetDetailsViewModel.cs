@@ -5,6 +5,8 @@ namespace AOMMembers.Web.ViewModels.Assets
 {
     public class AssetDetailsViewModel
     {
+        public string Id { get; set; }
+
         [Display(Name = AssetNameDisplayName)]
         public string Name { get; set; }
 

@@ -5,6 +5,8 @@ namespace AOMMembers.Web.ViewModels.SocietyHelps
 {
     public class SocietyHelpViewModel
     {
+        public string Id { get; set; }
+
         [Display(Name = SocietyHelpNameDisplayName)]
         public string Name { get; set; }
 

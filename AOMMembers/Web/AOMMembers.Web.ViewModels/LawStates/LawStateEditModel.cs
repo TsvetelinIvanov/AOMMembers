@@ -7,6 +7,8 @@ namespace AOMMembers.Web.ViewModels.LawStates
 {
     public class LawStateEditModel
     {
+        public string Id { get; set; }
+
         [Display(Name = LawStateConditionDisplayName)]
         [Required(ErrorMessage = RequiredErrorMessage)]
         [StringLength(LawStateConditionMaxLength, MinimumLength = LawStateConditionMinLength, ErrorMessage = StringLengthErrorMessage)]

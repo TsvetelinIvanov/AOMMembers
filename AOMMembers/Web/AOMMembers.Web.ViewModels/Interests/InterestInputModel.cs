@@ -12,6 +12,6 @@ namespace AOMMembers.Web.ViewModels.Interests
         [StringLength(InterestDescriptionMaxLength, MinimumLength = InterestDescriptionMinLength, ErrorMessage = StringLengthErrorMessage)]
         public string Description { get; set; }
 
-        public string WorldviewId { get; set; }
+        //public string WorldviewId { get; set; }
     }
 }

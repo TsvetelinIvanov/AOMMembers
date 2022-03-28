@@ -7,6 +7,8 @@ namespace AOMMembers.Web.ViewModels.Settings
 {
     public class SettingEditModel
     {
+        public string Id { get; set; }
+
         [Display(Name = SettingNameDisplayName)]
         [Required(ErrorMessage = RequiredErrorMessage)]
         [StringLength(SettingNameMaxLength, MinimumLength = SettingNameMinLength, ErrorMessage = StringLengthErrorMessage)]

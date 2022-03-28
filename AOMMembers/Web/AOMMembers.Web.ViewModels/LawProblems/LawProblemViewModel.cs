@@ -5,6 +5,8 @@ namespace AOMMembers.Web.ViewModels.LawProblems
 {
     public class LawProblemViewModel
     {
+        public string Id { get; set; }
+
         [Display(Name = LawProblemDescriptionDisplayName)]
         public string Description { get; set; }
 

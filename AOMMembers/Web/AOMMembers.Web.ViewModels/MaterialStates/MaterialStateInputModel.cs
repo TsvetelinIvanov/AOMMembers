@@ -24,6 +24,6 @@ namespace AOMMembers.Web.ViewModels.MaterialStates
         [Display(Name = MaterialStateTaxDeclarationLinkDisplayName)]
         public string? TaxDeclarationLink { get; set; }
 
-        public string CitizenId { get; set; }       
+        //public string CitizenId { get; set; }       
     }
 }

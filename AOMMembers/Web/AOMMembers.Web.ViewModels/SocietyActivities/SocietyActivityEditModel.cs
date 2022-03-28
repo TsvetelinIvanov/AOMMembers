@@ -7,6 +7,8 @@ namespace AOMMembers.Web.ViewModels.SocietyActivities
 {
     public class SocietyActivityEditModel
     {
+        public string Id { get; set; }
+
         [Display(Name = SocietyActivityNameDisplayName)]
         [Required(ErrorMessage = RequiredErrorMessage)]
         [StringLength(SocietyActivityNameMaxLength, MinimumLength = SocietyActivityNameMinLength, ErrorMessage = StringLengthErrorMessage)]

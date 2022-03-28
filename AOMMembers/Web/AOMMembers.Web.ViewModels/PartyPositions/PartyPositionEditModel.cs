@@ -7,6 +7,8 @@ namespace AOMMembers.Web.ViewModels.PartyPositions
 {
     public class PartyPositionEditModel
     {
+        public string Id { get; set; }
+
         [Display(Name = PartyPositionNameDisplayName)]
         [Required(ErrorMessage = RequiredErrorMessage)]
         [StringLength(PartyPositionNameMaxLength, MinimumLength = PartyPositionNameMinLength, ErrorMessage = StringLengthErrorMessage)]

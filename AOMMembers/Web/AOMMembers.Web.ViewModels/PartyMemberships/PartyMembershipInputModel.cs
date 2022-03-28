@@ -28,6 +28,6 @@ namespace AOMMembers.Web.ViewModels.PartyMemberships
         [DataType(DataType.Date)]
         public DateTime? EndDate { get; set; }
 
-        public string CitizenId { get; set; }
+        //public string CitizenId { get; set; }
     }
 }

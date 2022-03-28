@@ -7,6 +7,8 @@ namespace AOMMembers.Web.ViewModels.Worldviews
 {
     public class WorldviewEditModel
     {
+        public string Id { get; set; }
+
         [Display(Name = WorldviewDescriptionDisplayName)]
         [Required(ErrorMessage = RequiredErrorMessage)]
         [StringLength(WorldviewDescriptionMaxLength, MinimumLength = WorldviewDescriptionMinLength, ErrorMessage = StringLengthErrorMessage)]

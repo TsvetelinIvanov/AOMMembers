@@ -15,6 +15,6 @@ namespace AOMMembers.Web.ViewModels.Educations
         [Display(Name = EducationCVLinkDisplayName)]
         public string? CVLink { get; set; }
 
-        public string CitizenId { get; set; }
+        //public string CitizenId { get; set; }
     }
 }

@@ -7,6 +7,8 @@ namespace AOMMembers.Web.ViewModels.Qualifications
 {
     public class QualificationEditModel
     {
+        public string Id { get; set; }
+
         [Display(Name = QualificationNameDisplayName)]
         [Required(ErrorMessage = RequiredErrorMessage)]
         [StringLength(QualificationNameMaxLength, MinimumLength = QualificationNameMinLength, ErrorMessage = StringLengthErrorMessage)]

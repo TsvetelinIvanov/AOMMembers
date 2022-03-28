@@ -17,8 +17,8 @@ namespace AOMMembers.Web.ViewModels.Relationships
         [StringLength(RelationshipDescriptionMaxLength, MinimumLength = RelationshipDescriptionMinLength)]
         public string Description { get; set; }
 
-        public string MemberId { get; set; }
+        //public string MemberId { get; set; }
 
-        public string CitizenId { get; set; }
+        //public string CitizenId { get; set; }
     }
 }

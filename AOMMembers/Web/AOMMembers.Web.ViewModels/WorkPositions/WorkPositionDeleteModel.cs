@@ -5,6 +5,8 @@ namespace AOMMembers.Web.ViewModels.WorkPositions
 {
     public class WorkPositionDeleteModel
     {
+        public string Id { get; set; }
+
         [Display(Name = WorkPositionNameDisplayName)]
         public string Name { get; set; }
 
@@ -21,5 +23,11 @@ namespace AOMMembers.Web.ViewModels.WorkPositions
         public string? EndDate { get; set; }
 
         //public string CareerId { get; set; }
+
+        [Display(Name = CreatedOnDisplayName)]
+        public string CreatedOn { get; set; }
+
+        [Display(Name = ModifiedOnDisplayName)]
+        public string? ModifiedOn { get; set; }
     }
 }

@@ -17,6 +17,6 @@ namespace AOMMembers.Web.ViewModels.Worldviews
         [StringLength(WorldviewIdeologyMaxLength, MinimumLength = WorldviewIdeologyMinLength, ErrorMessage = StringLengthErrorMessage)]
         public string Ideology { get; set; }
 
-        public string CitizenId { get; set; }
+        //public string CitizenId { get; set; }
     }
 }

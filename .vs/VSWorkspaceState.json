@@ -2,14 +2,15 @@
   "ExpandedNodes": [
     "",
     "\\AOMMembers",
-    "\\AOMMembers\\AOMMembers.Common",
-    "\\AOMMembers\\Data",
-    "\\AOMMembers\\Data\\AOMMembers.Data",
-    "\\AOMMembers\\Data\\AOMMembers.Data.Models",
-    "\\AOMMembers\\Services",
-    "\\AOMMembers\\Tests",
-    "\\AOMMembers\\Tests\\AOMMembers.Services.Data.Tests"
+    "\\AOMMembers\\Web",
+    "\\AOMMembers\\Web\\AOMMembers.Web",
+    "\\AOMMembers\\Web\\AOMMembers.Web.ViewModels",
+    "\\AOMMembers\\Web\\AOMMembers.Web.ViewModels\\PublicImages",
+    "\\AOMMembers\\Web\\AOMMembers.Web.ViewModels\\Qualifications",
+    "\\AOMMembers\\Web\\AOMMembers.Web.ViewModels\\Relationships",
+    "\\AOMMembers\\Web\\AOMMembers.Web\\Views",
+    "\\AOMMembers\\Web\\AOMMembers.Web\\Views\\Citizens"
   ],
-  "SelectedNode": "\\AOMMembers\\Data\\AOMMembers.Data.Models\\Asset.cs",
+  "SelectedNode": "\\AOMMembers\\Web\\AOMMembers.Web\\Views\\Citizens\\Create.cshtml",
   "PreviewInSolutionExplorer": false
 }

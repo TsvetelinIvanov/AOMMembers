@@ -7,6 +7,8 @@ namespace AOMMembers.Web.ViewModels.Citizens
 {
     public class CitizenEditModel
     {
+        public string Id { get; set; }
+
         [Display(Name = CitizenFirstNameDisplayName)]
         [Required(ErrorMessage = RequiredErrorMessage)]
         [StringLength(CitizenFirstNameMaxLength, MinimumLength = CitizenFirstNameMinLength, ErrorMessage = StringLengthErrorMessage)]

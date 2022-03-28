@@ -5,6 +5,8 @@ namespace AOMMembers.Web.ViewModels.LawStates
 {
     public class LawStateViewModel
     {
+        public string Id { get; set; }
+
         [Display(Name = LawStateConditionDisplayName)]
         public string Condition { get; set; }
 

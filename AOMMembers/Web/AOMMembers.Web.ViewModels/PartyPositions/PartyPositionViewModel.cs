@@ -5,6 +5,8 @@ namespace AOMMembers.Web.ViewModels.PartyPositions
 {
     public class PartyPositionViewModel
     {
+        public string Id { get; set; }
+
         [Display(Name = PartyPositionNameDisplayName)]
         public string Name { get; set; }
 

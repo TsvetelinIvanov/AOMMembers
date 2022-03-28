@@ -5,6 +5,8 @@ namespace AOMMembers.Web.ViewModels.Careers
 {
     public class CareerViewModel
     {
+        public string Id { get; set; }
+
         [Display(Name = CareerDescriptionDisplayName)]        
         public string Description { get; set; }
 

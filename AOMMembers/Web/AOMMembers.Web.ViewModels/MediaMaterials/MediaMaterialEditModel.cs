@@ -7,6 +7,8 @@ namespace AOMMembers.Web.ViewModels.MediaMaterials
 {
     public class MediaMaterialEditModel
     {
+        public string Id { get; set; }
+
         [Display(Name = MediaMaterialKindDisplayName)]
         [Required(ErrorMessage = RequiredErrorMessage)]
         [StringLength(MediaMaterialKindMaxLength, MinimumLength = MediaMaterialKindMinLength, ErrorMessage = StringLengthErrorMessage)]

@@ -7,6 +7,8 @@ namespace AOMMembers.Web.ViewModels.Members
 {
     public class MemberEditModel
     {
+        public string Id { get; set; }
+
         [Display(Name = MemberFullNameDisplayName)]
         [Required(ErrorMessage = RequiredErrorMessage)]
         [StringLength(MemberFullNameMaxLength, MinimumLength = MemberFullNameMinLength, ErrorMessage = StringLengthErrorMessage)]

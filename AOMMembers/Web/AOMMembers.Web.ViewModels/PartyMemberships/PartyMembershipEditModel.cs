@@ -7,6 +7,8 @@ namespace AOMMembers.Web.ViewModels.PartyMemberships
 {
     public class PartyMembershipEditModel
     {
+        public string Id { get; set; }
+
         [Display(Name = PartyMembershipPartyNameDisplayName)]
         [Required(ErrorMessage = RequiredErrorMessage)]
         [StringLength(PartyMembershipPartyNameMaxLength, MinimumLength = PartyMembershipPartyNameMinLength, ErrorMessage = StringLengthErrorMessage)]

@@ -7,6 +7,8 @@ namespace AOMMembers.Web.ViewModels.LawProblems
 {
     public class LawProblemEditModel
     {
+        public string Id { get; set; }
+
         [Display(Name = LawProblemDescriptionDisplayName)]
         [Required(ErrorMessage = RequiredErrorMessage)]
         [StringLength(LawProblemDescriptionMaxLength, MinimumLength = LawProblemDescriptionMinLength, ErrorMessage = StringLengthErrorMessage)]

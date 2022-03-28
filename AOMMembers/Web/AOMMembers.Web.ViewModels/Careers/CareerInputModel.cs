@@ -15,6 +15,6 @@ namespace AOMMembers.Web.ViewModels.Careers
         [Display(Name = CareerCVLinkDisplayName)]
         public string? CVLink { get; set; }
 
-        public string CitizenId { get; set; }
+        //public string CitizenId { get; set; }
     }
 }

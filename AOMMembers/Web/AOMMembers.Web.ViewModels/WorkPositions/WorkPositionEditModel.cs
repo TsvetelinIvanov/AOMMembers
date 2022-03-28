@@ -7,6 +7,8 @@ namespace AOMMembers.Web.ViewModels.WorkPositions
 {
     public class WorkPositionEditModel
     {
+        public string Id { get; set; }
+
         [Display(Name = WorkPositionNameDisplayName)]
         [Required(ErrorMessage = RequiredErrorMessage)]
         [StringLength(WorkPositionNameMaxLength, MinimumLength = WorkPositionNameMinLength, ErrorMessage = StringLengthErrorMessage)]

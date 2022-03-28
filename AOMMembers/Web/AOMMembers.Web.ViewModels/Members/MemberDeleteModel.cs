@@ -5,6 +5,8 @@ namespace AOMMembers.Web.ViewModels.Members
 {
     public class MemberDeleteModel
     {
+        public string Id { get; set; }
+
         [Display(Name = MemberFullNameDisplayName)]
         public string FullName { get; set; }
 
@@ -17,7 +19,13 @@ namespace AOMMembers.Web.ViewModels.Members
         [Display(Name = MemberPictureUrlDisplayName)]
         public string PictureUrl { get; set; }
 
-        //public string ApplicationUserId { get; set; }        
+        //public string ApplicationUserId { get; set; }
+
+        [Display(Name = CreatedOnDisplayName)]
+        public string CreatedOn { get; set; }
+
+        [Display(Name = ModifiedOnDisplayName)]
+        public string? ModifiedOn { get; set; }
 
         [Display(Name = MemberCurrentPartyPositionDisplayName)]
         public string? CurrentPartyPosition { get; set; }

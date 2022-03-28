@@ -98,10 +98,8 @@ AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly)
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseMigrationsEndPoint();
-
-    app.UseDeveloperExceptionPage();//   
-    //app.UseDatabaseErrorPage();
+    app.UseDeveloperExceptionPage();//
+    app.UseMigrationsEndPoint();    
 }
 else
 {

@@ -5,6 +5,8 @@ namespace AOMMembers.Web.ViewModels.Settings
 {
     public class SettingDetailsViewModel
     {
+        public string Id { get; set; }
+
         [Display(Name = SettingNameDisplayName)]        
         public string Name { get; set; }
 

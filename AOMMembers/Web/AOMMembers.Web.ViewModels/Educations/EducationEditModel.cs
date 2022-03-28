@@ -7,6 +7,8 @@ namespace AOMMembers.Web.ViewModels.Educations
 {
     public class EducationEditModel
     {
+        public string Id { get; set; }
+
         [Display(Name = EducationDescriptionDisplayName)]
         [Required(ErrorMessage = RequiredErrorMessage)]
         [StringLength(EducationDescriptionMaxLength, MinimumLength = EducationDescriptionMinLength, ErrorMessage = StringLengthErrorMessage)]

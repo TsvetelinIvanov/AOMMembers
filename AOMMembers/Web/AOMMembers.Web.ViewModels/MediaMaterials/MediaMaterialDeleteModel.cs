@@ -5,6 +5,8 @@ namespace AOMMembers.Web.ViewModels.MediaMaterials
 {
     public class MediaMaterialDeleteModel
     {
+        public string Id { get; set; }
+
         [Display(Name = MediaMaterialKindDisplayName)]
         public string Kind { get; set; }
 
@@ -27,5 +29,11 @@ namespace AOMMembers.Web.ViewModels.MediaMaterials
         public string? MediaMaterialLink { get; set; }
 
         //public string PublicImageId { get; set; }
+
+        [Display(Name = CreatedOnDisplayName)]
+        public string CreatedOn { get; set; }
+
+        [Display(Name = ModifiedOnDisplayName)]
+        public string? ModifiedOn { get; set; }
     }
 }

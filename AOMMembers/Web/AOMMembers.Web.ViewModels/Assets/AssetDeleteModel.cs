@@ -5,6 +5,8 @@ namespace AOMMembers.Web.ViewModels.Assets
 {
     public class AssetDeleteModel
     {
+        public string Id { get; set; }
+
         [Display(Name = AssetNameDisplayName)]
         public string Name { get; set; }
 
@@ -15,5 +17,11 @@ namespace AOMMembers.Web.ViewModels.Assets
         public decimal Worthiness { get; set; }
 
         //public string MaterialStateId { get; set; }
+
+        [Display(Name = CreatedOnDisplayName)]
+        public string CreatedOn { get; set; }
+
+        [Display(Name = ModifiedOnDisplayName)]
+        public string? ModifiedOn { get; set; }
     }
 }

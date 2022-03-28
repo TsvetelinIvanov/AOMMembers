@@ -5,6 +5,8 @@ namespace AOMMembers.Web.ViewModels.Relationships
 {
     public class RelationshipDetailsViewModel
     {
+        public string Id { get; set; }
+
         [Display(Name = RelationshipKindDisplayName)]        
         public string Kind { get; set; }
 

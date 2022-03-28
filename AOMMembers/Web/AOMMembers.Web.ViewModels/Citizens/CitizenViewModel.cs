@@ -5,6 +5,8 @@ namespace AOMMembers.Web.ViewModels.Citizens
 {
     public class CitizenViewModel
     {
+        public string Id { get; set; }
+
         [Display(Name = CitizenFirstNameDisplayName)]
         public string FirstName { get; set; }
 

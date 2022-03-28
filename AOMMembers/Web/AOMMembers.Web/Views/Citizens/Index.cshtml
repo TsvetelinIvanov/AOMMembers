@@ -1,0 +1,173 @@
+﻿@model IEnumerable<AOMMembers.Web.ViewModels.Citizens.CitizenViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SecondName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Gender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Age)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BirthDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DeathDate)
+            </th>
+             <th>
+                @Html.DisplayNameFor(model => model.CurrentWorkPosition)
+            </th>
+             <th>
+                @Html.DisplayNameFor(model => model.MaterialState)
+            </th>
+             <th>
+                @Html.DisplayNameFor(model => model.AssetsCount)
+            </th>
+             <th>
+                @Html.DisplayNameFor(model => model.LawStateCondition)
+            </th>
+             <th>
+                @Html.DisplayNameFor(model => model.PartyMembershipsCount)
+            </th>
+             <th>
+                @Html.DisplayNameFor(model => model.SocietyHelpsCount)
+            </th>
+             <th>
+                @Html.DisplayNameFor(model => model.SocietyActivitiesCount)
+            </th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.MemberId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Education)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Career)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MaterialState)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LawState)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Worldview)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsDeleted)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DeletedOn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedOn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ModifiedOn)
+            </th>*@
+            <th></th>
+        </tr>
+    </thead>    
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SecondName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gender)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Age)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BirthDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeathDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CurrentWorkPosition)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaterialState)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AssetsCount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LawStateCondition)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PartyMembershipsCount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SocietyHelpsCount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SocietyActivitiesCount)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.MemberId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Education.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Career.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaterialState.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LawState.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Worldview.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsDeleted)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeletedOn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedOn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ModifiedOn)
+            </td>*@
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

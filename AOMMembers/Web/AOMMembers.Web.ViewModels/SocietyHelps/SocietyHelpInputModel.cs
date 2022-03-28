@@ -25,6 +25,6 @@ namespace AOMMembers.Web.ViewModels.SocietyHelps
         [Display(Name = SocietyHelpEventLinkDisplayName)]
         public string? EventLink { get; set; }
 
-        public string CitizenId { get; set; }
+        //public string CitizenId { get; set; }
     }
 }

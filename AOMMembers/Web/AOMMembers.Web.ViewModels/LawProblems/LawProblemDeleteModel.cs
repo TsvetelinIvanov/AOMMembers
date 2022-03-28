@@ -5,6 +5,8 @@ namespace AOMMembers.Web.ViewModels.LawProblems
 {
     public class LawProblemDeleteModel
     {
+        public string Id { get; set; }
+
         [Display(Name = LawProblemDescriptionDisplayName)]
         public string Description { get; set; }
 
@@ -12,5 +14,11 @@ namespace AOMMembers.Web.ViewModels.LawProblems
         public string? LawProblemLink { get; set; }
 
         //public string LawStateId { get; set; }
+
+        [Display(Name = CreatedOnDisplayName)]
+        public string CreatedOn { get; set; }
+
+        [Display(Name = ModifiedOnDisplayName)]
+        public string? ModifiedOn { get; set; }
     }
 }

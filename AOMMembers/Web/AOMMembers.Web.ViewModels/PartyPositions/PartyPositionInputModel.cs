@@ -28,6 +28,6 @@ namespace AOMMembers.Web.ViewModels.PartyPositions
         [DataType(DataType.Date)]
         public DateTime? EndDate { get; set; }
 
-        public string MemberId { get; set; }
+        //public string MemberId { get; set; }
     }
 }

@@ -7,6 +7,8 @@ namespace AOMMembers.Web.ViewModels.Interests
 {
     public class InterestEditModel
     {
+        public string Id { get; set; }
+
         [Display(Name = InterestDescriptionDisplayName)]
         [Required(ErrorMessage = RequiredErrorMessage)]
         [StringLength(InterestDescriptionMaxLength, MinimumLength = InterestDescriptionMinLength, ErrorMessage = StringLengthErrorMessage)]

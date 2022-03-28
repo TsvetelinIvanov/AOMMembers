@@ -5,6 +5,8 @@ namespace AOMMembers.Web.ViewModels.Members
 {
     public class MemberViewModel
     {
+        public string Id { get; set; }
+
         [Display(Name = MemberFullNameDisplayName)]
         public string FullName { get; set; }
 

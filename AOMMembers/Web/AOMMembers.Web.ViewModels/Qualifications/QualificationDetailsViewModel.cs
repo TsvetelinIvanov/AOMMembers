@@ -5,6 +5,8 @@ namespace AOMMembers.Web.ViewModels.Qualifications
 {
     public class QualificationDetailsViewModel
     {
+        public string Id { get; set; }
+
         [Display(Name = QualificationNameDisplayName)]        
         public string Name { get; set; }
 

@@ -7,6 +7,8 @@ namespace AOMMembers.Web.ViewModels.Relationships
 {
     public class RelationshipEditModel
     {
+        public string Id { get; set; }
+
         [Display(Name = RelationshipKindDisplayName)]
         [Required(ErrorMessage = RequiredErrorMessage)]
         [StringLength(RelationshipKindMaxLength, MinimumLength = RelationshipKindMinLength, ErrorMessage = StringLengthErrorMessage)]

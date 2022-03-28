@@ -5,6 +5,8 @@ namespace AOMMembers.Web.ViewModels.SocietyActivities
 {
     public class SocietyActivityDetailsViewModel
     {
+        public string Id { get; set; }
+
         [Display(Name = SocietyActivityNameDisplayName)]        
         public string Name { get; set; }
 

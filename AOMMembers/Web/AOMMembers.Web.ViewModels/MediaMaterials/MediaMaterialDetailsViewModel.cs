@@ -5,6 +5,8 @@ namespace AOMMembers.Web.ViewModels.MediaMaterials
 {
     public class MediaMaterialDetailsViewModel
     {
+        public string Id { get; set; }
+
         [Display(Name = MediaMaterialKindDisplayName)]        
         public string Kind { get; set; }
 

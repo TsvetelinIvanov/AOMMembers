@@ -5,6 +5,8 @@ namespace AOMMembers.Web.ViewModels.PublicImages
 {
     public class PublicImageEditModel
     {
+        public string Id { get; set; }
+
         [Display(Name = PublicImageRatingDisplayName)]
         public int? Rating { get; set; }
 

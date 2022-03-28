@@ -32,26 +32,4 @@
     <ProjectReference Include="..\AOMMembers.Web.ViewModels\AOMMembers.Web.ViewModels.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Views\Assets\" />
-    <Folder Include="Views\Careers\" />
-    <Folder Include="Views\Citizens\" />
-    <Folder Include="Views\Educations\" />
-    <Folder Include="Views\Interests\" />
-    <Folder Include="Views\LawProblems\" />
-    <Folder Include="Views\LawStates\" />
-    <Folder Include="Views\MaterialStates\" />
-    <Folder Include="Views\MediaMaterials\" />
-    <Folder Include="Views\Members\" />
-    <Folder Include="Views\Worldviews\" />
-    <Folder Include="Views\WorkPositions\" />
-    <Folder Include="Views\SocietyHelps\" />
-    <Folder Include="Views\SocietyActivities\" />
-    <Folder Include="Views\Relationships\" />
-    <Folder Include="Views\Qualifications\" />
-    <Folder Include="Views\PublicImages\" />
-    <Folder Include="Views\PartyPositions\" />
-    <Folder Include="Views\PartyMemberships\" />
-  </ItemGroup>
-
 </Project>

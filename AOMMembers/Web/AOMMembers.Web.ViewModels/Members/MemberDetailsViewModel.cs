@@ -7,6 +7,8 @@ namespace AOMMembers.Web.ViewModels.Members
 {
     public class MemberDetailsViewModel
     {
+        public string Id { get; set; }
+
         [Display(Name = MemberFullNameDisplayName)]        
         public string FullName { get; set; }
 
@@ -32,6 +34,10 @@ namespace AOMMembers.Web.ViewModels.Members
 
         [Display(Name = MemberRelationshipsCountDisplayName)]
         public int RelationshipsCount { get; set; }
+
+        public string? CitizenId { get; set; }        
+
+        public string? PublicImageId { get; set; }        
 
         public RelationshipListViewModel Relationships { get; set; }
 

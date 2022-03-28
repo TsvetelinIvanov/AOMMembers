@@ -10,6 +10,8 @@ namespace AOMMembers.Web.ViewModels.Citizens
 {
     public class CitizenDetailsViewModel
     {
+        public string Id { get; set; }
+
         [Display(Name = CitizenFirstNameDisplayName)]        
         public string FirstName { get; set; }
 
@@ -57,6 +59,18 @@ namespace AOMMembers.Web.ViewModels.Citizens
 
         [Display(Name = CitizenSocietyActivitiesCountDisplayName)]
         public int SocietyActivitiesCount { get; set; }
+
+        public string? MemberId { get; set; }        
+
+        public string? EducationId { get; set; }        
+
+        public string? CareerId { get; set; }        
+
+        public string? MaterialStateId { get; set; }       
+
+        public string? LawStateId { get; set; }        
+
+        public string? WorldviewId { get; set; }
 
         public RelationshipListViewModel Relationships { get; set; }
 

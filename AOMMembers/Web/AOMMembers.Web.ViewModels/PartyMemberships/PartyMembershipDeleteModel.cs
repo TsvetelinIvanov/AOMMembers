@@ -5,6 +5,8 @@ namespace AOMMembers.Web.ViewModels.PartyMemberships
 {
     public class PartyMembershipDeleteModel
     {
+        public string Id { get; set; }
+
         [Display(Name = PartyMembershipPartyNameDisplayName)]
         public string PartyName { get; set; }
 
@@ -21,5 +23,11 @@ namespace AOMMembers.Web.ViewModels.PartyMemberships
         public string? EndDate { get; set; }
 
         //public string CitizenId { get; set; }
+
+        [Display(Name = CreatedOnDisplayName)]
+        public string CreatedOn { get; set; }
+
+        [Display(Name = ModifiedOnDisplayName)]
+        public string? ModifiedOn { get; set; }
     }
 }

@@ -15,6 +15,6 @@ namespace AOMMembers.Web.ViewModels.LawProblems
         [Display(Name = LawProblemLawProblemLinkDisplayName)]
         public string? LawProblemLink { get; set; }
 
-        public string LawStateId { get; set; }
+        //public string LawStateId { get; set; }
     }
 }

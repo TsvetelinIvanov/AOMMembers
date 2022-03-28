@@ -5,6 +5,8 @@ namespace AOMMembers.Web.ViewModels.MaterialStates
 {
     public class MaterialStateDeleteModel
     {
+        public string Id { get; set; }
+
         [Display(Name = MaterialStateRichesDisplayName)]
         public decimal Riches { get; set; }
 
@@ -20,7 +22,13 @@ namespace AOMMembers.Web.ViewModels.MaterialStates
         [Display(Name = MaterialStateTaxDeclarationLinkDisplayName)]
         public string? TaxDeclarationLink { get; set; }
 
-        //public string CitizenId { get; set; }        
+        //public string CitizenId { get; set; }
+
+        [Display(Name = CreatedOnDisplayName)]
+        public string CreatedOn { get; set; }
+
+        [Display(Name = ModifiedOnDisplayName)]
+        public string? ModifiedOn { get; set; }
 
         [Display(Name = MaterialStateAssetsCountDisplayName)]
         public int AssetsCount { get; set; }

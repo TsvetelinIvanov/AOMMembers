@@ -28,6 +28,6 @@ namespace AOMMembers.Web.ViewModels.WorkPositions
         [DataType(DataType.Date)]
         public DateTime? EndDate { get; set; }
 
-        public string CareerId { get; set; }        
+        //public string CareerId { get; set; }        
     }
 }

@@ -39,6 +39,6 @@ namespace AOMMembers.Web.ViewModels.MediaMaterials
         [Display(Name = MediaMaterialMediaMaterialLinkDisplayName)]
         public string? MediaMaterialLink { get; set; }
 
-        public string PublicImageId { get; set; }
+        //public string PublicImageId { get; set; }
     }
 }

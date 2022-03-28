@@ -7,6 +7,8 @@ namespace AOMMembers.Web.ViewModels.MaterialStates
 {
     public class MaterialStateEditModel
     {
+        public string Id { get; set; }
+
         [Display(Name = MaterialStateRichesDisplayName)]
         public decimal Riches { get; set; }
 

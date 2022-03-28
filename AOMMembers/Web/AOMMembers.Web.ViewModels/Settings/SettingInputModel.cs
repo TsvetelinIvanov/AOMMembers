@@ -17,6 +17,6 @@ namespace AOMMembers.Web.ViewModels.Settings
         [StringLength(SettingValueMaxLength, MinimumLength = SettingValueMinLength, ErrorMessage = StringLengthErrorMessage)]
         public string Value { get; set; }
 
-        public string CitizenId { get; set; }
+        //public string CitizenId { get; set; }
     }
 }

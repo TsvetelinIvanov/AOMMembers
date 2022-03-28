@@ -25,6 +25,6 @@ namespace AOMMembers.Web.ViewModels.Qualifications
         [DataType(DataType.Date)]
         public DateTime? EndDate { get; set; }
 
-        public string EducationId { get; set; }
+        //public string EducationId { get; set; }
     }
 }

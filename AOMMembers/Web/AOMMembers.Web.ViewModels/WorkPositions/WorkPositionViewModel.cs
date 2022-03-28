@@ -5,6 +5,8 @@ namespace AOMMembers.Web.ViewModels.WorkPositions
 {
     public class WorkPositionViewModel
     {
+        public string Id { get; set; }
+
         [Display(Name = WorkPositionNameDisplayName)]
         public string Name { get; set; }
 

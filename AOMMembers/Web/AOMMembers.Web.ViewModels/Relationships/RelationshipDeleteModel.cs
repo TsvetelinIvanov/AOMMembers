@@ -5,6 +5,8 @@ namespace AOMMembers.Web.ViewModels.Relationships
 {
     public class RelationshipDeleteModel
     {
+        public string Id { get; set; }
+
         [Display(Name = RelationshipKindDisplayName)]
         public string Kind { get; set; }
 
@@ -14,5 +16,11 @@ namespace AOMMembers.Web.ViewModels.Relationships
         //public string MemberId { get; set; }
 
         //public string CitizenId { get; set; }
+
+        [Display(Name = CreatedOnDisplayName)]
+        public string CreatedOn { get; set; }
+
+        [Display(Name = ModifiedOnDisplayName)]
+        public string? ModifiedOn { get; set; }
     }
 }
