@@ -1,9 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using AOMMembers.Data.Models;
+using AOMMembers.Services.Mapping;
 using static AOMMembers.Common.DataDisplayNames;
 
 namespace AOMMembers.Web.ViewModels.PartyMemberships
 {
-    public class PartyMembershipViewModel
+    public class PartyMembershipViewModel : IMapFrom<PartyMembership>
     {
         public string Id { get; set; }
 
@@ -17,10 +19,10 @@ namespace AOMMembers.Web.ViewModels.PartyMemberships
         public bool IsCurrent { get; set; }
 
         [Display(Name = PartyMembershipStartDateDisplayName)]
-        public string StartDate { get; set; }
+        public DateTime StartDate { get; set; }
 
         [Display(Name = PartyMembershipEndDateDisplayName)]
-        public string? EndDate { get; set; }
+        public DateTime? EndDate { get; set; }
 
         //public string CitizenId { get; set; }
     }

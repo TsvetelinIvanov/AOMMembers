@@ -15,7 +15,7 @@ namespace AOMMembers.Web.Areas.Administration.Controllers
 
         public IActionResult Index()
         {
-            IndexViewModel viewModel = new IndexViewModel { SettingsCount = this.settingsService.GetCount() };
+            IndexViewModel viewModel = new IndexViewModel { SettingsCount = this.settingsService.GetCountFromMember("CitizenId") };
 
             return this.View(viewModel);
         }

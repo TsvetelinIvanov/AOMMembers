@@ -1,9 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using AOMMembers.Data.Models;
+using AOMMembers.Services.Mapping;
 using static AOMMembers.Common.DataDisplayNames;
 
 namespace AOMMembers.Web.ViewModels.Assets
 {
-    public class AssetViewModel
+    public class AssetViewModel : IMapFrom<Asset>
     {
         public string Id { get; set; }
 

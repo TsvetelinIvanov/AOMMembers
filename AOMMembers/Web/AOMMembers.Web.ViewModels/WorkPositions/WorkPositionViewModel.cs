@@ -1,9 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using AOMMembers.Data.Models;
+using AOMMembers.Services.Mapping;
 using static AOMMembers.Common.DataDisplayNames;
 
 namespace AOMMembers.Web.ViewModels.WorkPositions
 {
-    public class WorkPositionViewModel
+    public class WorkPositionViewModel : IMapFrom<WorkPosition>
     {
         public string Id { get; set; }
 
@@ -17,10 +19,10 @@ namespace AOMMembers.Web.ViewModels.WorkPositions
         public bool IsCurrent { get; set; }
 
         [Display(Name = WorkPositionStartDateDisplayName)]
-        public string StartDate { get; set; }
+        public DateTime StartDate { get; set; }
 
         [Display(Name = WorkPositionEndDateDisplayName)]
-        public string? EndDate { get; set; }
+        public DateTime? EndDate { get; set; }
 
         //public string CareerId { get; set; }
     }

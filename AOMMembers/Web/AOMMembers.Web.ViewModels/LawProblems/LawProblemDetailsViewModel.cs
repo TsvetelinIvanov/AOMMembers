@@ -1,9 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using AOMMembers.Data.Models;
+using AOMMembers.Services.Mapping;
 using static AOMMembers.Common.DataDisplayNames;
 
 namespace AOMMembers.Web.ViewModels.LawProblems
 {
-    public class LawProblemDetailsViewModel
+    public class LawProblemDetailsViewModel : IMapFrom<LawProblem>
     {
         public string Id { get; set; }
 
@@ -16,9 +18,9 @@ namespace AOMMembers.Web.ViewModels.LawProblems
         public string LawStateId { get; set; }
 
         [Display(Name = CreatedOnDisplayName)]
-        public string CreatedOn { get; set; }
+        public DateTime CreatedOn { get; set; }
 
         [Display(Name = ModifiedOnDisplayName)]
-        public string? ModifiedOn { get; set; }
+        public DateTime? ModifiedOn { get; set; }
     }
 }

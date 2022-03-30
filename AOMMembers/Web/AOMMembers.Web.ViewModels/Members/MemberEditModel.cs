@@ -16,11 +16,13 @@ namespace AOMMembers.Web.ViewModels.Members
 
         [Display(Name = MemberEmailDisplayName)]
         [Required(ErrorMessage = RequiredErrorMessage)]
+        [EmailAddress(ErrorMessage = MemberEmailErrorMessage)]
         [StringLength(MemberEmailMaxLength, MinimumLength = MemberEmailMinLength, ErrorMessage = StringLengthErrorMessage)]
         public string Email { get; set; }
 
         [Display(Name = MemberPhoneNumberDisplayName)]
         [Required(ErrorMessage = RequiredErrorMessage)]
+        [Phone(ErrorMessage = MemberPhoneNumberErrorMessage)]
         [StringLength(MemberPhoneNumberMaxLength, MinimumLength = MemberPhoneNumberMinLength, ErrorMessage = StringLengthErrorMessage)]
         public string PhoneNumber { get; set; }
 

@@ -13,10 +13,10 @@ namespace AOMMembers.Web.ViewModels.PublicImages
         //public string MemberId { get; set; }
 
         [Display(Name = CreatedOnDisplayName)]
-        public string CreatedOn { get; set; }
+        public DateTime CreatedOn { get; set; }
 
         [Display(Name = ModifiedOnDisplayName)]
-        public string? ModifiedOn { get; set; }
+        public DateTime? ModifiedOn { get; set; }
 
         [Display(Name = PublicImageMediaMaterialsCountDisplayName)]
         public int MediaMaterialsCount { get; set; }

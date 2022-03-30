@@ -1,9 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using AOMMembers.Data.Models;
+using AOMMembers.Services.Mapping;
 using static AOMMembers.Common.DataDisplayNames;
 
 namespace AOMMembers.Web.ViewModels.Citizens
 {
-    public class CitizenViewModel
+    public class CitizenViewModel : IMapFrom<Citizen>
     {
         public string Id { get; set; }
 
@@ -23,10 +25,10 @@ namespace AOMMembers.Web.ViewModels.Citizens
         public int Age { get; set; }
 
         [Display(Name = CitizenBirthDateDisplayName)]
-        public string BirthDate { get; set; }
+        public DateTime BirthDate { get; set; }
 
         [Display(Name = CitizenDeathDateDisplayName)]
-        public string? DeathDate { get; set; }       
+        public DateTime? DeathDate { get; set; }       
 
         [Display(Name = CitizenCurrentWorkPositionDisplayName)]
         public string? CurrentWorkPosition { get; set; }

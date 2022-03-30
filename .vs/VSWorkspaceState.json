@@ -5,12 +5,12 @@
     "\\AOMMembers\\Web",
     "\\AOMMembers\\Web\\AOMMembers.Web",
     "\\AOMMembers\\Web\\AOMMembers.Web.ViewModels",
-    "\\AOMMembers\\Web\\AOMMembers.Web.ViewModels\\PublicImages",
     "\\AOMMembers\\Web\\AOMMembers.Web.ViewModels\\Qualifications",
     "\\AOMMembers\\Web\\AOMMembers.Web.ViewModels\\Relationships",
     "\\AOMMembers\\Web\\AOMMembers.Web\\Views",
-    "\\AOMMembers\\Web\\AOMMembers.Web\\Views\\Citizens"
+    "\\AOMMembers\\Web\\AOMMembers.Web\\Views\\Citizens",
+    "\\AOMMembers\\Web\\AOMMembers.Web\\Views\\MediaMaterials"
   ],
-  "SelectedNode": "\\AOMMembers\\Web\\AOMMembers.Web\\Views\\Citizens\\Create.cshtml",
+  "SelectedNode": "\\AOMMembers\\Web\\AOMMembers.Web\\Views\\MediaMaterials\\Edit.cshtml",
   "PreviewInSolutionExplorer": false
 }

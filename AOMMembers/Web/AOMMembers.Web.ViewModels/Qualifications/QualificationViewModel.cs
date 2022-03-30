@@ -1,9 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using AOMMembers.Data.Models;
+using AOMMembers.Services.Mapping;
 using static AOMMembers.Common.DataDisplayNames;
 
 namespace AOMMembers.Web.ViewModels.Qualifications
 {
-    public class QualificationViewModel
+    public class QualificationViewModel : IMapFrom<Qualification>
     {
         public string Id { get; set; }
 
@@ -14,10 +16,10 @@ namespace AOMMembers.Web.ViewModels.Qualifications
         public string Description { get; set; }
 
         [Display(Name = QualificationStartDateDisplayName)]
-        public string StartDate { get; set; }
+        public DateTime StartDate { get; set; }
 
         [Display(Name = QualificationEndDateDisplayName)]
-        public string? EndDate { get; set; }
+        public DateTime? EndDate { get; set; }
 
         //public string EducationId { get; set; }
     }

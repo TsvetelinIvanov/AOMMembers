@@ -14,17 +14,17 @@ namespace AOMMembers.Web.ViewModels.Qualifications
         public string Description { get; set; }
 
         [Display(Name = QualificationStartDateDisplayName)]
-        public string StartDate { get; set; }
+        public DateTime StartDate { get; set; }
 
         [Display(Name = QualificationEndDateDisplayName)]
-        public string? EndDate { get; set; }
+        public DateTime? EndDate { get; set; }
 
         //public string EducationId { get; set; }
 
         [Display(Name = CreatedOnDisplayName)]
-        public string CreatedOn { get; set; }
+        public DateTime CreatedOn { get; set; }
 
         [Display(Name = ModifiedOnDisplayName)]
-        public string? ModifiedOn { get; set; }
+        public DateTime? ModifiedOn { get; set; }
     }
 }

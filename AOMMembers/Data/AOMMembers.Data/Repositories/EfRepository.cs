@@ -1,5 +1,6 @@
 ﻿using AOMMembers.Data.Common.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace AOMMembers.Data.Repositories
 {
@@ -25,7 +26,7 @@ namespace AOMMembers.Data.Repositories
 
         public virtual void Update(TEntity entity)
         {
-            var entry = this.Context.Entry(entity);
+            EntityEntry<TEntity> entry = this.Context.Entry(entity);
             if (entry.State == EntityState.Detached)
             {
                 this.DbSet.Attach(entity);

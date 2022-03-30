@@ -1,9 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using AOMMembers.Data.Models;
+using AOMMembers.Services.Mapping;
 using static AOMMembers.Common.DataDisplayNames;
 
 namespace AOMMembers.Web.ViewModels.Relationships
 {
-    public class RelationshipDetailsViewModel
+    public class RelationshipDetailsViewModel : IMapFrom<Relationship>
     {
         public string Id { get; set; }
 
@@ -18,9 +20,9 @@ namespace AOMMembers.Web.ViewModels.Relationships
         public string CitizenId { get; set; }
 
         [Display(Name = CreatedOnDisplayName)]
-        public string CreatedOn { get; set; }
+        public DateTime CreatedOn { get; set; }
 
         [Display(Name = ModifiedOnDisplayName)]
-        public string? ModifiedOn { get; set; }
+        public DateTime? ModifiedOn { get; set; }
     }
 }

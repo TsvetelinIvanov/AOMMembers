@@ -23,16 +23,16 @@ namespace AOMMembers.Web.ViewModels.Citizens
         public int Age { get; set; }
 
         [Display(Name = CitizenBirthDateDisplayName)]
-        public string BirthDate { get; set; }
+        public DateTime BirthDate { get; set; }
 
         [Display(Name = CitizenDeathDateDisplayName)]
-        public string? DeathDate { get; set; }
+        public DateTime? DeathDate { get; set; }
 
         [Display(Name = CreatedOnDisplayName)]
-        public string CreatedOn { get; set; }
+        public DateTime CreatedOn { get; set; }
 
         [Display(Name = ModifiedOnDisplayName)]
-        public string? ModifiedOn { get; set; }
+        public DateTime? ModifiedOn { get; set; }
 
         [Display(Name = CitizenCurrentWorkPositionDisplayName)]
         public string? CurrentWorkPosition { get; set; }

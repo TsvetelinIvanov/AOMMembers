@@ -1,9 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using AOMMembers.Data.Models;
+using AOMMembers.Services.Mapping;
 using static AOMMembers.Common.DataDisplayNames;
 
 namespace AOMMembers.Web.ViewModels.MediaMaterials
 {
-    public class MediaMaterialDetailsViewModel
+    public class MediaMaterialDetailsViewModel : IMapFrom<MediaMaterial>
     {
         public string Id { get; set; }
 
@@ -14,7 +16,7 @@ namespace AOMMembers.Web.ViewModels.MediaMaterials
         public string MediaName { get; set; }
 
         [Display(Name = MediaMaterialIssueDateDisplayName)]        
-        public string IssueDate { get; set; }
+        public DateTime IssueDate { get; set; }
 
         [Display(Name = MediaMaterialAuthorDisplayName)]        
         public string Author { get; set; }
@@ -31,9 +33,9 @@ namespace AOMMembers.Web.ViewModels.MediaMaterials
         public string PublicImageId { get; set; }
 
         [Display(Name = CreatedOnDisplayName)]
-        public string CreatedOn { get; set; }
+        public DateTime CreatedOn { get; set; }
 
         [Display(Name = ModifiedOnDisplayName)]
-        public string? ModifiedOn { get; set; }
+        public DateTime? ModifiedOn { get; set; }
     }
 }

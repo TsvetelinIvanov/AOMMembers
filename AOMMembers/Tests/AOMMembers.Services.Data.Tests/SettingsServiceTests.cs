@@ -17,15 +17,16 @@ namespace AOMMembers.Services.Data.Tests
         [Fact]
         public void GetCountShouldReturnCorrectNumber()
         {
-            Mock<IDeletableEntityRepository<Setting>> moqRepository = new Mock<IDeletableEntityRepository<Setting>>();
+            Mock<IDeletableEntityRepository<Setting>> moqRepository = new Mock<IDeletableEntityRepository<Setting>>();            
+
             moqRepository.Setup(r => r.All()).Returns(new List<Setting>
                                                         {
-                                                            new Setting(),
-                                                            new Setting(),
-                                                            new Setting(),
+                                                            new Setting() { CitizenId = "CitizenId" },
+                                                            new Setting() { CitizenId = "CitizenId" },
+                                                            new Setting() { CitizenId = "CitizenId" }
                                                         }.AsQueryable());
-            SettingsService service = new SettingsService(moqRepository.Object);
-            Assert.Equal(3, service.GetCount());
+            SettingsService service = new SettingsService(null, moqRepository.Object);
+            Assert.Equal(3, service.GetCountFromMember("CitizenId"));
             moqRepository.Verify(x => x.All(), Times.Once);
         }
 
@@ -33,17 +34,17 @@ namespace AOMMembers.Services.Data.Tests
         public async Task GetCountShouldReturnCorrectNumberUsingDbContext()
         {
             DbContextOptions<ApplicationDbContext> options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase("Find_User_Database") // Give a Unique name to the DB
+                .UseInMemoryDatabase("Unique_Database_Name") // Give a Unique name to the DB
                 .Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
-            dbContext.Settings.Add(new Setting());
-            dbContext.Settings.Add(new Setting());
-            dbContext.Settings.Add(new Setting());
+            dbContext.Settings.Add(new Setting() { CitizenId = "CitizenId" });
+            dbContext.Settings.Add(new Setting() { CitizenId = "CitizenId" });
+            dbContext.Settings.Add(new Setting() { CitizenId = "CitizenId" });
             await dbContext.SaveChangesAsync();
 
             EfDeletableEntityRepository<Setting> repository = new EfDeletableEntityRepository<Setting>(dbContext);
-            SettingsService service = new SettingsService(repository);
-            int count = service.GetCount();
+            SettingsService service = new SettingsService(null, repository);
+            int count = service.GetCountFromMember("CitizenId");
             Assert.Equal(3, count);
         }
     }

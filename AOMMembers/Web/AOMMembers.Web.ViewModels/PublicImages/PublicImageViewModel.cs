@@ -1,9 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using AOMMembers.Data.Models;
+using AOMMembers.Services.Mapping;
 using static AOMMembers.Common.DataDisplayNames;
 
 namespace AOMMembers.Web.ViewModels.PublicImages
 {
-    public class PublicImageViewModel
+    public class PublicImageViewModel : IMapFrom<PublicImage>
     {
         public string Id { get; set; }
 

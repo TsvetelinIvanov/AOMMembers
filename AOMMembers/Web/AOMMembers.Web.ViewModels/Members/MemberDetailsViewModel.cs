@@ -24,10 +24,10 @@ namespace AOMMembers.Web.ViewModels.Members
         public string ApplicationUserId { get; set; }       
 
         [Display(Name = CreatedOnDisplayName)]
-        public string CreatedOn { get; set; }
+        public DateTime CreatedOn { get; set; }
 
         [Display(Name = ModifiedOnDisplayName)]
-        public string? ModifiedOn { get; set; }
+        public DateTime? ModifiedOn { get; set; }
 
         [Display(Name = MemberCurrentPartyPositionDisplayName)]
         public string? CurrentPartyPosition { get; set; }

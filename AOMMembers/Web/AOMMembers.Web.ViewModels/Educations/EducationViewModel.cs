@@ -1,9 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using AOMMembers.Data.Models;
+using AOMMembers.Services.Mapping;
 using static AOMMembers.Common.DataDisplayNames;
 
 namespace AOMMembers.Web.ViewModels.Educations
 {
-    public class EducationViewModel
+    public class EducationViewModel : IMapFrom<Education>
     {
         public string Id { get; set; }
 

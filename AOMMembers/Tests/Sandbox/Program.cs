@@ -48,7 +48,7 @@ namespace Sandbox
             Stopwatch stopwatch = Stopwatch.StartNew();
 
             ISettingsService settingsService = serviceProvider.GetService<ISettingsService>();
-            Console.WriteLine($"Count of settings: {settingsService.GetCount()}");
+            Console.WriteLine($"Count of settings: {settingsService.GetCountFromMember("CitizenId")}");
 
             Console.WriteLine(stopwatch.Elapsed);
             return await Task.FromResult(0);

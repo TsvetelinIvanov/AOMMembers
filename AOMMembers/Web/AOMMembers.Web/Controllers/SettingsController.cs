@@ -22,15 +22,16 @@ namespace AOMMembers.Web.Controllers
 
         public IActionResult Index()
         {
-            IEnumerable<SettingViewModel> settings = this.settingsService.GetAll<SettingViewModel>();
-            var model = new SettingsListViewModel { Settings = settings };
+            IEnumerable<SettingViewModel> settings = this.settingsService.GetAllFromMember("CitizenId");
+            SettingsListViewModel model = new SettingsListViewModel { Settings = settings };
+
             return this.View(model);
         }
 
         public async Task<IActionResult> InsertSetting()
         {
             Random random = new Random();
-            Setting setting = new Setting { Name = $"Name_{random.Next()}", Value = $"Value_{random.Next()}" };
+            Setting setting = new Setting() { Name = $"Name_{random.Next()}", Value = $"Value_{random.Next()}", CitizenId = "CitizenId", CreatedOn = DateTime.UtcNow };
 
             await this.repository.AddAsync(setting);
             await this.repository.SaveChangesAsync();

@@ -8,7 +8,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Data\AOMMembers.Data.Common\AOMMembers.Data.Common.csproj" />
-    <ProjectReference Include="..\..\Data\AOMMembers.Data.Models\AOMMembers.Data.Models.csproj" />    
+    <ProjectReference Include="..\..\Data\AOMMembers.Data.Models\AOMMembers.Data.Models.csproj" />
+    <ProjectReference Include="..\..\Web\AOMMembers.Web.ViewModels\AOMMembers.Web.ViewModels.csproj" />    
     <ProjectReference Include="..\AOMMembers.Services.Mapping\AOMMembers.Services.Mapping.csproj" />
   </ItemGroup>
 
