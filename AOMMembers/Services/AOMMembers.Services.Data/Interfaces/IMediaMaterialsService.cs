@@ -4,7 +4,7 @@ namespace AOMMembers.Services.Data.Interfaces
 {
     public interface IMediaMaterialsService
     {
-        Task<string> CreateAsync(MediaMaterialInputModel inputModel, string publicImageId);
+        Task<string> CreateAsync(MediaMaterialInputModel inputModel, string userId);
 
         Task<MediaMaterialDetailsViewModel> GetDetailsByIdAsync(string id);
 
@@ -14,8 +14,8 @@ namespace AOMMembers.Services.Data.Interfaces
 
         Task<bool> DeleteAsync(string id);
 
-        int GetCountFromMember(string publicImageId);
+        int GetCountFromMember(string userId);
 
-        IEnumerable<MediaMaterialViewModel> GetAllFromMember(string publicImageId);
+        IEnumerable<MediaMaterialViewModel> GetAllFromMember(string userId);
     }
 }

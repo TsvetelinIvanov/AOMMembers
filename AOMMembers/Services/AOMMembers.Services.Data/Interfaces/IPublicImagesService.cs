@@ -4,7 +4,7 @@ namespace AOMMembers.Services.Data.Interfaces
 {
     public interface IPublicImagesService
     {
-        Task<string> CreateAsync(PublicImageInputModel inputModel, string memberId);
+        Task<string> CreateAsync(PublicImageInputModel inputModel, string userId);
 
         Task<PublicImageDetailsViewModel> GetDetailsByIdAsync(string id);
 

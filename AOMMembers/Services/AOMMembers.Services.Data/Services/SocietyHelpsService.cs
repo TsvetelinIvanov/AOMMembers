@@ -4,6 +4,7 @@ using AOMMembers.Data.Models;
 using AOMMembers.Services.Data.Interfaces;
 using AOMMembers.Services.Mapping;
 using AOMMembers.Web.ViewModels.SocietyHelps;
+using static AOMMembers.Common.DataBadResults;
 
 namespace AOMMembers.Services.Data.Services
 {
@@ -11,22 +12,30 @@ namespace AOMMembers.Services.Data.Services
     {
         private readonly IMapper mapper;
         private readonly IDeletableEntityRepository<SocietyHelp> societyHelpsRespository;
+        private readonly IDeletableEntityRepository<Citizen> citizensRespository;
 
-        public SocietyHelpsService(IMapper mapper, IDeletableEntityRepository<SocietyHelp> societyHelpsRespository)
+        public SocietyHelpsService(IMapper mapper, IDeletableEntityRepository<SocietyHelp> societyHelpsRespository, IDeletableEntityRepository<Citizen> citizensRespository)
         {
             this.mapper = mapper;
             this.societyHelpsRespository = societyHelpsRespository;
+            this.citizensRespository = citizensRespository;
         }        
 
-        public async Task<string> CreateAsync(SocietyHelpInputModel inputModel, string citizenId)
+        public async Task<string> CreateAsync(SocietyHelpInputModel inputModel, string userId)
         {
+            Citizen citizen = this.citizensRespository.AllAsNoTracking().FirstOrDefault(c => c.Member.ApplicationUserId == userId);
+            if (citizen == null)
+            {
+                return SocietyHelpCreateWithoutCitizenBadResult;
+            }
+
             SocietyHelp societyHelp = new SocietyHelp
             {
                 Name = inputModel.Name,
                 Description = inputModel.Description,
                 Result = inputModel.Result,
                 EventLink = inputModel.EventLink,
-                CitizenId = citizenId,
+                CitizenId = citizen.Id,
                 CreatedOn = DateTime.UtcNow
             };
 
@@ -84,15 +93,27 @@ namespace AOMMembers.Services.Data.Services
             return societyHelp.IsDeleted;
         }
 
-        public int GetCountFromMember(string citizenId)
+        public int GetCountFromMember(string userId)
         {
-            return this.societyHelpsRespository.All().Where(sh => sh.CitizenId == citizenId).Count();
+            Citizen citizen = this.citizensRespository.AllAsNoTracking().FirstOrDefault(c => c.Member.ApplicationUserId == userId);
+            if (citizen == null)
+            {
+                return 0;
+            }
+
+            return this.societyHelpsRespository.All().Where(sh => sh.CitizenId == citizen.Id).Count();
         }
 
-        public IEnumerable<SocietyHelpViewModel> GetAllFromMember(string citizenId)
+        public IEnumerable<SocietyHelpViewModel> GetAllFromMember(string userId)
         {
+            Citizen citizen = this.citizensRespository.AllAsNoTracking().FirstOrDefault(c => c.Member.ApplicationUserId == userId);
+            if (citizen == null)
+            {
+                return null;
+            }
+
             List<SocietyHelpViewModel> societyHelps = this.societyHelpsRespository.AllAsNoTracking()
-                .Where(sh => sh.CitizenId == citizenId)
+                .Where(sh => sh.CitizenId == citizen.Id)
                 .OrderByDescending(sh => sh.CreatedOn)
                 .To<SocietyHelpViewModel>().ToList();
 

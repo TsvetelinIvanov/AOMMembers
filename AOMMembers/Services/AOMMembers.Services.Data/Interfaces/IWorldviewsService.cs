@@ -4,7 +4,7 @@ namespace AOMMembers.Services.Data.Interfaces
 {
     public interface IWorldviewsService
     {
-        Task<string> CreateAsync(WorldviewInputModel inputModel, string citizenId);
+        Task<string> CreateAsync(WorldviewInputModel inputModel, string userId);
 
         Task<WorldviewDetailsViewModel> GetDetailsByIdAsync(string id);
 

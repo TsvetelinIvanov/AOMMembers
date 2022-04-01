@@ -2,24 +2,33 @@
 using AOMMembers.Data.Models;
 using AOMMembers.Services.Data.Interfaces;
 using AOMMembers.Web.ViewModels.LawStates;
+using static AOMMembers.Common.DataBadResults;
 
 namespace AOMMembers.Services.Data.Services
 {
     public class LawStatesService : ILawStatesService
     {
         private readonly IDeletableEntityRepository<LawState> lawStatesRespository;
+        private readonly IDeletableEntityRepository<Citizen> citizensRespository;
 
-        public LawStatesService(IDeletableEntityRepository<LawState> lawStatesRespository)
+        public LawStatesService(IDeletableEntityRepository<LawState> lawStatesRespository, IDeletableEntityRepository<Citizen> citizensRespository)
         {
             this.lawStatesRespository = lawStatesRespository;
+            this.citizensRespository = citizensRespository;
         }        
 
-        public async Task<string> CreateAsync(LawStateInputModel inputModel, string citizenId)
+        public async Task<string> CreateAsync(LawStateInputModel inputModel, string userId)
         {
+            Citizen citizen = this.citizensRespository.AllAsNoTracking().FirstOrDefault(c => c.Member.ApplicationUserId == userId);
+            if (citizen == null)
+            {
+                return LawStateCreateWithoutCitizenBadResult;
+            }
+
             LawState lawState = new LawState
             {
                 Condition = inputModel.Condition,                
-                CitizenId = citizenId,
+                CitizenId = citizen.Id,
                 CreatedOn = DateTime.UtcNow
             };
 

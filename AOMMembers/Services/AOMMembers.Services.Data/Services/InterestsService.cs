@@ -4,6 +4,7 @@ using AOMMembers.Data.Models;
 using AOMMembers.Services.Data.Interfaces;
 using AOMMembers.Services.Mapping;
 using AOMMembers.Web.ViewModels.Interests;
+using static AOMMembers.Common.DataBadResults;
 
 namespace AOMMembers.Services.Data.Services
 {
@@ -11,19 +12,27 @@ namespace AOMMembers.Services.Data.Services
     {
         private readonly IMapper mapper;
         private readonly IDeletableEntityRepository<Interest> interestsRespository;
+        private readonly IDeletableEntityRepository<Worldview> worldviewsRespository;
 
-        public InterestsService(IMapper mapper, IDeletableEntityRepository<Interest> interestsRespository)
+        public InterestsService(IMapper mapper, IDeletableEntityRepository<Interest> interestsRespository, IDeletableEntityRepository<Worldview> worldviewsRespository)
         {
             this.mapper = mapper;
             this.interestsRespository = interestsRespository;
+            this.worldviewsRespository = worldviewsRespository;
         }        
 
-        public async Task<string> CreateAsync(InterestInputModel inputModel, string worldviewId)
+        public async Task<string> CreateAsync(InterestInputModel inputModel, string userId)
         {
+            Worldview worldview = this.worldviewsRespository.AllAsNoTracking().FirstOrDefault(w => w.Citizen.Member.ApplicationUserId == userId);
+            if (worldview == null)
+            {
+                return InterestCreateWithoutWorldviewBadResult;
+            }
+
             Interest interest = new Interest
             {                
                 Description = inputModel.Description,
-                WorldviewId = worldviewId,
+                WorldviewId = worldview.Id,
                 CreatedOn = DateTime.UtcNow
             };
 
@@ -78,15 +87,27 @@ namespace AOMMembers.Services.Data.Services
             return interest.IsDeleted;
         }
 
-        public int GetCountFromMember(string worldviewId)
+        public int GetCountFromMember(string userId)
         {
-            return this.interestsRespository.All().Where(i => i.WorldviewId == worldviewId).Count();
+            Worldview worldview = this.worldviewsRespository.AllAsNoTracking().FirstOrDefault(w => w.Citizen.Member.ApplicationUserId == userId);
+            if (worldview == null)
+            {
+                return 0;
+            }
+
+            return this.interestsRespository.All().Where(i => i.WorldviewId == worldview.Id).Count();
         }
 
-        public IEnumerable<InterestViewModel> GetAllFromMember(string worldviewId)
+        public IEnumerable<InterestViewModel> GetAllFromMember(string userId)
         {
+            Worldview worldview = this.worldviewsRespository.AllAsNoTracking().FirstOrDefault(w => w.Citizen.Member.ApplicationUserId == userId);
+            if (worldview == null)
+            {
+                return null;
+            }
+
             List<InterestViewModel> interests = this.interestsRespository.AllAsNoTracking()
-                .Where(i => i.WorldviewId == worldviewId)
+                .Where(i => i.WorldviewId == worldview.Id)
                 .OrderByDescending(i => i.CreatedOn)
                 .To<InterestViewModel>().ToList();
 

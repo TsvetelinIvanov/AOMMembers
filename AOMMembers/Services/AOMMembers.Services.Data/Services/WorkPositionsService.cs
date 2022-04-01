@@ -4,6 +4,7 @@ using AOMMembers.Data.Models;
 using AOMMembers.Services.Data.Interfaces;
 using AOMMembers.Services.Mapping;
 using AOMMembers.Web.ViewModels.WorkPositions;
+using static AOMMembers.Common.DataBadResults;
 
 namespace AOMMembers.Services.Data.Services
 {
@@ -11,15 +12,23 @@ namespace AOMMembers.Services.Data.Services
     {
         private readonly IMapper mapper;
         private readonly IDeletableEntityRepository<WorkPosition> workPositionsRespository;
+        private readonly IDeletableEntityRepository<Career> careersRespository;
 
-        public WorkPositionsService(IMapper mapper, IDeletableEntityRepository<WorkPosition> workPositionsRespository)
+        public WorkPositionsService(IMapper mapper, IDeletableEntityRepository<WorkPosition> workPositionsRespository, IDeletableEntityRepository<Career> careersRespository)
         {
             this.mapper = mapper;
             this.workPositionsRespository = workPositionsRespository;
+            this.careersRespository = careersRespository;
         }        
 
-        public async Task<string> CreateAsync(WorkPositionInputModel inputModel, string careerId)
+        public async Task<string> CreateAsync(WorkPositionInputModel inputModel, string userId)
         {
+            Career career = this.careersRespository.AllAsNoTracking().FirstOrDefault(c => c.Citizen.Member.ApplicationUserId == userId);
+            if (career == null)
+            {
+                return WorkPositionCreateWithoutCareerBadResult;
+            }
+
             WorkPosition workPosition = new WorkPosition
             {
                 Name = inputModel.Name,
@@ -27,7 +36,7 @@ namespace AOMMembers.Services.Data.Services
                 IsCurrent = inputModel.IsCurrent,
                 StartDate = inputModel.StartDate,
                 EndDate = inputModel.EndDate,
-                CareerId = careerId,
+                CareerId = career.Id,
                 CreatedOn = DateTime.UtcNow
             };
 
@@ -86,15 +95,27 @@ namespace AOMMembers.Services.Data.Services
             return workPosition.IsDeleted;
         }
 
-        public int GetCountFromMember(string careerId)
+        public int GetCountFromMember(string userId)
         {
-            return this.workPositionsRespository.All().Where(wp => wp.CareerId == careerId).Count();
+            Career career = this.careersRespository.AllAsNoTracking().FirstOrDefault(c => c.Citizen.Member.ApplicationUserId == userId);
+            if (career == null)
+            {
+                return 0;
+            }
+
+            return this.workPositionsRespository.All().Where(wp => wp.CareerId == career.Id).Count();
         }
 
-        public IEnumerable<WorkPositionViewModel> GetAllFromMember(string careerId)
+        public IEnumerable<WorkPositionViewModel> GetAllFromMember(string userId)
         {
+            Career career = this.careersRespository.AllAsNoTracking().FirstOrDefault(c => c.Citizen.Member.ApplicationUserId == userId);
+            if (career == null)
+            {
+                return null;
+            }
+
             List<WorkPositionViewModel> workPositions = this.workPositionsRespository.AllAsNoTracking()
-                .Where(wp => wp.CareerId == careerId)
+                .Where(wp => wp.CareerId == career.Id)
                 .OrderByDescending(wp => wp.CreatedOn)
                 .To<WorkPositionViewModel>().ToList();
 

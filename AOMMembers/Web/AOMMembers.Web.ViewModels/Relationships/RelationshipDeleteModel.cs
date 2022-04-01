@@ -22,5 +22,8 @@ namespace AOMMembers.Web.ViewModels.Relationships
 
         [Display(Name = ModifiedOnDisplayName)]
         public DateTime? ModifiedOn { get; set; }
+
+        [Display(Name = RelationshipCitizenFullNameDisplayName)]
+        public string RelationshipCitizenFullName { get; set; }
     }
 }

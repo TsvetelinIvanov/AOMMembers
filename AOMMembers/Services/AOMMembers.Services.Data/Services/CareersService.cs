@@ -2,25 +2,34 @@
 using AOMMembers.Data.Models;
 using AOMMembers.Services.Data.Interfaces;
 using AOMMembers.Web.ViewModels.Careers;
+using static AOMMembers.Common.DataBadResults;
 
 namespace AOMMembers.Services.Data.Services
 {
     public class CareersService : ICareersService
     {
         private readonly IDeletableEntityRepository<Career> careersRespository;
+        private readonly IDeletableEntityRepository<Citizen> citizensRespository;
 
-        public CareersService(IDeletableEntityRepository<Career> careersRespository)
+        public CareersService(IDeletableEntityRepository<Career> careersRespository, IDeletableEntityRepository<Citizen> citizensRespository)
         {            
             this.careersRespository = careersRespository;
+            this.citizensRespository = citizensRespository;
         }        
 
-        public async Task<string> CreateAsync(CareerInputModel inputModel, string citizenId)
+        public async Task<string> CreateAsync(CareerInputModel inputModel, string userId)
         {
+            Citizen citizen = this.citizensRespository.AllAsNoTracking().FirstOrDefault(c => c.Member.ApplicationUserId == userId);
+            if (citizen == null)
+            {
+                return CareerCreateWithoutCitizenBadResult;
+            }
+            
             Career career = new Career
-            {                
+            {
                 Description = inputModel.Description,
                 CVLink = inputModel.CVLink,
-                CitizenId = citizenId,
+                CitizenId = citizen.Id,
                 CreatedOn = DateTime.UtcNow
             };
 

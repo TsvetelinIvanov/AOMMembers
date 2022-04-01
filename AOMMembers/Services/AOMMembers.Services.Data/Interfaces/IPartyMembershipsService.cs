@@ -4,7 +4,7 @@ namespace AOMMembers.Services.Data.Interfaces
 {
     public interface IPartyMembershipsService
     {
-        Task<string> CreateAsync(PartyMembershipInputModel inputModel, string citizenId);
+        Task<string> CreateAsync(PartyMembershipInputModel inputModel, string userId);
 
         Task<PartyMembershipDetailsViewModel> GetDetailsByIdAsync(string id);
 
@@ -14,8 +14,8 @@ namespace AOMMembers.Services.Data.Interfaces
 
         Task<bool> DeleteAsync(string id);
 
-        int GetCountFromMember(string citizenId);
+        int GetCountFromMember(string userId);
 
-        IEnumerable<PartyMembershipViewModel> GetAllFromMember(string citizenId);
+        IEnumerable<PartyMembershipViewModel> GetAllFromMember(string userId);
     }
 }

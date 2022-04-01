@@ -4,7 +4,7 @@ namespace AOMMembers.Services.Data.Interfaces
 {
     public interface IMaterialStatesService
     {
-        Task<string> CreateAsync(MaterialStateInputModel inputModel, string citizenId);
+        Task<string> CreateAsync(MaterialStateInputModel inputModel, string userId);
 
         Task<MaterialStateDetailsViewModel> GetDetailsByIdAsync(string id);
 

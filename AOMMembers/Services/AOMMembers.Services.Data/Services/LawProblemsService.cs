@@ -4,6 +4,7 @@ using AOMMembers.Data.Models;
 using AOMMembers.Services.Data.Interfaces;
 using AOMMembers.Services.Mapping;
 using AOMMembers.Web.ViewModels.LawProblems;
+using static AOMMembers.Common.DataBadResults;
 
 namespace AOMMembers.Services.Data.Services
 {
@@ -11,20 +12,28 @@ namespace AOMMembers.Services.Data.Services
     {
         private readonly IMapper mapper;
         private readonly IDeletableEntityRepository<LawProblem> lawProblemsRespository;
+        private readonly IDeletableEntityRepository<LawState> lawStatesRespository;
 
-        public LawProblemsService(IMapper mapper, IDeletableEntityRepository<LawProblem> lawProblemsRespository)
+        public LawProblemsService(IMapper mapper, IDeletableEntityRepository<LawProblem> lawProblemsRespository, IDeletableEntityRepository<LawState> lawStatesRespository)
         {
             this.mapper = mapper;
             this.lawProblemsRespository = lawProblemsRespository;
+            this.lawStatesRespository = lawStatesRespository;
         }        
 
-        public async Task<string> CreateAsync(LawProblemInputModel inputModel, string lawStateId)
+        public async Task<string> CreateAsync(LawProblemInputModel inputModel, string userId)
         {
+            LawState lawState = this.lawStatesRespository.AllAsNoTracking().FirstOrDefault(ls => ls.Citizen.Member.ApplicationUserId == userId);
+            if (lawState == null)
+            {
+                return LawProblemCreateWithoutLawStateBadResult;
+            }
+
             LawProblem lawProblem = new LawProblem
             {
                 Description = inputModel.Description,
                 LawProblemLink = inputModel.LawProblemLink,
-                LawStateId = lawStateId,
+                LawStateId = lawState.Id,
                 CreatedOn = DateTime.UtcNow
             };
 
@@ -80,15 +89,27 @@ namespace AOMMembers.Services.Data.Services
             return lawProblem.IsDeleted;
         }
 
-        public int GetCountFromMember(string lawStateId)
+        public int GetCountFromMember(string userId)
         {
-            return this.lawProblemsRespository.All().Where(lp => lp.LawStateId == lawStateId).Count();
+            LawState lawState = this.lawStatesRespository.AllAsNoTracking().FirstOrDefault(ls => ls.Citizen.Member.ApplicationUserId == userId);
+            if (lawState == null)
+            {
+                return 0;
+            }
+
+            return this.lawProblemsRespository.All().Where(lp => lp.LawStateId == lawState.Id).Count();
         }
 
-        public IEnumerable<LawProblemViewModel> GetAllFromMember(string lawStateId)
+        public IEnumerable<LawProblemViewModel> GetAllFromMember(string userId)
         {
+            LawState lawState = this.lawStatesRespository.AllAsNoTracking().FirstOrDefault(ls => ls.Citizen.Member.ApplicationUserId == userId);
+            if (lawState == null)
+            {
+                return null;
+            }
+
             List<LawProblemViewModel> lawProblems = this.lawProblemsRespository.AllAsNoTracking()
-                .Where(lp => lp.LawStateId == lawStateId)
+                .Where(lp => lp.LawStateId == lawState.Id)
                 .OrderByDescending(lp => lp.CreatedOn)
                 .To<LawProblemViewModel>().ToList();
 

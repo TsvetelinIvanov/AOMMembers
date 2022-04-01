@@ -4,7 +4,7 @@ namespace AOMMembers.Services.Data.Interfaces
 {
     public interface IEducationsService
     {
-        Task<string> CreateAsync(EducationInputModel inputModel, string citizenId);
+        Task<string> CreateAsync(EducationInputModel inputModel, string userId);
 
         Task<EducationDetailsViewModel> GetDetailsByIdAsync(string id);
 

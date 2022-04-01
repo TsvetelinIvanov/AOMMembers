@@ -2,20 +2,29 @@
 using AOMMembers.Data.Models;
 using AOMMembers.Services.Data.Interfaces;
 using AOMMembers.Web.ViewModels.MaterialStates;
+using static AOMMembers.Common.DataBadResults;
 
 namespace AOMMembers.Services.Data.Services
 {
     public class MaterialStatesService : IMaterialStatesService
     {
         private readonly IDeletableEntityRepository<MaterialState> materialStatesRespository;
+        private readonly IDeletableEntityRepository<Citizen> citizensRespository;
 
-        public MaterialStatesService(IDeletableEntityRepository<MaterialState> materialStatesRespository)
+        public MaterialStatesService(IDeletableEntityRepository<MaterialState> materialStatesRespository, IDeletableEntityRepository<Citizen> citizensRespository)
         {
             this.materialStatesRespository = materialStatesRespository;
+            this.citizensRespository = citizensRespository;
         }        
 
-        public async Task<string> CreateAsync(MaterialStateInputModel inputModel, string citizenId)
+        public async Task<string> CreateAsync(MaterialStateInputModel inputModel, string userId)
         {
+            Citizen citizen = this.citizensRespository.AllAsNoTracking().FirstOrDefault(c => c.Member.ApplicationUserId == userId);
+            if (citizen == null)
+            {
+                return MaterialStateCreateWithoutCitizenBadResult;
+            }
+
             MaterialState materialState = new MaterialState
             {
                 Riches = inputModel.Riches,
@@ -23,7 +32,7 @@ namespace AOMMembers.Services.Data.Services
                 MonthIncome = inputModel.MonthIncome,
                 Description = inputModel.Description,
                 TaxDeclarationLink = inputModel.TaxDeclarationLink,
-                CitizenId = citizenId,
+                CitizenId = citizen.Id,
                 CreatedOn = DateTime.UtcNow
             };
 

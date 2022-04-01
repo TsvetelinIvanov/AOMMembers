@@ -4,6 +4,7 @@ using AOMMembers.Data.Models;
 using AOMMembers.Services.Data.Interfaces;
 using AOMMembers.Services.Mapping;
 using AOMMembers.Web.ViewModels.Assets;
+using static AOMMembers.Common.DataBadResults;
 
 namespace AOMMembers.Services.Data.Services
 {
@@ -11,21 +12,29 @@ namespace AOMMembers.Services.Data.Services
     {
         private readonly IMapper mapper;
         private readonly IDeletableEntityRepository<Asset> assetsRespository;
+        private readonly IDeletableEntityRepository<MaterialState> materialStatesRespository;
 
-        public AssetsService(IMapper mapper, IDeletableEntityRepository<Asset> assetsRespository)
+        public AssetsService(IMapper mapper, IDeletableEntityRepository<Asset> assetsRespository, IDeletableEntityRepository<MaterialState> materialStatesRespository)
         {
             this.mapper = mapper;
             this.assetsRespository = assetsRespository;
-        }        
+            this.materialStatesRespository = materialStatesRespository;
+        }
 
-        public async Task<string> CreateAsync(AssetInputModel inputModel, string materialStateId)
+        public async Task<string> CreateAsync(AssetInputModel inputModel, string userId)
         {
+            MaterialState materialState = this.materialStatesRespository.AllAsNoTracking().FirstOrDefault(ms => ms.Citizen.Member.ApplicationUserId == userId);
+            if (materialState == null)
+            {
+                return AssetCreateWithoutMaterialStateBadResult;
+            }
+            
             Asset asset = new Asset
             {
                 Name = inputModel.Name,
                 Description = inputModel.Description,
                 Worthiness = inputModel.Worthiness,
-                MaterialStateId = materialStateId,
+                MaterialStateId = materialState.Id,
                 CreatedOn = DateTime.UtcNow
             };
 
@@ -82,15 +91,27 @@ namespace AOMMembers.Services.Data.Services
             return asset.IsDeleted;
         }
 
-        public int GetCountFromMember(string materialStateId)
+        public int GetCountFromMember(string userId)
         {
-            return this.assetsRespository.All().Where(a => a.MaterialStateId == materialStateId).Count();
+            MaterialState materialState = this.materialStatesRespository.AllAsNoTracking().FirstOrDefault(ms => ms.Citizen.Member.ApplicationUserId == userId);
+            if (materialState == null)
+            {
+                return 0;
+            }            
+            
+            return this.assetsRespository.All().Where(a => a.MaterialStateId == materialState.Id).Count();
         }
 
-        public IEnumerable<AssetViewModel> GetAllFromMember(string materialStateId)
+        public IEnumerable<AssetViewModel> GetAllFromMember(string userId)
         {
+            MaterialState materialState = this.materialStatesRespository.AllAsNoTracking().FirstOrDefault(ms => ms.Citizen.Member.ApplicationUserId == userId);
+            if (materialState == null)
+            {
+                return null;
+            }
+            
             List<AssetViewModel> assets = this.assetsRespository.AllAsNoTracking()
-                .Where(a => a.MaterialStateId == materialStateId)
+                .Where(a => a.MaterialStateId == materialState.Id)
                 .OrderByDescending(a => a.CreatedOn)                
                 .To<AssetViewModel>().ToList();
 

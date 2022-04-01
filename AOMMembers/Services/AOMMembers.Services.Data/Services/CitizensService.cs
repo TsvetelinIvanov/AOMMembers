@@ -2,20 +2,29 @@
 using AOMMembers.Data.Models;
 using AOMMembers.Services.Data.Interfaces;
 using AOMMembers.Web.ViewModels.Citizens;
+using static AOMMembers.Common.DataBadResults;
 
 namespace AOMMembers.Services.Data.Services
 {
     public class CitizensService : ICitizensService
     {
         private readonly IDeletableEntityRepository<Citizen> citizensRespository;
+        private readonly IDeletableEntityRepository<Member> membersRespository;
 
-        public CitizensService(IDeletableEntityRepository<Citizen> citizensRespository)
+        public CitizensService(IDeletableEntityRepository<Citizen> citizensRespository, IDeletableEntityRepository<Member> membersRespository)
         {
             this.citizensRespository = citizensRespository;
+            this.membersRespository = membersRespository;
         }        
 
-        public async Task<string> CreateAsync(CitizenInputModel inputModel, string memberId)
+        public async Task<string> CreateAsync(CitizenInputModel inputModel, string userId)
         {
+            Member member = this.membersRespository.AllAsNoTracking().FirstOrDefault(m => m.ApplicationUserId == userId);
+            if (member == null)
+            {
+                return CitizenCreateWithoutMemberBadResult;
+            }
+
             Citizen citizen = new Citizen
             {
                 FirstName = inputModel.FirstName,
@@ -25,7 +34,7 @@ namespace AOMMembers.Services.Data.Services
                 Age = inputModel.Age,
                 BirthDate = inputModel.BirthDate,
                 DeathDate = inputModel.DeathDate,
-                MemberId = memberId,
+                MemberId = member.Id,
                 CreatedOn = DateTime.UtcNow
             };
 

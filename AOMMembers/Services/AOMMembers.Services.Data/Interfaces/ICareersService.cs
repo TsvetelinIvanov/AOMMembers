@@ -4,7 +4,7 @@ namespace AOMMembers.Services.Data.Interfaces
 {
     public interface ICareersService
     {
-        Task<string> CreateAsync(CareerInputModel inputModel, string citizenId);
+        Task<string> CreateAsync(CareerInputModel inputModel, string userId);
 
         Task<CareerDetailsViewModel> GetDetailsByIdAsync(string id);
 

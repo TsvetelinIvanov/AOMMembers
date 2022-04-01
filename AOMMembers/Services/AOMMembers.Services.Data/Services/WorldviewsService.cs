@@ -2,25 +2,34 @@
 using AOMMembers.Data.Models;
 using AOMMembers.Services.Data.Interfaces;
 using AOMMembers.Web.ViewModels.Worldviews;
+using static AOMMembers.Common.DataBadResults;
 
 namespace AOMMembers.Services.Data.Services
 {
     public class WorldviewsService : IWorldviewsService
     {
         private readonly IDeletableEntityRepository<Worldview> worldviewsRespository;
+        private readonly IDeletableEntityRepository<Citizen> citizensRespository;
 
-        public WorldviewsService(IDeletableEntityRepository<Worldview> worldviewsRespository)
+        public WorldviewsService(IDeletableEntityRepository<Worldview> worldviewsRespository, IDeletableEntityRepository<Citizen> citizensRespository)
         {
             this.worldviewsRespository = worldviewsRespository;
+            this.citizensRespository = citizensRespository;
         }
 
-        public async Task<string> CreateAsync(WorldviewInputModel inputModel, string citizenId)
+        public async Task<string> CreateAsync(WorldviewInputModel inputModel, string userId)
         {
+            Citizen citizen = this.citizensRespository.AllAsNoTracking().FirstOrDefault(c => c.Member.ApplicationUserId == userId);
+            if (citizen == null)
+            {
+                return WorldviewCreateWithoutCitizenBadResult;
+            }
+
             Worldview worldview = new Worldview
             {
                 Description = inputModel.Description,
                 Ideology = inputModel.Ideology,
-                CitizenId = citizenId,
+                CitizenId = citizen.Id,
                 CreatedOn = DateTime.UtcNow
             };
 

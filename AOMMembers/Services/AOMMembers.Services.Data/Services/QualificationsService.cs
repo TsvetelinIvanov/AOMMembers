@@ -4,6 +4,7 @@ using AOMMembers.Data.Models;
 using AOMMembers.Services.Data.Interfaces;
 using AOMMembers.Services.Mapping;
 using AOMMembers.Web.ViewModels.Qualifications;
+using static AOMMembers.Common.DataBadResults;
 
 namespace AOMMembers.Services.Data.Services
 {
@@ -11,22 +12,30 @@ namespace AOMMembers.Services.Data.Services
     {
         private readonly IMapper mapper;
         private readonly IDeletableEntityRepository<Qualification> qualificationsRespository;
+        private readonly IDeletableEntityRepository<Education> educationsRespository;
 
-        public QualificationsService(IMapper mapper, IDeletableEntityRepository<Qualification> qualificationsRespository)
+        public QualificationsService(IMapper mapper, IDeletableEntityRepository<Qualification> qualificationsRespository, IDeletableEntityRepository<Education> educationsRespository)
         {
             this.mapper = mapper;
             this.qualificationsRespository = qualificationsRespository;
+            this.educationsRespository = educationsRespository;
         }        
 
-        public async Task<string> CreateAsync(QualificationInputModel inputModel, string educationId)
+        public async Task<string> CreateAsync(QualificationInputModel inputModel, string userId)
         {
+            Education education = this.educationsRespository.AllAsNoTracking().FirstOrDefault(e => e.Citizen.Member.ApplicationUserId == userId);
+            if (education == null)
+            {
+                return QualificationCreateWithoutEducationBadResult;
+            }
+
             Qualification qualification = new Qualification
             {
                 Name = inputModel.Name,
                 Description = inputModel.Description,
                 StartDate = inputModel.StartDate,
                 EndDate = inputModel.EndDate,
-                EducationId = educationId,
+                EducationId = education.Id,
                 CreatedOn = DateTime.UtcNow
             };
 
@@ -84,15 +93,27 @@ namespace AOMMembers.Services.Data.Services
             return qualification.IsDeleted;
         }
 
-        public int GetCountFromMember(string educationId)
+        public int GetCountFromMember(string userId)
         {
-            return this.qualificationsRespository.All().Where(q => q.EducationId == educationId).Count();
+            Education education = this.educationsRespository.AllAsNoTracking().FirstOrDefault(e => e.Citizen.Member.ApplicationUserId == userId);
+            if (education == null)
+            {
+                return 0;
+            }
+
+            return this.qualificationsRespository.All().Where(q => q.EducationId == education.Id).Count();
         }
 
-        public IEnumerable<QualificationViewModel> GetAllFromMember(string educationId)
+        public IEnumerable<QualificationViewModel> GetAllFromMember(string userId)
         {
+            Education education = this.educationsRespository.AllAsNoTracking().FirstOrDefault(e => e.Citizen.Member.ApplicationUserId == userId);
+            if (education == null)
+            {
+                return null;
+            }
+
             List<QualificationViewModel> qualifications = this.qualificationsRespository.AllAsNoTracking()
-                .Where(q => q.EducationId == educationId)
+                .Where(q => q.EducationId == education.Id)
                 .OrderByDescending(q => q.CreatedOn)
                 .To<QualificationViewModel>().ToList();
 

@@ -4,6 +4,7 @@ using AOMMembers.Data.Models;
 using AOMMembers.Services.Mapping;
 using AOMMembers.Services.Data.Interfaces;
 using AOMMembers.Web.ViewModels.Settings;
+using static AOMMembers.Common.DataBadResults;
 
 namespace AOMMembers.Services.Data.Services
 {
@@ -11,20 +12,28 @@ namespace AOMMembers.Services.Data.Services
     {
         private readonly IMapper mapper;
         private readonly IDeletableEntityRepository<Setting> settingsRespository;
+        private readonly IDeletableEntityRepository<Citizen> citizensRespository;
 
-        public SettingsService(IMapper mapper, IDeletableEntityRepository<Setting> settingsRespository)
+        public SettingsService(IMapper mapper, IDeletableEntityRepository<Setting> settingsRespository, IDeletableEntityRepository<Citizen> citizensRespository)
         {
             this.mapper = mapper;
             this.settingsRespository = settingsRespository;
+            this.citizensRespository = citizensRespository;
         }        
 
-        public async Task<string> CreateAsync(SettingInputModel inputModel, string citizenId)
+        public async Task<string> CreateAsync(SettingInputModel inputModel, string userId)
         {
+            Citizen citizen = this.citizensRespository.AllAsNoTracking().FirstOrDefault(c => c.Member.ApplicationUserId == userId);
+            if (citizen == null)
+            {
+                return SettingCreateWithoutCitizenBadResult;
+            }
+
             Setting setting = new Setting
             {
                 Name = inputModel.Name,
                 Value = inputModel.Value,
-                CitizenId = citizenId,
+                CitizenId = citizen.Id,
                 CreatedOn = DateTime.UtcNow
             };
 
@@ -80,15 +89,27 @@ namespace AOMMembers.Services.Data.Services
             return setting.IsDeleted;
         }
 
-        public int GetCountFromMember(string citizenId)
+        public int GetCountFromMember(string userId)
         {
-            return this.settingsRespository.All().Where(s => s.CitizenId == citizenId).Count();
+            Citizen citizen = this.citizensRespository.AllAsNoTracking().FirstOrDefault(c => c.Member.ApplicationUserId == userId);
+            if (citizen == null)
+            {
+                return 0;
+            }
+
+            return this.settingsRespository.All().Where(s => s.CitizenId == citizen.Id).Count();
         }
 
-        public IEnumerable<SettingViewModel> GetAllFromMember(string citizenId)
+        public IEnumerable<SettingViewModel> GetAllFromMember(string userId)
         {
+            Citizen citizen = this.citizensRespository.AllAsNoTracking().FirstOrDefault(c => c.Member.ApplicationUserId == userId);
+            if (citizen == null)
+            {
+                return null;
+            }
+
             List<SettingViewModel> settings = this.settingsRespository.AllAsNoTracking()
-                .Where(s => s.CitizenId == citizenId)
+                .Where(s => s.CitizenId == citizen.Id)
                 .OrderByDescending(s => s.CreatedOn)
                 .To<SettingViewModel>().ToList();
 

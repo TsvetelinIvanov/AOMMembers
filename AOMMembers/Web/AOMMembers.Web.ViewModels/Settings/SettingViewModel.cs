@@ -6,7 +6,7 @@ using static AOMMembers.Common.DataDisplayNames;
 
 namespace AOMMembers.Web.ViewModels.Settings
 {
-    public class SettingViewModel
+    public class SettingViewModel : IMapFrom<Setting>, IHaveCustomMappings
     {
         public int Id { get; set; }
 
@@ -25,7 +25,7 @@ namespace AOMMembers.Web.ViewModels.Settings
         {
             configuration.CreateMap<Setting, SettingViewModel>().ForMember(
                 m => m.NameAndValue,
-                opt => opt.MapFrom(nv => nv.Name + " = " + nv.Value));
+                opt => opt.MapFrom(s => s.Name + " = " + s.Value));
         }
     }
 }

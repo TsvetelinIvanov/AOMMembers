@@ -4,7 +4,7 @@ namespace AOMMembers.Services.Data.Interfaces
 {
     public interface IMembersService
     {
-        Task<string> CreateAsync(MemberInputModel inputModel, string applicationUserId);
+        Task<string> CreateAsync(MemberInputModel inputModel, string userId);
 
         Task<MemberDetailsViewModel> GetDetailsByIdAsync(string id);
 

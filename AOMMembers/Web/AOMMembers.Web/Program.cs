@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using AutoMapper;
 using AOMMembers.Common;
 using AOMMembers.Data;
 using AOMMembers.Data.Common;
@@ -34,6 +35,8 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 //    .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddDefaultIdentity<ApplicationUser>(IdentityOptionsProvider.GetIdentityOptions)
                 .AddRoles<ApplicationRole>().AddEntityFrameworkStores<ApplicationDbContext>();
+
+//builder.Services.AddAutoMapper();//How to add AutoMapper in ASP.NET 6?
 
 builder.Services.Configure<CookiePolicyOptions>(
                 options =>

@@ -4,7 +4,7 @@ namespace AOMMembers.Services.Data.Interfaces
 {
     public interface ILawStatesService
     {
-        Task<string> CreateAsync(LawStateInputModel inputModel, string citizenId);
+        Task<string> CreateAsync(LawStateInputModel inputModel, string userId);
 
         Task<LawStateDetailsViewModel> GetDetailsByIdAsync(string id);
 

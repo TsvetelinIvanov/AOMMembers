@@ -4,6 +4,7 @@ using AOMMembers.Data.Models;
 using AOMMembers.Services.Data.Interfaces;
 using AOMMembers.Services.Mapping;
 using AOMMembers.Web.ViewModels.PartyPositions;
+using static AOMMembers.Common.DataBadResults;
 
 namespace AOMMembers.Services.Data.Services
 {
@@ -11,15 +12,23 @@ namespace AOMMembers.Services.Data.Services
     {
         private readonly IMapper mapper;
         private readonly IDeletableEntityRepository<PartyPosition> partyPositionsRespository;
+        private readonly IDeletableEntityRepository<Member> membersRespository;
 
-        public PartyPositionsService(IMapper mapper, IDeletableEntityRepository<PartyPosition> partyPositionsRespository)
+        public PartyPositionsService(IMapper mapper, IDeletableEntityRepository<PartyPosition> partyPositionsRespository, IDeletableEntityRepository<Member> membersRespository)
         {
             this.mapper = mapper;
             this.partyPositionsRespository = partyPositionsRespository;
+            this.membersRespository = membersRespository;
         }       
 
-        public async Task<string> CreateAsync(PartyPositionInputModel inputModel, string memberId)
+        public async Task<string> CreateAsync(PartyPositionInputModel inputModel, string userId)
         {
+            Member member = this.membersRespository.AllAsNoTracking().FirstOrDefault(m => m.ApplicationUserId == userId);
+            if (member == null)
+            {
+                return PartyPositionCreateWithoutMemberBadResult;
+            }
+
             PartyPosition partyPosition = new PartyPosition
             {
                 Name = inputModel.Name,
@@ -27,7 +36,7 @@ namespace AOMMembers.Services.Data.Services
                 IsCurrent = inputModel.IsCurrent,
                 StartDate = inputModel.StartDate,
                 EndDate = inputModel.EndDate,
-                MemberId = memberId,
+                MemberId = member.Id,
                 CreatedOn = DateTime.UtcNow
             };
 
@@ -86,15 +95,27 @@ namespace AOMMembers.Services.Data.Services
             return partyPosition.IsDeleted;
         }
 
-        public int GetCountFromMember(string memberId)
+        public int GetCountFromMember(string userId)
         {
-            return this.partyPositionsRespository.All().Where(pp => pp.MemberId == memberId).Count();
+            Member member = this.membersRespository.AllAsNoTracking().FirstOrDefault(m => m.ApplicationUserId == userId);
+            if (member == null)
+            {
+                return 0;
+            }
+
+            return this.partyPositionsRespository.All().Where(pp => pp.MemberId == member.Id).Count();
         }
 
-        public IEnumerable<PartyPositionViewModel> GetAllFromMember(string memberId)
+        public IEnumerable<PartyPositionViewModel> GetAllFromMember(string userId)
         {
+            Member member = this.membersRespository.AllAsNoTracking().FirstOrDefault(m => m.ApplicationUserId == userId);
+            if (member == null)
+            {
+                return null;
+            }
+
             List<PartyPositionViewModel> partyPositions = this.partyPositionsRespository.AllAsNoTracking()
-                .Where(pp => pp.MemberId == memberId)
+                .Where(pp => pp.MemberId == member.Id)
                 .OrderByDescending(pp => pp.CreatedOn)
                 .To<PartyPositionViewModel>().ToList();
 

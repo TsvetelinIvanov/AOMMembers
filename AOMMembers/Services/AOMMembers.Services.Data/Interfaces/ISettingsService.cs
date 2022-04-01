@@ -4,7 +4,7 @@ namespace AOMMembers.Services.Data.Interfaces
 {
     public interface ISettingsService
     {
-        Task<string> CreateAsync(SettingInputModel inputModel, string citizenId);
+        Task<string> CreateAsync(SettingInputModel inputModel, string userId);
 
         Task<SettingDetailsViewModel> GetDetailsByIdAsync(string id);
 
@@ -14,8 +14,8 @@ namespace AOMMembers.Services.Data.Interfaces
 
         Task<bool> DeleteAsync(string id);
 
-        int GetCountFromMember(string citizenId);
+        int GetCountFromMember(string userId);
 
-        IEnumerable<SettingViewModel> GetAllFromMember(string citizenId);
+        IEnumerable<SettingViewModel> GetAllFromMember(string userId);
     }
 }

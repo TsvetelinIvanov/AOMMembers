@@ -18,10 +18,10 @@
             <th>
                 @Html.DisplayNameFor(model => model.Ideology)
             </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.CitizenId)
             </th>
-            @*<th>
+            <th>
                 @Html.DisplayNameFor(model => model.IsDeleted)
             </th>
             <th>
@@ -33,6 +33,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.ModifiedOn)
             </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.InterestsCount)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -45,10 +48,10 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Ideology)
             </td>
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.CitizenId)
             </td>
-            @*<td>
+            <td>
                 @Html.DisplayFor(modelItem => item.IsDeleted)
             </td>
             <td>
@@ -60,6 +63,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.ModifiedOn)
             </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.InterestsCount)
+            </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |

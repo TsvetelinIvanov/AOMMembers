@@ -25,7 +25,7 @@ namespace AOMMembers.Services.Data.Tests
                                                             new Setting() { CitizenId = "CitizenId" },
                                                             new Setting() { CitizenId = "CitizenId" }
                                                         }.AsQueryable());
-            SettingsService service = new SettingsService(null, moqRepository.Object);
+            SettingsService service = new SettingsService(null, moqRepository.Object, null);
             Assert.Equal(3, service.GetCountFromMember("CitizenId"));
             moqRepository.Verify(x => x.All(), Times.Once);
         }
@@ -43,7 +43,7 @@ namespace AOMMembers.Services.Data.Tests
             await dbContext.SaveChangesAsync();
 
             EfDeletableEntityRepository<Setting> repository = new EfDeletableEntityRepository<Setting>(dbContext);
-            SettingsService service = new SettingsService(null, repository);
+            SettingsService service = new SettingsService(null, repository, null);
             int count = service.GetCountFromMember("CitizenId");
             Assert.Equal(3, count);
         }

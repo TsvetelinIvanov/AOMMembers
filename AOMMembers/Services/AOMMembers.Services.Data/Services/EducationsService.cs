@@ -2,25 +2,34 @@
 using AOMMembers.Data.Models;
 using AOMMembers.Services.Data.Interfaces;
 using AOMMembers.Web.ViewModels.Educations;
+using static AOMMembers.Common.DataBadResults;
 
 namespace AOMMembers.Services.Data.Services
 {
     public class EducationsService : IEducationsService
     {
         private readonly IDeletableEntityRepository<Education> educationsRespository;
+        private readonly IDeletableEntityRepository<Citizen> citizensRespository;
 
-        public EducationsService(IDeletableEntityRepository<Education> educationsRespository)
+        public EducationsService(IDeletableEntityRepository<Education> educationsRespository, IDeletableEntityRepository<Citizen> citizensRespository)
         {
             this.educationsRespository = educationsRespository;
+            this.citizensRespository = citizensRespository;
         }        
 
-        public async Task<string> CreateAsync(EducationInputModel inputModel, string citizenId)
+        public async Task<string> CreateAsync(EducationInputModel inputModel, string userId)
         {
+            Citizen citizen = this.citizensRespository.AllAsNoTracking().FirstOrDefault(c => c.Member.ApplicationUserId == userId);
+            if (citizen == null)
+            {
+                return EducationCreateWithoutCitizenBadResult;
+            }
+
             Education education = new Education
             {
                 Description = inputModel.Description,
                 CVLink = inputModel.CVLink,
-                CitizenId = citizenId,
+                CitizenId = citizen.Id,
                 CreatedOn = DateTime.UtcNow
             };
 

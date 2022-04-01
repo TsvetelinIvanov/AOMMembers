@@ -4,6 +4,7 @@ using AOMMembers.Data.Models;
 using AOMMembers.Services.Data.Interfaces;
 using AOMMembers.Services.Mapping;
 using AOMMembers.Web.ViewModels.PartyMemberships;
+using static AOMMembers.Common.DataBadResults;
 
 namespace AOMMembers.Services.Data.Services
 {
@@ -11,15 +12,23 @@ namespace AOMMembers.Services.Data.Services
     {
         private readonly IMapper mapper;
         private readonly IDeletableEntityRepository<PartyMembership> partyMembershipsRespository;
+        private readonly IDeletableEntityRepository<Citizen> citizensRespository;
 
-        public PartyMembershipsService(IMapper mapper, IDeletableEntityRepository<PartyMembership> partyMembershipsRespository)
+        public PartyMembershipsService(IMapper mapper, IDeletableEntityRepository<PartyMembership> partyMembershipsRespository, IDeletableEntityRepository<Citizen> citizensRespository)
         {
             this.mapper = mapper;
             this.partyMembershipsRespository = partyMembershipsRespository;
+            this.citizensRespository = citizensRespository;
         }        
 
-        public async Task<string> CreateAsync(PartyMembershipInputModel inputModel, string citizenId)
+        public async Task<string> CreateAsync(PartyMembershipInputModel inputModel, string userId)
         {
+            Citizen citizen = this.citizensRespository.AllAsNoTracking().FirstOrDefault(c => c.Member.ApplicationUserId == userId);
+            if (citizen == null)
+            {
+                return PartyMembershipCreateWithoutCitizenBadResult;
+            }
+
             PartyMembership partyMembership = new PartyMembership
             {
                 PartyName = inputModel.PartyName,
@@ -27,7 +36,7 @@ namespace AOMMembers.Services.Data.Services
                 IsCurrent = inputModel.IsCurrent,
                 StartDate = inputModel.StartDate,
                 EndDate = inputModel.EndDate,
-                CitizenId = citizenId,
+                CitizenId = citizen.Id,
                 CreatedOn = DateTime.UtcNow
             };
 
@@ -86,15 +95,27 @@ namespace AOMMembers.Services.Data.Services
             return partyMembership.IsDeleted;
         }
 
-        public int GetCountFromMember(string citizenId)
+        public int GetCountFromMember(string userId)
         {
-            return this.partyMembershipsRespository.All().Where(pm => pm.CitizenId == citizenId).Count();
+            Citizen citizen = this.citizensRespository.AllAsNoTracking().FirstOrDefault(c => c.Member.ApplicationUserId == userId);
+            if (citizen == null)
+            {
+                return 0;
+            }
+
+            return this.partyMembershipsRespository.All().Where(pm => pm.Citizen.Id == citizen.Id).Count();
         }
 
-        public IEnumerable<PartyMembershipViewModel> GetAllFromMember(string citizenId)
+        public IEnumerable<PartyMembershipViewModel> GetAllFromMember(string userId)
         {
+            Citizen citizen = this.citizensRespository.AllAsNoTracking().FirstOrDefault(c => c.Member.ApplicationUserId == userId);
+            if (citizen == null)
+            {
+                return null;
+            }
+
             List<PartyMembershipViewModel> partyMemberships = this.partyMembershipsRespository.AllAsNoTracking()
-                .Where(pm => pm.CitizenId == citizenId)
+                .Where(pm => pm.CitizenId == citizen.Id)
                 .OrderByDescending(pm => pm.CreatedOn)
                 .To<PartyMembershipViewModel>().ToList();
 

@@ -4,6 +4,7 @@ using AOMMembers.Data.Models;
 using AOMMembers.Services.Data.Interfaces;
 using AOMMembers.Services.Mapping;
 using AOMMembers.Web.ViewModels.MediaMaterials;
+using static AOMMembers.Common.DataBadResults;
 
 namespace AOMMembers.Services.Data.Services
 {
@@ -11,15 +12,23 @@ namespace AOMMembers.Services.Data.Services
     {
         private readonly IMapper mapper;
         private readonly IDeletableEntityRepository<MediaMaterial> mediaMaterialsRespository;
+        private readonly IDeletableEntityRepository<PublicImage> publicImagesRespository;
 
-        public MediaMaterialsService(IMapper mapper, IDeletableEntityRepository<MediaMaterial> mediaMaterialsRespository)
+        public MediaMaterialsService(IMapper mapper, IDeletableEntityRepository<MediaMaterial> mediaMaterialsRespository, IDeletableEntityRepository<PublicImage> publicImagesRespository)
         {
             this.mapper = mapper;
             this.mediaMaterialsRespository = mediaMaterialsRespository;
+            this.publicImagesRespository = publicImagesRespository;
         }        
 
-        public async Task<string> CreateAsync(MediaMaterialInputModel inputModel, string publicImageId)
+        public async Task<string> CreateAsync(MediaMaterialInputModel inputModel, string userId)
         {
+            PublicImage publicImage = this.publicImagesRespository.AllAsNoTracking().FirstOrDefault(pi => pi.Member.ApplicationUserId == userId);
+            if (publicImage == null)
+            {
+                return MediaMaterialCreateWithoutPublicImageBadResult;
+            }
+
             MediaMaterial mediaMaterial = new MediaMaterial
             {
                 Kind = inputModel.Kind,
@@ -29,7 +38,7 @@ namespace AOMMembers.Services.Data.Services
                 Heading = inputModel.Heading,
                 Description = inputModel.Description,
                 MediaMaterialLink = inputModel.MediaMaterialLink,
-                PublicImageId = publicImageId,
+                PublicImageId = publicImage.Id,
                 CreatedOn = DateTime.UtcNow
             };
 
@@ -90,15 +99,27 @@ namespace AOMMembers.Services.Data.Services
             return mediaMaterial.IsDeleted;
         }
 
-        public int GetCountFromMember(string publicImageId)
+        public int GetCountFromMember(string userId)
         {
-            return this.mediaMaterialsRespository.All().Where(mm => mm.PublicImageId == publicImageId).Count();
+            PublicImage publicImage = this.publicImagesRespository.AllAsNoTracking().FirstOrDefault(pi => pi.Member.ApplicationUserId == userId);
+            if (publicImage == null)
+            {
+                return 0;
+            }
+
+            return this.mediaMaterialsRespository.All().Where(mm => mm.PublicImageId == publicImage.Id).Count();
         }
 
-        public IEnumerable<MediaMaterialViewModel> GetAllFromMember(string publicImageId)
+        public IEnumerable<MediaMaterialViewModel> GetAllFromMember(string userId)
         {
+            PublicImage publicImage = this.publicImagesRespository.AllAsNoTracking().FirstOrDefault(pi => pi.Member.ApplicationUserId == userId);
+            if (publicImage == null)
+            {
+                return null;
+            }
+
             List<MediaMaterialViewModel> mediaMaterials = this.mediaMaterialsRespository.AllAsNoTracking()
-                .Where(mm => mm.PublicImageId == publicImageId)
+                .Where(mm => mm.PublicImageId == publicImage.Id)
                 .OrderByDescending(mm => mm.CreatedOn)
                 .To<MediaMaterialViewModel>().ToList();
 

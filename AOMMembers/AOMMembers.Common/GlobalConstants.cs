@@ -22,7 +22,7 @@
 
         public const string SiteSlogan = "Да направим света подреден и удобен!";
 
-        public const string NotAllowedFileExtensionExceptionMessage = "This picture extension is not allowed!";
+        public const string NotAllowedFileExtensionExceptionMessage = "This picture extension is not allowed!";        
 
         public const string OverMaxFileSizeExceptionMessage = "Maximum allowed file size is {0} MB!";
 

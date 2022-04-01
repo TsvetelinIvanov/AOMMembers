@@ -2,6 +2,7 @@
 using AOMMembers.Data.Models;
 using AOMMembers.Services.Data.Interfaces;
 using AOMMembers.Web.ViewModels.Members;
+using static AOMMembers.Common.DataBadResults;
 
 namespace AOMMembers.Services.Data.Services
 {
@@ -14,7 +15,7 @@ namespace AOMMembers.Services.Data.Services
             this.membersRespository = membersRespository;
         }        
 
-        public async Task<string> CreateAsync(MemberInputModel inputModel, string applicationUserId)
+        public async Task<string> CreateAsync(MemberInputModel inputModel, string userId)
         {
             Member member = new Member
             {
@@ -22,7 +23,7 @@ namespace AOMMembers.Services.Data.Services
                 Email = inputModel.Email,
                 PhoneNumber = inputModel.PhoneNumber,
                 PictureUrl = inputModel.PictureUrl,
-                ApplicationUserId = applicationUserId,
+                ApplicationUserId = userId,
                 CreatedOn = DateTime.UtcNow
             };
 

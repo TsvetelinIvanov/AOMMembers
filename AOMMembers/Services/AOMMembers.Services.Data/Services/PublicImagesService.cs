@@ -2,24 +2,33 @@
 using AOMMembers.Data.Models;
 using AOMMembers.Services.Data.Interfaces;
 using AOMMembers.Web.ViewModels.PublicImages;
+using static AOMMembers.Common.DataBadResults;
 
 namespace AOMMembers.Services.Data.Services
 {
     public class PublicImagesService : IPublicImagesService
     {
         private readonly IDeletableEntityRepository<PublicImage> publicImagesRespository;
+        private readonly IDeletableEntityRepository<Member> membersRespository;
 
-        public PublicImagesService(IDeletableEntityRepository<PublicImage> publicImagesRespository)
+        public PublicImagesService(IDeletableEntityRepository<PublicImage> publicImagesRespository, IDeletableEntityRepository<Member> membersRespository)
         {
             this.publicImagesRespository = publicImagesRespository;
+            this.membersRespository = membersRespository;
         }        
 
-        public async Task<string> CreateAsync(PublicImageInputModel inputModel, string memberId)
+        public async Task<string> CreateAsync(PublicImageInputModel inputModel, string userId)
         {
+            Member member = this.membersRespository.AllAsNoTracking().FirstOrDefault(m => m.ApplicationUserId == userId);
+            if (member == null)
+            {
+                return PublicImageCreateWithoutMemberBadResult;
+            }
+
             PublicImage publicImage = new PublicImage
             {
                 Rating = inputModel.Rating,
-                MemberId = memberId,
+                MemberId = member.Id,
                 CreatedOn = DateTime.UtcNow
             };
 

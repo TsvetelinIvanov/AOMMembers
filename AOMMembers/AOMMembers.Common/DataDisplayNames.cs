@@ -20,7 +20,7 @@
         public const string CitizenBirthDateDisplayName = "Рожденна дата";
         public const string CitizenDeathDateDisplayName = "Дата на смърт";
         public const string CitizenCurrentWorkPositionDisplayName = "Заемана в момента работна позиция";
-        public const string CitizenMatrialStateDisplayName = "Финансово състояние (общо богатство в български лева)";
+        public const string CitizenMatrialStateDisplayName = "Материално състояние (общо богатство в български лева)";
         public const string CitizenAssetsCountDisplayName = "Брой притежавани активи";
         public const string CitizenLawStateConditionDisplayName = "Гражданско състояние";
         public const string CitizenPartyMembershipsCountDisplayName = "Брой на партии в които е членувал";
@@ -49,6 +49,7 @@
 
         public const string RelationshipKindDisplayName = "Вид на връзката";
         public const string RelationshipDescriptionDisplayName = "Описание";
+        public const string RelationshipCitizenFullNameDisplayName = "Пълно име";
 
         public const string PartyPositionNameDisplayName = "Партийна позиция";
         public const string PartyPositionDescriptionDisplayName = "Описание";
@@ -62,7 +63,7 @@
         public const string PartyMembershipStartDateDisplayName = "Постъпване";
         public const string PartyMembershipEndDateDisplayName = "Оттегляне";
 
-        public const string MaterialStateRichesDisplayName = "Финансово състояние (общо богатство в български лева)";
+        public const string MaterialStateRichesDisplayName = "Материално състояние (общо богатство в български лева)";
         public const string MaterialStateMoneyDisplayName = "Пари в банкови сметки (в български лева)";
         public const string MaterialStateMonthIncomeDisplayName = "Месечен доход (в български лева)";
         public const string MaterialStateDescriptionDisplayName = "Описание";

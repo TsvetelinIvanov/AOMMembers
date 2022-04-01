@@ -1,50 +1,76 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
-using AOMMembers.Common;
+using AOMMembers.Data.Models;
+using AOMMembers.Services.Data.Interfaces;
+using AOMMembers.Web.ViewModels.MediaMaterials;
+using static AOMMembers.Common.GlobalConstants;
+using static AOMMembers.Common.DataBadResults;
 
 namespace AOMMembers.Web.Controllers
 {
     public class MediaMaterialsController : BaseController
     {
+        private readonly UserManager<ApplicationUser> userManager;
+        private readonly IMediaMaterialsService mediaMaterialsService;
+
+        public MediaMaterialsController(UserManager<ApplicationUser> userManager, IMediaMaterialsService mediaMaterialsService)
+        {
+            this.userManager = userManager;
+            this.mediaMaterialsService = mediaMaterialsService;
+        }
+
         // GET: MediaMaterialsController
         public ActionResult Index()
         {
             return this.View();
         }
 
-        // GET: MediaMaterialsController/Details/5
-        public ActionResult Details(int id)
+        // GET: MediaMaterialsController/Details/"Id"
+        public async Task<ActionResult> Details(string id)
         {
             return this.View();
         }
 
         // GET: MediaMaterialsController/Create
-        [Authorize(Roles = GlobalConstants.AdministratorRoleName + ", " + GlobalConstants.MemberRoleName)]
+        [Authorize(Roles = AdministratorRoleName + ", " + MemberRoleName)]
         public ActionResult Create()
         {
-            return this.View();
+            return this.View(new MediaMaterialInputModel());
         }
 
         // POST: MediaMaterialsController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = GlobalConstants.AdministratorRoleName + ", " + GlobalConstants.MemberRoleName)]
-        public ActionResult Create(IFormCollection collection)
+        [Authorize(Roles = AdministratorRoleName + ", " + MemberRoleName)]
+        public async Task<ActionResult> Create(MediaMaterialInputModel inputModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return Redirect("/MediaMaterials/Create");
+            }
+
             try
             {
-                return this.RedirectToAction(nameof(Index));
+                string userId = this.userManager.GetUserId(this.User);
+                string mediaMaterialId = await this.mediaMaterialsService.CreateAsync(inputModel, userId);
+                if (mediaMaterialId == MediaMaterialCreateWithoutPublicImageBadResult)
+                {
+                    return this.BadRequest(MediaMaterialCreateWithoutPublicImageBadRequest);
+                }
+
+                return this.Redirect("/MediaMaterials/Details?id=" + mediaMaterialId);
             }
             catch
             {
-                return this.View();
+                return this.View(new MediaMaterialInputModel());
             }
         }
 
-        // GET: MediaMaterialsController/Edit/5
-        [Authorize(Roles = GlobalConstants.AdministratorRoleName + ", " + GlobalConstants.MemberRoleName)]
-        public ActionResult Edit(int id)
+        // GET: MediaMaterialsController/Edit/"Id"
+        [Authorize(Roles = AdministratorRoleName + ", " + MemberRoleName)]
+        public ActionResult Edit(string id)
         {
             return this.View();
         }
@@ -52,8 +78,8 @@ namespace AOMMembers.Web.Controllers
         // POST: MediaMaterialsController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = GlobalConstants.AdministratorRoleName + ", " + GlobalConstants.MemberRoleName)]
-        public ActionResult Edit(int id, IFormCollection collection)
+        [Authorize(Roles = AdministratorRoleName + ", " + MemberRoleName)]
+        public async Task<ActionResult> Edit(string id, IFormCollection collection)
         {
             try
             {
@@ -65,18 +91,18 @@ namespace AOMMembers.Web.Controllers
             }
         }
 
-        // GET: MediaMaterialsController/Delete/5
-        [Authorize(Roles = GlobalConstants.AdministratorRoleName + ", " + GlobalConstants.MemberRoleName)]
-        public ActionResult Delete(int id)
+        // GET: MediaMaterialsController/Delete/"Id"
+        [Authorize(Roles = AdministratorRoleName + ", " + MemberRoleName)]
+        public ActionResult Delete(string id)
         {
             return this.View();
         }
 
-        // POST: MediaMaterialsController/Delete/5
+        // POST: MediaMaterialsController/Delete/"Id"
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = GlobalConstants.AdministratorRoleName + ", " + GlobalConstants.MemberRoleName)]
-        public ActionResult Delete(int id, IFormCollection collection)
+        [Authorize(Roles = AdministratorRoleName + ", " + MemberRoleName)]
+        public async Task<ActionResult> Delete(string id, IFormCollection collection)
         {
             try
             {

@@ -4,7 +4,7 @@ namespace AOMMembers.Services.Data.Interfaces
 {
     public interface IWorkPositionsService
     {
-        Task<string> CreateAsync(WorkPositionInputModel inputModel, string careerId);
+        Task<string> CreateAsync(WorkPositionInputModel inputModel, string userId);
 
         Task<WorkPositionDetailsViewModel> GetDetailsByIdAsync(string id);
 
@@ -14,8 +14,8 @@ namespace AOMMembers.Services.Data.Interfaces
 
         Task<bool> DeleteAsync(string id);
 
-        int GetCountFromMember(string careerId);
+        int GetCountFromMember(string userId);
 
-        IEnumerable<WorkPositionViewModel> GetAllFromMember(string careerId);
+        IEnumerable<WorkPositionViewModel> GetAllFromMember(string userId);
     }
 }

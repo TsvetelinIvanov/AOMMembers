@@ -17,13 +17,7 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.CVLink)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CurrentWorkPosition)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.WorkPositionsCount)
-            </th>
+            </th>           
             @*<th>
                 @Html.DisplayNameFor(model => model.CitizenId)
             </th>
@@ -39,6 +33,12 @@
             <th>
                 @Html.DisplayNameFor(model => model.ModifiedOn)
             </th>*@
+             <th>
+                @Html.DisplayNameFor(model => model.CurrentWorkPosition)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WorkPositionsCount)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -50,13 +50,7 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CVLink)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CurrentWorkPosition)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.WorkPositionsCount)
-            </td>
+            </td>            
             @*<td>
                 @Html.DisplayFor(modelItem => item.CitizenId)
             </td>
@@ -72,6 +66,12 @@
             <td>
                 @Html.DisplayFor(modelItem => item.ModifiedOn)
             </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.CurrentWorkPosition)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WorkPositionsCount)
+            </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |

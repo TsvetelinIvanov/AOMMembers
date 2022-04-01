@@ -4,7 +4,7 @@ namespace AOMMembers.Services.Data.Interfaces
 {
     public interface IAssetsService
     {
-        Task<string> CreateAsync(AssetInputModel inputModel, string materialStateId);
+        Task<string> CreateAsync(AssetInputModel inputModel, string userId);
 
         Task<AssetDetailsViewModel> GetDetailsByIdAsync(string id);
 
@@ -14,8 +14,8 @@ namespace AOMMembers.Services.Data.Interfaces
 
         Task<bool> DeleteAsync(string id);
 
-        int GetCountFromMember(string materialStateId);
+        int GetCountFromMember(string userId);
 
-        IEnumerable<AssetViewModel> GetAllFromMember(string materialStateId);
+        IEnumerable<AssetViewModel> GetAllFromMember(string userId);
     }
 }

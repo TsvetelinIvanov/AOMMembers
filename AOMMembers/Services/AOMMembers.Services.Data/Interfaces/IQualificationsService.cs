@@ -4,7 +4,7 @@ namespace AOMMembers.Services.Data.Interfaces
 {
     public interface IQualificationsService
     {
-        Task<string> CreateAsync(QualificationInputModel inputModel, string educationId);
+        Task<string> CreateAsync(QualificationInputModel inputModel, string userId);
 
         Task<QualificationDetailsViewModel> GetDetailsByIdAsync(string id);
 
@@ -14,8 +14,8 @@ namespace AOMMembers.Services.Data.Interfaces
 
         Task<bool> DeleteAsync(string id);
 
-        int GetCountFromMember(string educationId);
+        int GetCountFromMember(string userId);
 
-        IEnumerable<QualificationViewModel> GetAllFromMember(string educationId);
+        IEnumerable<QualificationViewModel> GetAllFromMember(string userId);
     }
 }
