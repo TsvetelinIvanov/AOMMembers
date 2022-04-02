@@ -84,7 +84,7 @@ namespace AOMMembers.Web.Controllers
             }
 
             string userId = this.userManager.GetUserId(this.User);
-            if (!await this.assetsService.IsFromMember(id, userId))
+            if (!this.User.IsInRole(AdministratorRoleName) && !await this.assetsService.IsFromMember(id, userId))
             {
                 return this.Unauthorized(UnauthorizedEditMessage);
             }
@@ -101,7 +101,7 @@ namespace AOMMembers.Web.Controllers
         public async Task<ActionResult> Edit(string id, AssetEditModel editModel)
         {
             string userId = this.userManager.GetUserId(this.User);
-            if (!await this.assetsService.IsFromMember(id, userId))
+            if (!this.User.IsInRole(AdministratorRoleName) && !await this.assetsService.IsFromMember(id, userId))
             {
                 return this.Unauthorized(UnauthorizedEditMessage);
             }
@@ -137,7 +137,7 @@ namespace AOMMembers.Web.Controllers
             }
 
             string userId = this.userManager.GetUserId(this.User);
-            if (!await this.assetsService.IsFromMember(id, userId))
+            if (!this.User.IsInRole(AdministratorRoleName) && !await this.assetsService.IsFromMember(id, userId))
             {
                 return this.Unauthorized(UnauthorizedDeleteMessage);
             }
@@ -155,7 +155,7 @@ namespace AOMMembers.Web.Controllers
         public async Task<ActionResult> DeleteConfirmed(string id)
         {
             string userId = this.userManager.GetUserId(this.User);
-            if (!await this.assetsService.IsFromMember(id, userId))
+            if (!this.User.IsInRole(AdministratorRoleName) && !await this.assetsService.IsFromMember(id, userId))
             {
                 return this.Unauthorized(UnauthorizedDeleteMessage);
             }
