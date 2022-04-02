@@ -2,6 +2,9 @@
 {
     public static class DataBadResults
     {
+        public const string UnauthorizedEditMessage = "Можете да редактирате само неща които сте създали!";
+        public const string UnauthorizedDeleteMessage = "Можете да триете само неща които сте създали!";
+
         public const string MemberCreateWithoutApplicationUserBadResult = "Firstly, You must have \"ApplicationUser\" and then add \"Member\" to it!";
         public const string MemberCreateWithoutApplicationUserBadRequest = "Трябва първо да сте \"Потребител\" и след това да станете \"Член\"!";
         public const string MemberWithoutApplicationUserBadResult = "You must have \"ApplicationUser\" to do anything with \"Member\"!";

@@ -42,6 +42,13 @@ namespace AOMMembers.Services.Data.Services
             return interest.Id;
         }
 
+        public async Task<bool> IsAbsent(string id)
+        {
+            Interest interest = await this.interestsRespository.GetByIdAsync(id);
+
+            return interest == null;
+        }
+
         public async Task<InterestDetailsViewModel> GetDetailsByIdAsync(string id)
         {
             Interest interest = await this.interestsRespository.GetByIdAsync(id);
@@ -57,9 +64,17 @@ namespace AOMMembers.Services.Data.Services
             return interest.Worldview.Citizen.Member.ApplicationUserId == userId;
         }
 
+        public async Task<InterestEditModel> GetEditModelByIdAsync(string id)
+        {
+            Interest interest = await this.interestsRespository.GetByIdAsync(id);
+            InterestEditModel editModel = this.mapper.Map<InterestEditModel>(interest);
+
+            return editModel;
+        }
+
         public async Task<bool> EditAsync(string id, InterestEditModel editModel)
         {
-            Interest interest = this.interestsRespository.All().FirstOrDefault(i => i.Id == id);
+            Interest interest = await this.interestsRespository.GetByIdAsync(id);
             if (interest == null)
             {
                 return false;
@@ -73,9 +88,17 @@ namespace AOMMembers.Services.Data.Services
             return true;
         }
 
+        public async Task<InterestDeleteModel> GetDeleteModelByIdAsync(string id)
+        {
+            Interest interest = await this.interestsRespository.GetByIdAsync(id);
+            InterestDeleteModel deleteModel = this.mapper.Map<InterestDeleteModel>(interest);
+
+            return deleteModel;
+        }
+
         public async Task<bool> DeleteAsync(string id)
         {
-            Interest interest = this.interestsRespository.All().FirstOrDefault(i => i.Id == id);
+            Interest interest = await this.interestsRespository.GetByIdAsync(id);
             if (interest == null)
             {
                 return false;

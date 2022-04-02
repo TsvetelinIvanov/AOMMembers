@@ -46,6 +46,13 @@ namespace AOMMembers.Services.Data.Services
             return partyPosition.Id;
         }
 
+        public async Task<bool> IsAbsent(string id)
+        {
+            PartyPosition partyPosition = await this.partyPositionsRespository.GetByIdAsync(id);
+
+            return partyPosition == null;
+        }
+
         public async Task<PartyPositionDetailsViewModel> GetDetailsByIdAsync(string id)
         {
             PartyPosition partyPosition = await this.partyPositionsRespository.GetByIdAsync(id);
@@ -61,9 +68,17 @@ namespace AOMMembers.Services.Data.Services
             return partyPosition.Member.ApplicationUserId == userId;
         }
 
+        public async Task<PartyPositionEditModel> GetEditModelByIdAsync(string id)
+        {
+            PartyPosition partyPosition = await this.partyPositionsRespository.GetByIdAsync(id);
+            PartyPositionEditModel editModel = this.mapper.Map<PartyPositionEditModel>(partyPosition);
+
+            return editModel;
+        }
+
         public async Task<bool> EditAsync(string id, PartyPositionEditModel editModel)
         {
-            PartyPosition partyPosition = this.partyPositionsRespository.All().FirstOrDefault(pp => pp.Id == id);
+            PartyPosition partyPosition = await this.partyPositionsRespository.GetByIdAsync(id);
             if (partyPosition == null)
             {
                 return false;
@@ -81,9 +96,17 @@ namespace AOMMembers.Services.Data.Services
             return true;
         }
 
+        public async Task<PartyPositionDeleteModel> GetDeleteModelByIdAsync(string id)
+        {
+            PartyPosition partyPosition = await this.partyPositionsRespository.GetByIdAsync(id);
+            PartyPositionDeleteModel deleteModel = this.mapper.Map<PartyPositionDeleteModel>(partyPosition);
+
+            return deleteModel;
+        }
+
         public async Task<bool> DeleteAsync(string id)
         {
-            PartyPosition partyPosition = this.partyPositionsRespository.All().FirstOrDefault(pp => pp.Id == id);
+            PartyPosition partyPosition = await this.partyPositionsRespository.GetByIdAsync(id);
             if (partyPosition == null)
             {
                 return false;

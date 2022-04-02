@@ -45,6 +45,13 @@ namespace AOMMembers.Services.Data.Services
             return societyHelp.Id;
         }
 
+        public async Task<bool> IsAbsent(string id)
+        {
+            SocietyHelp societyHelp = await this.societyHelpsRespository.GetByIdAsync(id);
+
+            return societyHelp == null;
+        }
+
         public async Task<SocietyHelpDetailsViewModel> GetDetailsByIdAsync(string id)
         {
             SocietyHelp societyHelp = await this.societyHelpsRespository.GetByIdAsync(id);
@@ -60,9 +67,17 @@ namespace AOMMembers.Services.Data.Services
             return societyHelp.Citizen.Member.ApplicationUserId == userId;
         }
 
+        public async Task<SocietyHelpEditModel> GetEditModelByIdAsync(string id)
+        {
+            SocietyHelp societyHelp = await this.societyHelpsRespository.GetByIdAsync(id);
+            SocietyHelpEditModel editModel = this.mapper.Map<SocietyHelpEditModel>(societyHelp);
+
+            return editModel;
+        }
+
         public async Task<bool> EditAsync(string id, SocietyHelpEditModel editModel)
         {
-            SocietyHelp societyHelp = this.societyHelpsRespository.All().FirstOrDefault(sh => sh.Id == id);
+            SocietyHelp societyHelp = await this.societyHelpsRespository.GetByIdAsync(id);
             if (societyHelp == null)
             {
                 return false;
@@ -79,9 +94,17 @@ namespace AOMMembers.Services.Data.Services
             return true;
         }
 
+        public async Task<SocietyHelpDeleteModel> GetDeleteModelByIdAsync(string id)
+        {
+            SocietyHelp societyHelp = await this.societyHelpsRespository.GetByIdAsync(id);
+            SocietyHelpDeleteModel deleteModel = this.mapper.Map<SocietyHelpDeleteModel>(societyHelp);
+
+            return deleteModel;
+        }
+
         public async Task<bool> DeleteAsync(string id)
         {
-            SocietyHelp societyHelp = this.societyHelpsRespository.All().FirstOrDefault(sh => sh.Id == id);
+            SocietyHelp societyHelp = await this.societyHelpsRespository.GetByIdAsync(id);
             if (societyHelp == null)
             {
                 return false;

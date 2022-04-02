@@ -1,4 +1,5 @@
-﻿using AOMMembers.Data.Common.Repositories;
+﻿using AutoMapper;
+using AOMMembers.Data.Common.Repositories;
 using AOMMembers.Data.Models;
 using AOMMembers.Services.Data.Interfaces;
 using AOMMembers.Web.ViewModels.PublicImages;
@@ -8,13 +9,17 @@ namespace AOMMembers.Services.Data.Services
 {
     public class PublicImagesService : IPublicImagesService
     {
+        private readonly IMapper mapper;
         private readonly IDeletableEntityRepository<PublicImage> publicImagesRespository;
         private readonly IDeletableEntityRepository<Member> membersRespository;
+        private readonly IDeletableEntityRepository<MediaMaterial> mediaMaterialsRespository;
 
-        public PublicImagesService(IDeletableEntityRepository<PublicImage> publicImagesRespository, IDeletableEntityRepository<Member> membersRespository)
+        public PublicImagesService(IMapper mapper, IDeletableEntityRepository<PublicImage> publicImagesRespository, IDeletableEntityRepository<Member> membersRespository, IDeletableEntityRepository<MediaMaterial> mediaMaterialsRespository)
         {
+            this.mapper = mapper;
             this.publicImagesRespository = publicImagesRespository;
             this.membersRespository = membersRespository;
+            this.mediaMaterialsRespository = mediaMaterialsRespository;
         }        
 
         public async Task<string> CreateAsync(PublicImageInputModel inputModel, string userId)
@@ -36,6 +41,13 @@ namespace AOMMembers.Services.Data.Services
             await this.publicImagesRespository.SaveChangesAsync();
 
             return publicImage.Id;
+        }
+
+        public async Task<bool> IsAbsent(string id)
+        {
+            PublicImage publicImage = await this.publicImagesRespository.GetByIdAsync(id);
+
+            return publicImage == null;
         }
 
         public async Task<PublicImageDetailsViewModel> GetDetailsByIdAsync(string id)
@@ -61,9 +73,17 @@ namespace AOMMembers.Services.Data.Services
             return publicImage.Member.ApplicationUserId == userId;
         }
 
+        public async Task<PublicImageEditModel> GetEditModelByIdAsync(string id)
+        {
+            PublicImage publicImage = await this.publicImagesRespository.GetByIdAsync(id);
+            PublicImageEditModel editModel = this.mapper.Map<PublicImageEditModel>(publicImage);
+
+            return editModel;
+        }
+
         public async Task<bool> EditAsync(string id, PublicImageEditModel editModel)
         {
-            PublicImage publicImage = this.publicImagesRespository.All().FirstOrDefault(pi => pi.Id == id);
+            PublicImage publicImage = await this.publicImagesRespository.GetByIdAsync(id);
             if (publicImage == null)
             {
                 return false;
@@ -77,13 +97,35 @@ namespace AOMMembers.Services.Data.Services
             return true;
         }
 
+        public async Task<PublicImageDeleteModel> GetDeleteModelByIdAsync(string id)
+        {
+            PublicImage publicImage = await this.publicImagesRespository.GetByIdAsync(id);
+            PublicImageDeleteModel deleteModel = new PublicImageDeleteModel
+            {
+                Id = publicImage.Id,
+                Rating = publicImage.Rating,                
+                CreatedOn = publicImage.CreatedOn,
+                ModifiedOn = publicImage.ModifiedOn,
+                MediaMaterialsCount = publicImage.MediaMaterials.Count
+            };
+
+            return deleteModel;
+        }
+
         public async Task<bool> DeleteAsync(string id)
         {
-            PublicImage publicImage = this.publicImagesRespository.All().FirstOrDefault(pi => pi.Id == id);
+            PublicImage publicImage = await this.publicImagesRespository.GetByIdAsync(id);
             if (publicImage == null)
             {
                 return false;
             }
+
+            foreach (MediaMaterial mediaMaterial in publicImage.MediaMaterials)
+            {
+                this.mediaMaterialsRespository.Delete(mediaMaterial);
+            }
+
+            await this.mediaMaterialsRespository.SaveChangesAsync();
 
             this.publicImagesRespository.Delete(publicImage);
             await this.publicImagesRespository.SaveChangesAsync();

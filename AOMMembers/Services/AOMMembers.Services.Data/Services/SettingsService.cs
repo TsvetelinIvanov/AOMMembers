@@ -43,6 +43,13 @@ namespace AOMMembers.Services.Data.Services
             return setting.Id;
         }
 
+        public async Task<bool> IsAbsent(string id)
+        {
+            Setting setting = await this.settingsRespository.GetByIdAsync(id);
+
+            return setting == null;
+        }
+
         public async Task<SettingDetailsViewModel> GetDetailsByIdAsync(string id)
         {
             Setting setting = await this.settingsRespository.GetByIdAsync(id);
@@ -58,9 +65,17 @@ namespace AOMMembers.Services.Data.Services
             return setting.Citizen.Member.ApplicationUserId == userId;
         }
 
+        public async Task<SettingEditModel> GetEditModelByIdAsync(string id)
+        {
+            Setting setting = await this.settingsRespository.GetByIdAsync(id);
+            SettingEditModel editModel = this.mapper.Map<SettingEditModel>(setting);
+
+            return editModel;
+        }
+
         public async Task<bool> EditAsync(string id, SettingEditModel editModel)
         {
-            Setting setting = this.settingsRespository.All().FirstOrDefault(s => s.Id == id);
+            Setting setting = await this.settingsRespository.GetByIdAsync(id);
             if (setting == null)
             {
                 return false;
@@ -75,9 +90,17 @@ namespace AOMMembers.Services.Data.Services
             return true;
         }
 
+        public async Task<SettingDeleteModel> GetDeleteModelByIdAsync(string id)
+        {
+            Setting setting = await this.settingsRespository.GetByIdAsync(id);
+            SettingDeleteModel deleteModel = this.mapper.Map<SettingDeleteModel>(setting);
+
+            return deleteModel;
+        }
+
         public async Task<bool> DeleteAsync(string id)
         {
-            Setting setting = this.settingsRespository.All().FirstOrDefault(s => s.Id == id);
+            Setting setting = await this.settingsRespository.GetByIdAsync(id);
             if (setting == null)
             {
                 return false;

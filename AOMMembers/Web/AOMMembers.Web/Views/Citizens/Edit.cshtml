@@ -14,37 +14,44 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="FirstName" class="control-label"></label>
-                <input asp-for="FirstName" class="form-control" />
+                @*<input asp-for="FirstName" class="form-control" placeholder=@Model.FirstName />*@
+                <input asp-for="FirstName" class="form-control" value=@Model.FirstName />
                 <span asp-validation-for="FirstName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="SecondName" class="control-label"></label>
-                <input asp-for="SecondName" class="form-control" />
+                @*<input asp-for="SecondName" class="form-control" placeholder=@Model.SecondName />*@
+                <input asp-for="SecondName" class="form-control" value=@Model.SecondName />
                 <span asp-validation-for="SecondName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="LastName" class="control-label"></label>
-                <input asp-for="LastName" class="form-control" />
+                @*<input asp-for="LastName" class="form-control" placeholder=@Model.LastName />*@
+                <input asp-for="LastName" class="form-control" value=@Model.LastName />
                 <span asp-validation-for="LastName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Gender" class="control-label"></label>
-                <input asp-for="Gender" class="form-control" />
+                @*<input asp-for="Gender" class="form-control" placeholder=@Model.Gender />*@
+                <input asp-for="Gender" class="form-control" value=@Model.Gender />
                 <span asp-validation-for="Gender" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Age" class="control-label"></label>
-                <input asp-for="Age" class="form-control" />
+                @*<input asp-for="Age" class="form-control" placeholder=@Model.Age />*@
+                <input asp-for="Age" class="form-control" value=@Model.Age />
                 <span asp-validation-for="Age" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="BirthDate" class="control-label"></label>
-                <input asp-for="BirthDate" class="form-control" />
+                @*<input asp-for="BirthDate" class="form-control" placeholder=@Model.BirthDate />*@
+                <input asp-for="BirthDate" class="form-control" value=@Model.BirthDate />
                 <span asp-validation-for="BirthDate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="DeathDate" class="control-label"></label>
-                <input asp-for="DeathDate" class="form-control" />
+                @*<input asp-for="DeathDate" class="form-control" placeholder=@Model.DeathDate />*@
+                <input asp-for="DeathDate" class="form-control" value=@Model.DeathDate />
                 <span asp-validation-for="DeathDate" class="text-danger"></span>
             </div>
             @*<div class="form-group">

@@ -42,6 +42,17 @@ namespace AOMMembers.Web.Controllers
             return this.RedirectToAction(nameof(this.Index));
         }
 
+        // GET: RelationshipsController/Details/"Id"
+        public async Task<ActionResult> Details(string id)
+        {
+            if (await this.settingsService.IsAbsent(id))
+            {
+                return this.NotFound();
+            }
+
+            return this.View();
+        }
+
         // GET: SettingsController/Create
         [Authorize(Roles = AdministratorRoleName + ", " + MemberRoleName)]
         public ActionResult Create()
@@ -79,47 +90,103 @@ namespace AOMMembers.Web.Controllers
 
         // GET: SettingsController/Edit/"Id"
         [Authorize(Roles = AdministratorRoleName + ", " + MemberRoleName)]
-        public ActionResult Edit(string id)
+        public async Task<ActionResult> Edit(string id)
         {
-            return this.View();
+            if (await this.settingsService.IsAbsent(id))
+            {
+                return this.NotFound();
+            }
+
+            string userId = this.userManager.GetUserId(this.User);
+            if (!await this.settingsService.IsFromMember(id, userId))
+            {
+                return this.Unauthorized(UnauthorizedEditMessage);
+            }
+
+            SettingEditModel editModel = await this.settingsService.GetEditModelByIdAsync(id);
+
+            return this.View(editModel);
         }
 
         // POST: SettingsController/Edit/"Id"
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = AdministratorRoleName + ", " + MemberRoleName)]
-        public async Task<ActionResult> Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> Edit(string id, SettingEditModel editModel)
         {
+            string userId = this.userManager.GetUserId(this.User);
+            if (!await this.settingsService.IsFromMember(id, userId))
+            {
+                return this.Unauthorized(UnauthorizedEditMessage);
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return this.View(editModel);
+            }
+
             try
             {
-                return this.RedirectToAction(nameof(Index));
+                bool isEdited = await this.settingsService.EditAsync(id, editModel);
+                if (!isEdited)
+                {
+                    return this.BadRequest();
+                }
+
+                return this.RedirectToAction(nameof(Details), new { id });
             }
             catch
             {
-                return this.View();
+                return this.View(editModel);
             }
         }
 
         // GET: SettingsController/Delete/"Id"
         [Authorize(Roles = AdministratorRoleName + ", " + MemberRoleName)]
-        public ActionResult Delete(string id)
+        public async Task<ActionResult> Delete(string id)
         {
-            return this.View();
+            if (await this.settingsService.IsAbsent(id))
+            {
+                return this.NotFound();
+            }
+
+            string userId = this.userManager.GetUserId(this.User);
+            if (!await this.settingsService.IsFromMember(id, userId))
+            {
+                return this.Unauthorized(UnauthorizedDeleteMessage);
+            }
+
+            SettingDeleteModel deleteModel = await this.settingsService.GetDeleteModelByIdAsync(id);
+
+            return this.View(deleteModel);
         }
 
         // POST: SettingsController/Delete/"Id"
         [HttpPost]
+        [ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = AdministratorRoleName + ", " + MemberRoleName)]
-        public async Task<ActionResult> Delete(string id, IFormCollection collection)
+        public async Task<ActionResult> DeleteConfirmed(string id)
         {
+            string userId = this.userManager.GetUserId(this.User);
+            if (!await this.settingsService.IsFromMember(id, userId))
+            {
+                return this.Unauthorized(UnauthorizedDeleteMessage);
+            }
+
             try
             {
-                return this.RedirectToAction(nameof(Index));
+                bool isDeleted = await this.settingsService.DeleteAsync(id);
+                if (!isDeleted)
+                {
+                    return this.BadRequest();
+                }
+
+                return this.Redirect("/Home/Index"); ;
             }
             catch
             {
-                return this.View();
+                return this.BadRequest();
             }
         }
     }

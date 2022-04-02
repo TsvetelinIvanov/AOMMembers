@@ -43,6 +43,13 @@ namespace AOMMembers.Services.Data.Services
             return lawProblem.Id;
         }
 
+        public async Task<bool> IsAbsent(string id)
+        {
+            LawProblem lawProblem = await this.lawProblemsRespository.GetByIdAsync(id);
+
+            return lawProblem == null;
+        }
+
         public async Task<LawProblemDetailsViewModel> GetDetailsByIdAsync(string id)
         {
             LawProblem lawProblem = await this.lawProblemsRespository.GetByIdAsync(id);
@@ -58,9 +65,17 @@ namespace AOMMembers.Services.Data.Services
             return lawProblem.LawState.Citizen.Member.ApplicationUserId == userId;
         }
 
+        public async Task<LawProblemEditModel> GetEditModelByIdAsync(string id)
+        {
+            LawProblem lawProblem = await this.lawProblemsRespository.GetByIdAsync(id);
+            LawProblemEditModel editModel = this.mapper.Map<LawProblemEditModel>(lawProblem);
+
+            return editModel;
+        }
+
         public async Task<bool> EditAsync(string id, LawProblemEditModel editModel)
         {
-            LawProblem lawProblem = this.lawProblemsRespository.All().FirstOrDefault(lp => lp.Id == id);
+            LawProblem lawProblem = await this.lawProblemsRespository.GetByIdAsync(id);
             if (lawProblem == null)
             {
                 return false;
@@ -75,9 +90,17 @@ namespace AOMMembers.Services.Data.Services
             return true;
         }
 
+        public async Task<LawProblemDeleteModel> GetDeleteModelByIdAsync(string id)
+        {
+            LawProblem lawProblem = await this.lawProblemsRespository.GetByIdAsync(id);
+            LawProblemDeleteModel deleteModel = this.mapper.Map<LawProblemDeleteModel>(lawProblem);
+
+            return deleteModel;
+        }
+
         public async Task<bool> DeleteAsync(string id)
         {
-            LawProblem lawProblem = this.lawProblemsRespository.All().FirstOrDefault(lp => lp.Id == id);
+            LawProblem lawProblem = await this.lawProblemsRespository.GetByIdAsync(id);
             if (lawProblem == null)
             {
                 return false;

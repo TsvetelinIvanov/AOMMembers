@@ -30,6 +30,11 @@ namespace AOMMembers.Web.Controllers
         // GET: SocietyHelpsController/Details/"Id"
         public async Task<ActionResult> Details(string id)
         {
+            if (await this.societyHelpsService.IsAbsent(id))
+            {
+                return this.NotFound();
+            }
+
             return this.View();
         }
 
@@ -70,47 +75,103 @@ namespace AOMMembers.Web.Controllers
 
         // GET: SocietyHelpsController/Edit/"Id"
         [Authorize(Roles = AdministratorRoleName + ", " + MemberRoleName)]
-        public ActionResult Edit(string id)
+        public async Task<ActionResult> Edit(string id)
         {
-            return this.View();
+            if (await this.societyHelpsService.IsAbsent(id))
+            {
+                return this.NotFound();
+            }
+
+            string userId = this.userManager.GetUserId(this.User);
+            if (!await this.societyHelpsService.IsFromMember(id, userId))
+            {
+                return this.Unauthorized(UnauthorizedEditMessage);
+            }
+
+            SocietyHelpEditModel editModel = await this.societyHelpsService.GetEditModelByIdAsync(id);
+
+            return this.View(editModel);
         }
 
         // POST: SocietyHelpsController/Edit/"Id"
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = AdministratorRoleName + ", " + MemberRoleName)]
-        public async Task<ActionResult> Edit(string id, IFormCollection collection)
+        public async Task<ActionResult> Edit(string id, SocietyHelpEditModel editModel)
         {
+            string userId = this.userManager.GetUserId(this.User);
+            if (!await this.societyHelpsService.IsFromMember(id, userId))
+            {
+                return this.Unauthorized(UnauthorizedEditMessage);
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return this.View(editModel);
+            }
+
             try
             {
-                return this.RedirectToAction(nameof(Index));
+                bool isEdited = await this.societyHelpsService.EditAsync(id, editModel);
+                if (!isEdited)
+                {
+                    return this.BadRequest();
+                }
+
+                return this.RedirectToAction(nameof(Details), new { id });
             }
             catch
             {
-                return this.View();
+                return this.View(editModel);
             }
         }
 
         // GET: SocietyHelpsController/Delete/"Id"
         [Authorize(Roles = AdministratorRoleName + ", " + MemberRoleName)]
-        public ActionResult Delete(string id)
+        public async Task<ActionResult> Delete(string id)
         {
-            return this.View();
+            if (await this.societyHelpsService.IsAbsent(id))
+            {
+                return this.NotFound();
+            }
+
+            string userId = this.userManager.GetUserId(this.User);
+            if (!await this.societyHelpsService.IsFromMember(id, userId))
+            {
+                return this.Unauthorized(UnauthorizedDeleteMessage);
+            }
+
+            SocietyHelpDeleteModel deleteModel = await this.societyHelpsService.GetDeleteModelByIdAsync(id);
+
+            return this.View(deleteModel);
         }
 
         // POST: SocietyHelpsController/Delete/"Id"
         [HttpPost]
+        [ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = AdministratorRoleName + ", " + MemberRoleName)]
-        public async Task<ActionResult> Delete(string id, IFormCollection collection)
+        public async Task<ActionResult> DeleteConfirmed(string id)
         {
+            string userId = this.userManager.GetUserId(this.User);
+            if (!await this.societyHelpsService.IsFromMember(id, userId))
+            {
+                return this.Unauthorized(UnauthorizedDeleteMessage);
+            }
+
             try
             {
-                return this.RedirectToAction(nameof(Index));
+                bool isDeleted = await this.societyHelpsService.DeleteAsync(id);
+                if (!isDeleted)
+                {
+                    return this.BadRequest();
+                }
+
+                return this.Redirect("/Home/Index"); ;
             }
             catch
             {
-                return this.View();
+                return this.BadRequest();
             }
         }
     }

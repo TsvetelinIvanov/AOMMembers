@@ -46,6 +46,13 @@ namespace AOMMembers.Services.Data.Services
             return workPosition.Id;
         }
 
+        public async Task<bool> IsAbsent(string id)
+        {
+            WorkPosition workPosition = await this.workPositionsRespository.GetByIdAsync(id);
+
+            return workPosition == null;
+        }
+
         public async Task<WorkPositionDetailsViewModel> GetDetailsByIdAsync(string id)
         {
             WorkPosition workPosition = await this.workPositionsRespository.GetByIdAsync(id);
@@ -61,9 +68,17 @@ namespace AOMMembers.Services.Data.Services
             return workPosition.Career.Citizen.Member.ApplicationUserId == userId;
         }
 
+        public async Task<WorkPositionEditModel> GetEditModelByIdAsync(string id)
+        {
+            WorkPosition workPosition = await this.workPositionsRespository.GetByIdAsync(id);
+            WorkPositionEditModel editModel = this.mapper.Map<WorkPositionEditModel>(workPosition);
+
+            return editModel;
+        }
+
         public async Task<bool> EditAsync(string id, WorkPositionEditModel editModel)
         {
-            WorkPosition workPosition = this.workPositionsRespository.All().FirstOrDefault(wp => wp.Id == id);
+            WorkPosition workPosition = await this.workPositionsRespository.GetByIdAsync(id);
             if (workPosition == null)
             {
                 return false;
@@ -81,9 +96,17 @@ namespace AOMMembers.Services.Data.Services
             return true;
         }
 
+        public async Task<WorkPositionDeleteModel> GetDeleteModelByIdAsync(string id)
+        {
+            WorkPosition workPosition = await this.workPositionsRespository.GetByIdAsync(id);
+            WorkPositionDeleteModel deleteModel = this.mapper.Map<WorkPositionDeleteModel>(workPosition);
+
+            return deleteModel;
+        }
+
         public async Task<bool> DeleteAsync(string id)
         {
-            WorkPosition workPosition = this.workPositionsRespository.All().FirstOrDefault(wp => wp.Id == id);
+            WorkPosition workPosition = await this.workPositionsRespository.GetByIdAsync(id);
             if (workPosition == null)
             {
                 return false;

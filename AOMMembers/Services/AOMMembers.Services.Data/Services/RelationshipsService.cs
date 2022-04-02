@@ -52,6 +52,13 @@ namespace AOMMembers.Services.Data.Services
             return relationship.Id;
         }
 
+        public async Task<bool> IsAbsent(string id)
+        {
+            Relationship relationship = await this.relationshipsRespository.GetByIdAsync(id);
+
+            return relationship == null;
+        }
+
         public async Task<RelationshipDetailsViewModel> GetDetailsByIdAsync(string id)
         {
             Relationship relationship = await this.relationshipsRespository.GetByIdAsync(id);
@@ -77,9 +84,17 @@ namespace AOMMembers.Services.Data.Services
             return relationship.Member.ApplicationUserId == userId;
         }
 
+        public async Task<RelationshipEditModel> GetEditModelByIdAsync(string id)
+        {
+            Relationship relationship = await this.relationshipsRespository.GetByIdAsync(id);
+            RelationshipEditModel editModel = this.mapper.Map<RelationshipEditModel>(relationship);
+
+            return editModel;
+        }
+
         public async Task<bool> EditAsync(string id, RelationshipEditModel editModel)
         {
-            Relationship relationship = this.relationshipsRespository.All().FirstOrDefault(r => r.Id == id);
+            Relationship relationship = await this.relationshipsRespository.GetByIdAsync(id);
             if (relationship == null)
             {
                 return false;
@@ -94,9 +109,25 @@ namespace AOMMembers.Services.Data.Services
             return true;
         }
 
+        public async Task<RelationshipDeleteModel> GetDeleteModelByIdAsync(string id)
+        {
+            Relationship relationship = await this.relationshipsRespository.GetByIdAsync(id);
+            RelationshipDeleteModel deleteModel = new RelationshipDeleteModel
+            {
+                Id = relationship.Id,
+                Kind = relationship.Kind,
+                Description = relationship.Description,                
+                CreatedOn = relationship.CreatedOn,
+                ModifiedOn = relationship.ModifiedOn,
+                RelationshipCitizenFullName = relationship.Citizen.FirstName + " " + relationship.Citizen.SecondName + " " + relationship.Citizen.LastName
+            };
+
+            return deleteModel;
+        }
+
         public async Task<bool> DeleteAsync(string id)
         {
-            Relationship relationship = this.relationshipsRespository.All().FirstOrDefault(r => r.Id == id);
+            Relationship relationship = await this.relationshipsRespository.GetByIdAsync(id);
             if (relationship == null)
             {
                 return false;

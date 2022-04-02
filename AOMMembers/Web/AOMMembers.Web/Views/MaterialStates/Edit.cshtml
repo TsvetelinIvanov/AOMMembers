@@ -14,27 +14,32 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Riches" class="control-label"></label>
-                <input asp-for="Riches" class="form-control" />
+                 @*<input asp-for="Riches" class="form-control" placeholder=@Model.Riches />*@
+                <input asp-for="Riches" class="form-control" value=@Model.Riches />
                 <span asp-validation-for="Riches" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Money" class="control-label"></label>
-                <input asp-for="Money" class="form-control" />
+                 @*<input asp-for="Money" class="form-control" placeholder=@Model.Money />*@
+                <input asp-for="Money" class="form-control" value=@Model.Money />
                 <span asp-validation-for="Money" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="MonthIncome" class="control-label"></label>
-                <input asp-for="MonthIncome" class="form-control" />
+                 @*<input asp-for="MonthIncome" class="form-control" placeholder=@Model.MonthIncome />*@
+                <input asp-for="MonthIncome" class="form-control" value=@Model.MonthIncome />
                 <span asp-validation-for="MonthIncome" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
+                 @*<input asp-for="Description" class="form-control" placeholder=@Model.Description />*@
+                <input asp-for="Description" class="form-control" value=@Model.Description />
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="TaxDeclarationLink" class="control-label"></label>
-                <input asp-for="TaxDeclarationLink" class="form-control" />
+                 @*<input asp-for="TaxDeclarationLink" class="form-control" placeholder=@Model.TaxDeclarationLink />*@
+                <input asp-for="TaxDeclarationLink" class="form-control" value=@Model.TaxDeclarationLink />
                 <span asp-validation-for="TaxDeclarationLink" class="text-danger"></span>
             </div>
             @*<div class="form-group">

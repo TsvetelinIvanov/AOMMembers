@@ -14,22 +14,26 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
+                @*<input asp-for="Name" class="form-control" placeholder=@Model.Name />*@
+                <input asp-for="Name" class="form-control" value=@Model.Name />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
+                @*<input asp-for="Description" class="form-control" placeholder=@Model.Description />*@
+                <input asp-for="Description" class="form-control" value=@Model.Description />
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Result" class="control-label"></label>
-                <input asp-for="Result" class="form-control" />
+                @*<input asp-for="Result" class="form-control" placeholder=@Model.Result />*@
+                <input asp-for="Result" class="form-control" value=@Model.Result />
                 <span asp-validation-for="Result" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="EventLink" class="control-label"></label>
-                <input asp-for="EventLink" class="form-control" />
+                @*<input asp-for="EventLink" class="form-control" placeholder=@Model.EventLink />*@
+                <input asp-for="EventLink" class="form-control" value=@Model.EventLink />
                 <span asp-validation-for="EventLink" class="text-danger"></span>
             </div>
             @*<div class="form-group">

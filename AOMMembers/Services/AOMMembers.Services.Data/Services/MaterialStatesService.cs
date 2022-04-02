@@ -1,4 +1,5 @@
-﻿using AOMMembers.Data.Common.Repositories;
+﻿using AutoMapper;
+using AOMMembers.Data.Common.Repositories;
 using AOMMembers.Data.Models;
 using AOMMembers.Services.Data.Interfaces;
 using AOMMembers.Web.ViewModels.MaterialStates;
@@ -8,13 +9,17 @@ namespace AOMMembers.Services.Data.Services
 {
     public class MaterialStatesService : IMaterialStatesService
     {
+        private readonly IMapper mapper;
         private readonly IDeletableEntityRepository<MaterialState> materialStatesRespository;
         private readonly IDeletableEntityRepository<Citizen> citizensRespository;
+        private readonly IDeletableEntityRepository<Asset> assetsRespository;
 
-        public MaterialStatesService(IDeletableEntityRepository<MaterialState> materialStatesRespository, IDeletableEntityRepository<Citizen> citizensRespository)
+        public MaterialStatesService(IMapper mapper, IDeletableEntityRepository<MaterialState> materialStatesRespository, IDeletableEntityRepository<Citizen> citizensRespository, IDeletableEntityRepository<Asset> assetsRespository)
         {
+            this.mapper = mapper;
             this.materialStatesRespository = materialStatesRespository;
             this.citizensRespository = citizensRespository;
+            this.assetsRespository = assetsRespository;
         }        
 
         public async Task<string> CreateAsync(MaterialStateInputModel inputModel, string userId)
@@ -40,6 +45,13 @@ namespace AOMMembers.Services.Data.Services
             await this.materialStatesRespository.SaveChangesAsync();
 
             return materialState.Id;
+        }
+
+        public async Task<bool> IsAbsent(string id)
+        {
+            MaterialState materialState = await this.materialStatesRespository.GetByIdAsync(id);
+
+            return materialState == null;
         }
 
         public async Task<MaterialStateDetailsViewModel> GetDetailsByIdAsync(string id)
@@ -69,9 +81,17 @@ namespace AOMMembers.Services.Data.Services
             return materialState.Citizen.Member.ApplicationUserId == userId;
         }
 
+        public async Task<MaterialStateEditModel> GetEditModelByIdAsync(string id)
+        {
+            MaterialState materialState = await this.materialStatesRespository.GetByIdAsync(id);
+            MaterialStateEditModel editModel = this.mapper.Map<MaterialStateEditModel>(materialState);
+
+            return editModel;
+        }
+
         public async Task<bool> EditAsync(string id, MaterialStateEditModel editModel)
         {
-            MaterialState materialState = this.materialStatesRespository.All().FirstOrDefault(ms => ms.Id == id);
+            MaterialState materialState = await this.materialStatesRespository.GetByIdAsync(id);
             if (materialState == null)
             {
                 return false;
@@ -89,13 +109,39 @@ namespace AOMMembers.Services.Data.Services
             return true;
         }
 
+        public async Task<MaterialStateDeleteModel> GetDeleteModelByIdAsync(string id)
+        {
+            MaterialState materialState = await this.materialStatesRespository.GetByIdAsync(id);
+            MaterialStateDeleteModel deleteModel = new MaterialStateDeleteModel
+            {
+                Id = materialState.Id,
+                Riches = materialState.Riches,
+                Money = materialState.Money,
+                MonthIncome = materialState.MonthIncome,
+                Description = materialState.Description,
+                TaxDeclarationLink = materialState.TaxDeclarationLink,                
+                CreatedOn = materialState.CreatedOn,
+                ModifiedOn = materialState.ModifiedOn,
+                AssetsCount = materialState.Assets.Count
+            };
+
+            return deleteModel;
+        }
+
         public async Task<bool> DeleteAsync(string id)
         {
-            MaterialState materialState = this.materialStatesRespository.All().FirstOrDefault(ms => ms.Id == id);
+            MaterialState materialState = await this.materialStatesRespository.GetByIdAsync(id);
             if (materialState == null)
             {
                 return false;
             }
+
+            foreach (Asset asset in materialState.Assets)
+            {
+                this.assetsRespository.Delete(asset);
+            }
+
+            await this.assetsRespository.SaveChangesAsync();
 
             this.materialStatesRespository.Delete(materialState);
             await this.materialStatesRespository.SaveChangesAsync();

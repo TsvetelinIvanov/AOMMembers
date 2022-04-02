@@ -14,37 +14,44 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Kind" class="control-label"></label>
-                <input asp-for="Kind" class="form-control" />
+                @*<input asp-for="Kind" class="form-control" placeholder=@Model.Kind />*@
+                <input asp-for="Kind" class="form-control" value=@Model.Kind />
                 <span asp-validation-for="Kind" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="MediaName" class="control-label"></label>
-                <input asp-for="MediaName" class="form-control" />
+                @*<input asp-for="MediaName" class="form-control" placeholder=@Model.MediaName />*@
+                <input asp-for="MediaName" class="form-control" value=@Model.MediaName />
                 <span asp-validation-for="MediaName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="IssueDate" class="control-label"></label>
-                <input asp-for="IssueDate" class="form-control" />
+                @*<input asp-for="IssueDate" class="form-control" placeholder=@Model.IssueDate />*@
+                <input asp-for="IssueDate" class="form-control" value=@Model.IssueDate />
                 <span asp-validation-for="IssueDate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Author" class="control-label"></label>
-                <input asp-for="Author" class="form-control" />
+                @*<input asp-for="Author" class="form-control" placeholder=@Model.Author />*@
+                <input asp-for="Author" class="form-control" value=@Model.Author />
                 <span asp-validation-for="Author" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Heading" class="control-label"></label>
-                <input asp-for="Heading" class="form-control" />
+               @*<input asp-for="Heading" class="form-control" placeholder=@Model.Heading />*@
+                <input asp-for="Heading" class="form-control" value=@Model.Heading />
                 <span asp-validation-for="Heading" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
+                @*<input asp-for="Description" class="form-control" placeholder=@Model.Description />*@
+                <input asp-for="Description" class="form-control" value=@Model.Description />
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="MediaMaterialLink" class="control-label"></label>
-                <input asp-for="MediaMaterialLink" class="form-control" />
+                @*<input asp-for="MediaMaterialLink" class="form-control" placeholder=@Model.MediaMaterialLink />*@
+                <input asp-for="MediaMaterialLink" class="form-control" value=@Model.MediaMaterialLink />
                 <span asp-validation-for="MediaMaterialLink" class="text-danger"></span>
             </div>
             @*<div class="form-group">

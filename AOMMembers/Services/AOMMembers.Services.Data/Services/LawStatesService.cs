@@ -1,4 +1,5 @@
-﻿using AOMMembers.Data.Common.Repositories;
+﻿using AutoMapper;
+using AOMMembers.Data.Common.Repositories;
 using AOMMembers.Data.Models;
 using AOMMembers.Services.Data.Interfaces;
 using AOMMembers.Web.ViewModels.LawStates;
@@ -8,13 +9,17 @@ namespace AOMMembers.Services.Data.Services
 {
     public class LawStatesService : ILawStatesService
     {
+        private readonly IMapper mapper;
         private readonly IDeletableEntityRepository<LawState> lawStatesRespository;
         private readonly IDeletableEntityRepository<Citizen> citizensRespository;
+        private readonly IDeletableEntityRepository<LawProblem> lawProblemsRespository;
 
-        public LawStatesService(IDeletableEntityRepository<LawState> lawStatesRespository, IDeletableEntityRepository<Citizen> citizensRespository)
+        public LawStatesService(IMapper mapper, IDeletableEntityRepository<LawState> lawStatesRespository, IDeletableEntityRepository<Citizen> citizensRespository, IDeletableEntityRepository<LawProblem> lawProblemsRespository)
         {
+            this.mapper = mapper;
             this.lawStatesRespository = lawStatesRespository;
             this.citizensRespository = citizensRespository;
+            this.lawProblemsRespository = lawProblemsRespository;
         }        
 
         public async Task<string> CreateAsync(LawStateInputModel inputModel, string userId)
@@ -36,6 +41,13 @@ namespace AOMMembers.Services.Data.Services
             await this.lawStatesRespository.SaveChangesAsync();
 
             return lawState.Id;
+        }
+
+        public async Task<bool> IsAbsent(string id)
+        {
+            LawState lawState = await this.lawStatesRespository.GetByIdAsync(id);
+
+            return lawState == null;
         }
 
         public async Task<LawStateDetailsViewModel> GetDetailsByIdAsync(string id)
@@ -61,9 +73,17 @@ namespace AOMMembers.Services.Data.Services
             return lawState.Citizen.Member.ApplicationUserId == userId;
         }
 
+        public async Task<LawStateEditModel> GetEditModelByIdAsync(string id)
+        {
+            LawState lawState = await this.lawStatesRespository.GetByIdAsync(id);
+            LawStateEditModel editModel = this.mapper.Map<LawStateEditModel>(lawState);
+
+            return editModel;
+        }
+
         public async Task<bool> EditAsync(string id, LawStateEditModel editModel)
         {
-            LawState lawState = this.lawStatesRespository.All().FirstOrDefault(ls => ls.Id == id);
+            LawState lawState = await this.lawStatesRespository.GetByIdAsync(id);
             if (lawState == null)
             {
                 return false;
@@ -77,13 +97,35 @@ namespace AOMMembers.Services.Data.Services
             return true;
         }
 
+        public async Task<LawStateDeleteModel> GetDeleteModelByIdAsync(string id)
+        {
+            LawState lawState = await this.lawStatesRespository.GetByIdAsync(id);
+            LawStateDeleteModel deleteModel = new LawStateDeleteModel
+            {
+                Id = lawState.Id,
+                Condition = lawState.Condition,
+                CreatedOn = lawState.CreatedOn,
+                ModifiedOn = lawState.ModifiedOn,
+                LawProblemsCount = lawState.LawProblems.Count
+            };
+
+            return deleteModel;
+        }
+
         public async Task<bool> DeleteAsync(string id)
         {
-            LawState lawState = this.lawStatesRespository.All().FirstOrDefault(ls => ls.Id == id);
+            LawState lawState = await this.lawStatesRespository.GetByIdAsync(id);
             if (lawState == null)
             {
                 return false;
             }
+
+            foreach (LawProblem lawProblem in lawState.LawProblems)
+            {
+                this.lawProblemsRespository.Delete(lawProblem);
+            }
+
+            await this.lawProblemsRespository.SaveChangesAsync();
 
             this.lawStatesRespository.Delete(lawState);
             await this.lawStatesRespository.SaveChangesAsync();

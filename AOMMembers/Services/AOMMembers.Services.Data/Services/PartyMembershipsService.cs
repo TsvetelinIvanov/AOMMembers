@@ -46,6 +46,13 @@ namespace AOMMembers.Services.Data.Services
             return partyMembership.Id;
         }
 
+        public async Task<bool> IsAbsent(string id)
+        {
+            PartyMembership partyMembership = await this.partyMembershipsRespository.GetByIdAsync(id);
+
+            return partyMembership == null;
+        }
+
         public async Task<PartyMembershipDetailsViewModel> GetDetailsByIdAsync(string id)
         {
             PartyMembership partyMembership = await this.partyMembershipsRespository.GetByIdAsync(id);
@@ -61,9 +68,17 @@ namespace AOMMembers.Services.Data.Services
             return partyMembership.Citizen.Member.ApplicationUserId == userId;
         }
 
+        public async Task<PartyMembershipEditModel> GetEditModelByIdAsync(string id)
+        {
+            PartyMembership partyMembership = await this.partyMembershipsRespository.GetByIdAsync(id);
+            PartyMembershipEditModel editModel = this.mapper.Map<PartyMembershipEditModel>(partyMembership);
+
+            return editModel;
+        }
+
         public async Task<bool> EditAsync(string id, PartyMembershipEditModel editModel)
         {
-            PartyMembership partyMembership = this.partyMembershipsRespository.All().FirstOrDefault(pm => pm.Id == id);
+            PartyMembership partyMembership = await this.partyMembershipsRespository.GetByIdAsync(id);
             if (partyMembership == null)
             {
                 return false;
@@ -81,9 +96,17 @@ namespace AOMMembers.Services.Data.Services
             return true;
         }
 
+        public async Task<PartyMembershipDeleteModel> GetDeleteModelByIdAsync(string id)
+        {
+            PartyMembership partyMembership = await this.partyMembershipsRespository.GetByIdAsync(id);
+            PartyMembershipDeleteModel deleteModel = this.mapper.Map<PartyMembershipDeleteModel>(partyMembership);
+
+            return deleteModel;
+        }
+
         public async Task<bool> DeleteAsync(string id)
         {
-            PartyMembership partyMembership = this.partyMembershipsRespository.All().FirstOrDefault(pm => pm.Id == id);
+            PartyMembership partyMembership = await this.partyMembershipsRespository.GetByIdAsync(id);
             if (partyMembership == null)
             {
                 return false;

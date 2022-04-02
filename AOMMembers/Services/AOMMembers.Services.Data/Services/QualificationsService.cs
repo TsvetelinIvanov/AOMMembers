@@ -45,6 +45,13 @@ namespace AOMMembers.Services.Data.Services
             return qualification.Id;
         }
 
+        public async Task<bool> IsAbsent(string id)
+        {
+            Qualification qualification = await this.qualificationsRespository.GetByIdAsync(id);
+
+            return qualification == null;
+        }
+
         public async Task<QualificationDetailsViewModel> GetDetailsByIdAsync(string id)
         {
             Qualification qualification = await this.qualificationsRespository.GetByIdAsync(id);
@@ -60,9 +67,17 @@ namespace AOMMembers.Services.Data.Services
             return qualification.Education.Citizen.Member.ApplicationUserId == userId;
         }
 
+        public async Task<QualificationEditModel> GetEditModelByIdAsync(string id)
+        {
+            Qualification qualification = await this.qualificationsRespository.GetByIdAsync(id);
+            QualificationEditModel editModel = this.mapper.Map<QualificationEditModel>(qualification);
+
+            return editModel;
+        }
+
         public async Task<bool> EditAsync(string id, QualificationEditModel editModel)
         {
-            Qualification qualification = this.qualificationsRespository.All().FirstOrDefault(q => q.Id == id);
+            Qualification qualification = await this.qualificationsRespository.GetByIdAsync(id);
             if (qualification == null)
             {
                 return false;
@@ -79,9 +94,17 @@ namespace AOMMembers.Services.Data.Services
             return true;
         }
 
+        public async Task<QualificationDeleteModel> GetDeleteModelByIdAsync(string id)
+        {
+            Qualification qualification = await this.qualificationsRespository.GetByIdAsync(id);
+            QualificationDeleteModel deleteModel = this.mapper.Map<QualificationDeleteModel>(qualification);
+
+            return deleteModel;
+        }
+
         public async Task<bool> DeleteAsync(string id)
         {
-            Qualification qualification = this.qualificationsRespository.All().FirstOrDefault(q => q.Id == id);
+            Qualification qualification = await this.qualificationsRespository.GetByIdAsync(id);
             if (qualification == null)
             {
                 return false;

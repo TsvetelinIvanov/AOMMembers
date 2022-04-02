@@ -45,6 +45,13 @@ namespace AOMMembers.Services.Data.Services
             return societyActivity.Id;
         }
 
+        public async Task<bool> IsAbsent(string id)
+        {
+            SocietyActivity societyActivity = await this.societyActivitiesRespository.GetByIdAsync(id);
+
+            return societyActivity == null;
+        }
+
         public async Task<SocietyActivityDetailsViewModel> GetDetailsByIdAsync(string id)
         {
             SocietyActivity societyActivity = await this.societyActivitiesRespository.GetByIdAsync(id);
@@ -60,9 +67,17 @@ namespace AOMMembers.Services.Data.Services
             return societyActivity.Citizen.Member.ApplicationUserId == userId;
         }
 
+        public async Task<SocietyActivityEditModel> GetEditModelByIdAsync(string id)
+        {
+            SocietyActivity societyActivity = await this.societyActivitiesRespository.GetByIdAsync(id);
+            SocietyActivityEditModel editModel = this.mapper.Map<SocietyActivityEditModel>(societyActivity);
+
+            return editModel;
+        }
+
         public async Task<bool> EditAsync(string id, SocietyActivityEditModel editModel)
         {
-            SocietyActivity societyActivity = this.societyActivitiesRespository.All().FirstOrDefault(sa => sa.Id == id);
+            SocietyActivity societyActivity = await this.societyActivitiesRespository.GetByIdAsync(id);
             if (societyActivity == null)
             {
                 return false;
@@ -79,9 +94,17 @@ namespace AOMMembers.Services.Data.Services
             return true;
         }
 
+        public async Task<SocietyActivityDeleteModel> GetDeleteModelByIdAsync(string id)
+        {
+            SocietyActivity societyActivity = await this.societyActivitiesRespository.GetByIdAsync(id);
+            SocietyActivityDeleteModel deleteModel = this.mapper.Map<SocietyActivityDeleteModel>(societyActivity);
+
+            return deleteModel;
+        }
+
         public async Task<bool> DeleteAsync(string id)
         {
-            SocietyActivity societyActivity = this.societyActivitiesRespository.All().FirstOrDefault(sa => sa.Id == id);
+            SocietyActivity societyActivity = await this.societyActivitiesRespository.GetByIdAsync(id);
             if (societyActivity == null)
             {
                 return false;

@@ -6,11 +6,17 @@ namespace AOMMembers.Services.Data.Interfaces
     {
         Task<string> CreateAsync(SettingInputModel inputModel, string userId);
 
+        Task<bool> IsAbsent(string id);
+
         Task<SettingDetailsViewModel> GetDetailsByIdAsync(string id);
 
         Task<bool> IsFromMember(string id, string userId);
 
+        Task<SettingEditModel> GetEditModelByIdAsync(string id);
+
         Task<bool> EditAsync(string id, SettingEditModel editModel);
+
+        Task<SettingDeleteModel> GetDeleteModelByIdAsync(string id);
 
         Task<bool> DeleteAsync(string id);
 

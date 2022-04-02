@@ -1,4 +1,5 @@
-﻿using AOMMembers.Data.Common.Repositories;
+﻿using AutoMapper;
+using AOMMembers.Data.Common.Repositories;
 using AOMMembers.Data.Models;
 using AOMMembers.Services.Data.Interfaces;
 using AOMMembers.Web.ViewModels.Worldviews;
@@ -8,13 +9,17 @@ namespace AOMMembers.Services.Data.Services
 {
     public class WorldviewsService : IWorldviewsService
     {
+        private readonly IMapper mapper;
         private readonly IDeletableEntityRepository<Worldview> worldviewsRespository;
         private readonly IDeletableEntityRepository<Citizen> citizensRespository;
+        private readonly IDeletableEntityRepository<Interest> interestsRespository;
 
-        public WorldviewsService(IDeletableEntityRepository<Worldview> worldviewsRespository, IDeletableEntityRepository<Citizen> citizensRespository)
+        public WorldviewsService(IMapper mapper, IDeletableEntityRepository<Worldview> worldviewsRespository, IDeletableEntityRepository<Citizen> citizensRespository, IDeletableEntityRepository<Interest> interestsRespository)
         {
+            this.mapper = mapper;
             this.worldviewsRespository = worldviewsRespository;
             this.citizensRespository = citizensRespository;
+            this.interestsRespository = interestsRespository;
         }
 
         public async Task<string> CreateAsync(WorldviewInputModel inputModel, string userId)
@@ -37,6 +42,13 @@ namespace AOMMembers.Services.Data.Services
             await this.worldviewsRespository.SaveChangesAsync();
 
             return worldview.Id;
+        }
+
+        public async Task<bool> IsAbsent(string id)
+        {
+            Worldview worldview = await this.worldviewsRespository.GetByIdAsync(id);
+
+            return worldview == null;
         }
 
         public async Task<WorldviewDetailsViewModel> GetDetailsByIdAsync(string id)
@@ -63,9 +75,17 @@ namespace AOMMembers.Services.Data.Services
             return worldview.Citizen.Member.ApplicationUserId == userId;
         }
 
+        public async Task<WorldviewEditModel> GetEditModelByIdAsync(string id)
+        {
+            Worldview worldview = await this.worldviewsRespository.GetByIdAsync(id);
+            WorldviewEditModel editModel = this.mapper.Map<WorldviewEditModel>(worldview);
+
+            return editModel;
+        }
+
         public async Task<bool> EditAsync(string id, WorldviewEditModel editModel)
         {
-            Worldview worldview = this.worldviewsRespository.All().FirstOrDefault(w => w.Id == id);
+            Worldview worldview = await this.worldviewsRespository.GetByIdAsync(id);
             if (worldview == null)
             {
                 return false;
@@ -80,13 +100,36 @@ namespace AOMMembers.Services.Data.Services
             return true;
         }
 
+        public async Task<WorldviewDeleteModel> GetDeleteModelByIdAsync(string id)
+        {
+            Worldview worldview = await this.worldviewsRespository.GetByIdAsync(id);
+            WorldviewDeleteModel deleteModel = new WorldviewDeleteModel
+            {
+                Id = worldview.Id,
+                Description = worldview.Description,
+                Ideology = worldview.Ideology,                
+                CreatedOn = worldview.CreatedOn,
+                ModifiedOn = worldview.ModifiedOn,
+                InterestsCount = worldview.Interests.Count
+            };
+
+            return deleteModel;
+        }
+
         public async Task<bool> DeleteAsync(string id)
         {
-            Worldview worldview = this.worldviewsRespository.All().FirstOrDefault(w => w.Id == id);
+            Worldview worldview = await this.worldviewsRespository.GetByIdAsync(id);
             if (worldview == null)
             {
                 return false;
             }
+
+            foreach (Interest interest in worldview.Interests)
+            {
+                this.interestsRespository.Delete(interest);
+            }
+
+            await this.interestsRespository.SaveChangesAsync();
 
             this.worldviewsRespository.Delete(worldview);
             await this.worldviewsRespository.SaveChangesAsync();

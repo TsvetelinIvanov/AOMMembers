@@ -48,6 +48,13 @@ namespace AOMMembers.Services.Data.Services
             return mediaMaterial.Id;
         }
 
+        public async Task<bool> IsAbsent(string id)
+        {
+            MediaMaterial mediaMaterial = await this.mediaMaterialsRespository.GetByIdAsync(id);
+
+            return mediaMaterial == null;
+        }
+
         public async Task<MediaMaterialDetailsViewModel> GetDetailsByIdAsync(string id)
         {
             MediaMaterial mediaMaterial = await this.mediaMaterialsRespository.GetByIdAsync(id);
@@ -63,9 +70,17 @@ namespace AOMMembers.Services.Data.Services
             return mediaMaterial.PublicImage.Member.ApplicationUserId == userId;
         }
 
+        public async Task<MediaMaterialEditModel> GetEditModelByIdAsync(string id)
+        {
+            MediaMaterial mediaMaterial = await this.mediaMaterialsRespository.GetByIdAsync(id);
+            MediaMaterialEditModel editModel = this.mapper.Map<MediaMaterialEditModel>(mediaMaterial);
+
+            return editModel;
+        }
+
         public async Task<bool> EditAsync(string id, MediaMaterialEditModel editModel)
         {
-            MediaMaterial mediaMaterial = this.mediaMaterialsRespository.All().FirstOrDefault(mm => mm.Id == id);
+            MediaMaterial mediaMaterial = await this.mediaMaterialsRespository.GetByIdAsync(id);
             if (mediaMaterial == null)
             {
                 return false;
@@ -85,9 +100,17 @@ namespace AOMMembers.Services.Data.Services
             return true;
         }
 
+        public async Task<MediaMaterialDeleteModel> GetDeleteModelByIdAsync(string id)
+        {
+            MediaMaterial mediaMaterial = await this.mediaMaterialsRespository.GetByIdAsync(id);
+            MediaMaterialDeleteModel deleteModel = this.mapper.Map<MediaMaterialDeleteModel>(mediaMaterial);
+
+            return deleteModel;
+        }
+
         public async Task<bool> DeleteAsync(string id)
         {
-            MediaMaterial mediaMaterial = this.mediaMaterialsRespository.All().FirstOrDefault(mm => mm.Id == id);
+            MediaMaterial mediaMaterial = await this.mediaMaterialsRespository.GetByIdAsync(id);
             if (mediaMaterial == null)
             {
                 return false;

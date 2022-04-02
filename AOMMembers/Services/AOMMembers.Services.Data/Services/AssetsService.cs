@@ -44,6 +44,13 @@ namespace AOMMembers.Services.Data.Services
             return asset.Id;
         }
 
+        public async Task<bool> IsAbsent(string id)
+        {
+            Asset asset = await this.assetsRespository.GetByIdAsync(id);
+
+            return asset == null;
+        }
+
         public async Task<AssetDetailsViewModel> GetDetailsByIdAsync(string id)
         {
             Asset asset = await this.assetsRespository.GetByIdAsync(id);
@@ -59,9 +66,17 @@ namespace AOMMembers.Services.Data.Services
             return asset.MaterialState.Citizen.Member.ApplicationUserId == userId;
         }
 
+        public async Task<AssetEditModel> GetEditModelByIdAsync(string id)
+        {
+            Asset asset = await this.assetsRespository.GetByIdAsync(id);
+            AssetEditModel editModel = this.mapper.Map<AssetEditModel>(asset);
+
+            return editModel;
+        }
+
         public async Task<bool> EditAsync(string id, AssetEditModel editModel)
         {
-            Asset asset = this.assetsRespository.All().FirstOrDefault(a => a.Id == id);
+            Asset asset = await this.assetsRespository.GetByIdAsync(id);
             if (asset == null)
             {
                 return false;
@@ -75,11 +90,19 @@ namespace AOMMembers.Services.Data.Services
             await this.assetsRespository.SaveChangesAsync();
 
             return true;
-        }        
+        }
+
+        public async Task<AssetDeleteModel> GetDeleteModelByIdAsync(string id)
+        {
+            Asset asset = await this.assetsRespository.GetByIdAsync(id);
+            AssetDeleteModel deleteModel = this.mapper.Map<AssetDeleteModel>(asset);
+
+            return deleteModel;
+        }
 
         public async Task<bool> DeleteAsync(string id)
         {
-            Asset asset = this.assetsRespository.All().FirstOrDefault(a => a.Id == id);            
+            Asset asset = await this.assetsRespository.GetByIdAsync(id);
             if (asset == null)
             {
                 return false;

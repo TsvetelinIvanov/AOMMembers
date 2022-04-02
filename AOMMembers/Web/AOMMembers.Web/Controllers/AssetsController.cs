@@ -30,6 +30,11 @@ namespace AOMMembers.Web.Controllers
         // GET: AssetsController/Details/"Id"
         public async Task<ActionResult> Details(string id)
         {
+            if (await this.assetsService.IsAbsent(id))
+            {
+                return this.NotFound();
+            }
+
             return this.View();
         }
 
@@ -48,7 +53,7 @@ namespace AOMMembers.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return Redirect("/Assets/Create");
+                return this.Redirect("/Assets/Create");
             }
 
             try
@@ -60,6 +65,7 @@ namespace AOMMembers.Web.Controllers
                     return this.BadRequest(AssetCreateWithoutMaterialStateBadRequest);
                 }
 
+                //return this.RedirectToAction(nameof(Details), new { id = assetId });
                 return this.Redirect("/Assets/Details?id=" + assetId);
             }
             catch
@@ -70,47 +76,103 @@ namespace AOMMembers.Web.Controllers
 
         // GET: AssetsController/Edit/"Id"
         [Authorize(Roles = AdministratorRoleName + ", " + MemberRoleName)]
-        public ActionResult Edit(string id)
+        public async Task<ActionResult> Edit(string id)
         {
-            return this.View();
+            if (await this.assetsService.IsAbsent(id))
+            {
+                return this.NotFound();
+            }
+
+            string userId = this.userManager.GetUserId(this.User);
+            if (!await this.assetsService.IsFromMember(id, userId))
+            {
+                return this.Unauthorized(UnauthorizedEditMessage);
+            }
+
+            AssetEditModel editModel = await this.assetsService.GetEditModelByIdAsync(id);
+
+            return this.View(editModel);
         }
 
         // POST: AssetsController/Edit/"Id"
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = AdministratorRoleName + ", " + MemberRoleName)]
-        public async Task<ActionResult> Edit(string id, IFormCollection collection)
+        public async Task<ActionResult> Edit(string id, AssetEditModel editModel)
         {
+            string userId = this.userManager.GetUserId(this.User);
+            if (!await this.assetsService.IsFromMember(id, userId))
+            {
+                return this.Unauthorized(UnauthorizedEditMessage);
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return this.View(editModel);
+            }
+
             try
             {
-                return this.RedirectToAction(nameof(Index));
+                bool isEdited = await this.assetsService.EditAsync(id, editModel);
+                if (!isEdited)
+                {
+                    return this.BadRequest();
+                }
+
+                return this.RedirectToAction(nameof(Details), new {id});
             }
             catch
             {
-                return this.View();
+                return this.View(editModel);
             }
         }
 
         // GET: AssetsController/Delete/"Id"
         [Authorize(Roles = AdministratorRoleName + ", " + MemberRoleName)]
-        public ActionResult Delete(string id)
+        public async Task<ActionResult> Delete(string id)
         {
-            return this.View();
+            if (await this.assetsService.IsAbsent(id))
+            {
+                return this.NotFound();
+            }
+
+            string userId = this.userManager.GetUserId(this.User);
+            if (!await this.assetsService.IsFromMember(id, userId))
+            {
+                return this.Unauthorized(UnauthorizedDeleteMessage);
+            }
+
+            AssetDeleteModel deleteModel = await this.assetsService.GetDeleteModelByIdAsync(id);
+
+            return this.View(deleteModel);
         }
 
         // POST: AssetsController/Delete/"Id"
         [HttpPost]
+        [ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = AdministratorRoleName + ", " + MemberRoleName)]
-        public async Task<ActionResult> Delete(string id, IFormCollection collection)
+        public async Task<ActionResult> DeleteConfirmed(string id)
         {
+            string userId = this.userManager.GetUserId(this.User);
+            if (!await this.assetsService.IsFromMember(id, userId))
+            {
+                return this.Unauthorized(UnauthorizedDeleteMessage);
+            }
+
             try
             {
-                return this.RedirectToAction(nameof(Index));
+                bool isDeleted = await this.assetsService.DeleteAsync(id);
+                if (!isDeleted)
+                {
+                    return this.BadRequest();
+                }
+
+                return this.Redirect("/Home/Index"); ;
             }
             catch
             {
-                return this.View();
+                return this.BadRequest();
             }
         }
     }
