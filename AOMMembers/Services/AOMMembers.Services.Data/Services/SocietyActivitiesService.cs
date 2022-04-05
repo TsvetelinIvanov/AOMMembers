@@ -19,7 +19,7 @@ namespace AOMMembers.Services.Data.Services
             this.mapper = mapper;
             this.societyActivitiesRespository = societyActivitiesRespository;
             this.citizensRespository = citizensRespository;
-        }        
+        }
 
         public async Task<string> CreateAsync(SocietyActivityInputModel inputModel, string userId)
         {
@@ -50,6 +50,14 @@ namespace AOMMembers.Services.Data.Services
             SocietyActivity societyActivity = await this.societyActivitiesRespository.GetByIdAsync(id);
 
             return societyActivity == null;
+        }
+
+        public async Task<SocietyActivityViewModel> GetViewModelByIdAsync(string id)
+        {
+            SocietyActivity societyActivity = await this.societyActivitiesRespository.GetByIdAsync(id);
+            SocietyActivityViewModel viewModel = this.mapper.Map<SocietyActivityViewModel>(societyActivity);
+
+            return viewModel;
         }
 
         public async Task<SocietyActivityDetailsViewModel> GetDetailsByIdAsync(string id)

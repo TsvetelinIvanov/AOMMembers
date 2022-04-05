@@ -21,10 +21,18 @@ namespace AOMMembers.Web.Controllers
             this.mediaMaterialsService = mediaMaterialsService;
         }
 
-        // GET: MediaMaterialsController
-        public ActionResult Index()
+        // GET: MediaMaterialsController/Index/"Id"
+        public async Task<ActionResult> Index(string id)
         {
-            return this.View();
+            if (await this.mediaMaterialsService.IsAbsent(id))
+            {
+                return this.NotFound();
+            }
+
+            MediaMaterialViewModel viewModel = await this.mediaMaterialsService.GetViewModelByIdAsync(id);
+            IEnumerable<MediaMaterialViewModel> viewModelWrapper = new[] { viewModel };
+
+            return this.View(viewModelWrapper);
         }
 
         // GET: MediaMaterialsController/Details/"Id"
@@ -35,7 +43,9 @@ namespace AOMMembers.Web.Controllers
                 return this.NotFound();
             }
 
-            return this.View();
+            MediaMaterialDetailsViewModel viewModel = await this.mediaMaterialsService.GetDetailsByIdAsync(id);
+
+            return this.View(viewModel);
         }
 
         // GET: MediaMaterialsController/Create

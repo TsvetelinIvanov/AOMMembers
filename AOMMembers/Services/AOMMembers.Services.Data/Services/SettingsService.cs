@@ -19,7 +19,7 @@ namespace AOMMembers.Services.Data.Services
             this.mapper = mapper;
             this.settingsRespository = settingsRespository;
             this.citizensRespository = citizensRespository;
-        }        
+        }
 
         public async Task<string> CreateAsync(SettingInputModel inputModel, string userId)
         {
@@ -48,6 +48,14 @@ namespace AOMMembers.Services.Data.Services
             Setting setting = await this.settingsRespository.GetByIdAsync(id);
 
             return setting == null;
+        }
+
+        public async Task<SettingViewModel> GetViewModelByIdAsync(string id)
+        {
+            Setting setting = await this.settingsRespository.GetByIdAsync(id);
+            SettingViewModel viewModel = this.mapper.Map<SettingViewModel>(setting);
+
+            return viewModel;
         }
 
         public async Task<SettingDetailsViewModel> GetDetailsByIdAsync(string id)

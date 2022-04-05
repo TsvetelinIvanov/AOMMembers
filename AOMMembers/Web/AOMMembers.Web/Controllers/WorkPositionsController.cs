@@ -21,10 +21,18 @@ namespace AOMMembers.Web.Controllers
             this.workPositionsService = workPositionsService;
         }
 
-        // GET: WorkPositionsController
-        public ActionResult Index()
+        // GET: WorkPositionsController/Index/"Id"
+        public async Task<ActionResult> Index(string id)
         {
-            return this.View();
+            if (await this.workPositionsService.IsAbsent(id))
+            {
+                return this.NotFound();
+            }
+
+            WorkPositionViewModel viewModel = await this.workPositionsService.GetViewModelByIdAsync(id);
+            IEnumerable<WorkPositionViewModel> viewModelWrapper = new[] { viewModel };
+
+            return this.View(viewModelWrapper);
         }
 
         // GET: WorkPositionsController/Details/"Id"
@@ -35,7 +43,9 @@ namespace AOMMembers.Web.Controllers
                 return this.NotFound();
             }
 
-            return this.View();
+            WorkPositionDetailsViewModel viewModel = await this.workPositionsService.GetDetailsByIdAsync(id);
+
+            return this.View(viewModel);
         }
 
         // GET: WorkPositionsController/Create

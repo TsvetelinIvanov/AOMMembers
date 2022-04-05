@@ -4,13 +4,13 @@
     "\\AOMMembers",
     "\\AOMMembers\\Web",
     "\\AOMMembers\\Web\\AOMMembers.Web",
-    "\\AOMMembers\\Web\\AOMMembers.Web.ViewModels",
-    "\\AOMMembers\\Web\\AOMMembers.Web.ViewModels\\Qualifications",
-    "\\AOMMembers\\Web\\AOMMembers.Web.ViewModels\\Relationships",
     "\\AOMMembers\\Web\\AOMMembers.Web\\Views",
+    "\\AOMMembers\\Web\\AOMMembers.Web\\Views\\Assets",
     "\\AOMMembers\\Web\\AOMMembers.Web\\Views\\Citizens",
-    "\\AOMMembers\\Web\\AOMMembers.Web\\Views\\MediaMaterials"
+    "\\AOMMembers\\Web\\AOMMembers.Web\\Views\\MediaMaterials",
+    "\\AOMMembers\\Web\\AOMMembers.Web\\Views\\Members",
+    "\\AOMMembers\\Web\\AOMMembers.Web\\Views\\Worldviews"
   ],
-  "SelectedNode": "\\AOMMembers\\Web\\AOMMembers.Web\\Views\\MediaMaterials\\Edit.cshtml",
+  "SelectedNode": "\\AOMMembers\\Web\\AOMMembers.Web\\Views\\Members\\Edit.cshtml",
   "PreviewInSolutionExplorer": false
 }

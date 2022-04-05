@@ -4,9 +4,13 @@ namespace AOMMembers.Services.Data.Interfaces
 {
     public interface ICareersService
     {
+        bool IsCreated(string userId);
+
         Task<string> CreateAsync(CareerInputModel inputModel, string userId);
 
         Task<bool> IsAbsent(string id);
+
+        Task<CareerViewModel> GetViewModelByIdAsync(string id);
 
         Task<CareerDetailsViewModel> GetDetailsByIdAsync(string id);
 

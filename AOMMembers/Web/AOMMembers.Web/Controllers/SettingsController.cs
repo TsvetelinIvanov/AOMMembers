@@ -23,26 +23,40 @@ namespace AOMMembers.Web.Controllers
             this.repository = repository;
         }
 
-        public IActionResult Index()
-        {
-            IEnumerable<SettingViewModel> settings = this.settingsService.GetAllFromMember("CitizenId");
-            SettingsListViewModel model = new SettingsListViewModel { Settings = settings };
+        //public IActionResult Index()
+        //{
+        //    IEnumerable<SettingViewModel> settings = this.settingsService.GetAllFromMember("CitizenId");
+        //    SettingsListViewModel model = new SettingsListViewModel { Settings = settings };
 
-            return this.View(model);
+        //    return this.View(model);
+        //}
+
+        //public async Task<IActionResult> InsertSetting()
+        //{
+        //    Random random = new Random();
+        //    Setting setting = new Setting() { Name = $"Name_{random.Next()}", Value = $"Value_{random.Next()}", CitizenId = "CitizenId", CreatedOn = DateTime.UtcNow };
+
+        //    await this.repository.AddAsync(setting);
+        //    await this.repository.SaveChangesAsync();
+
+        //    return this.RedirectToAction(nameof(this.Index));
+        //}
+
+        // GET: SettingsController/Index/"Id"
+        public async Task<ActionResult> Index(string id)
+        {
+            if (await this.settingsService.IsAbsent(id))
+            {
+                return this.NotFound();
+            }
+
+            SettingViewModel viewModel = await this.settingsService.GetViewModelByIdAsync(id);
+            IEnumerable<SettingViewModel> viewModelWrapper = new[] { viewModel };
+
+            return this.View(viewModelWrapper);
         }
 
-        public async Task<IActionResult> InsertSetting()
-        {
-            Random random = new Random();
-            Setting setting = new Setting() { Name = $"Name_{random.Next()}", Value = $"Value_{random.Next()}", CitizenId = "CitizenId", CreatedOn = DateTime.UtcNow };
-
-            await this.repository.AddAsync(setting);
-            await this.repository.SaveChangesAsync();
-
-            return this.RedirectToAction(nameof(this.Index));
-        }
-
-        // GET: RelationshipsController/Details/"Id"
+        // GET: SettingsController/Details/"Id"
         public async Task<ActionResult> Details(string id)
         {
             if (await this.settingsService.IsAbsent(id))
@@ -50,7 +64,9 @@ namespace AOMMembers.Web.Controllers
                 return this.NotFound();
             }
 
-            return this.View();
+            SettingDetailsViewModel viewModel = await this.settingsService.GetDetailsByIdAsync(id);
+
+            return this.View(viewModel);
         }
 
         // GET: SettingsController/Create

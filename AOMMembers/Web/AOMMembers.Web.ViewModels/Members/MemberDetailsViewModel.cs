@@ -35,12 +35,12 @@ namespace AOMMembers.Web.ViewModels.Members
         [Display(Name = MemberRelationshipsCountDisplayName)]
         public int RelationshipsCount { get; set; }
 
-        public string? CitizenId { get; set; }        
+        public string? CitizenId { get; set; }
 
-        public string? PublicImageId { get; set; }        
+        public string? PublicImageId { get; set; }
 
-        public RelationshipListViewModel Relationships { get; set; }
+        public HashSet<RelationshipViewModel> Relationships { get; set; }
 
-        public PartyPositionListViewModel PartyPositions { get; set; }
+        public HashSet<PartyPositionViewModel> PartyPositions { get; set; }
     }
 }

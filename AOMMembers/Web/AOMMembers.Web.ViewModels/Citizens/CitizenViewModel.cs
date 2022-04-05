@@ -34,7 +34,7 @@ namespace AOMMembers.Web.ViewModels.Citizens
         public string? CurrentWorkPosition { get; set; }
 
         [Display(Name = CitizenMatrialStateDisplayName)]
-        public string? MaterialState { get; set; }
+        public decimal MaterialState { get; set; }
 
         [Display(Name = CitizenAssetsCountDisplayName)]
         public int AssetsCount { get; set; }

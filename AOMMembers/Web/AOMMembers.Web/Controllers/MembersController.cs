@@ -21,10 +21,12 @@ namespace AOMMembers.Web.Controllers
             this.membersService = membersService;
         }
 
-        // GET: MembersController
+        // GET: MembersController/Index/"Id"
         public ActionResult Index()
         {
-            return this.View();
+            IEnumerable<MemberViewModel> viewModels = this.membersService.GetViewModels();
+
+            return this.View(viewModels);
         }
 
         // GET: MembersController/Details/"Id"
@@ -35,13 +37,21 @@ namespace AOMMembers.Web.Controllers
                 return this.NotFound();
             }
 
-            return this.View();
+            MemberDetailsViewModel viewModel = await this.membersService.GetDetailsByIdAsync(id);
+
+            return this.View(viewModel);
         }
 
         // GET: MembersController/Create
         [Authorize(Roles = AdministratorRoleName + ", " + MemberRoleName)]
         public ActionResult Create()
         {
+            string userId = this.userManager.GetUserId(this.User);
+            if (this.membersService.IsCreated(userId))
+            {
+                return this.BadRequest(CreateCreatedEntityBadResult);
+            }
+
             return this.View(new MemberInputModel());
         }
 
@@ -51,14 +61,19 @@ namespace AOMMembers.Web.Controllers
         [Authorize(Roles = AdministratorRoleName + ", " + MemberRoleName)]
         public async Task<ActionResult> Create(MemberInputModel inputModel)
         {
+            string userId = this.userManager.GetUserId(this.User);
+            if (this.membersService.IsCreated(userId))
+            {
+                return this.BadRequest(CreateCreatedEntityBadResult);
+            }
+
             if (!ModelState.IsValid)
             {
                 return Redirect("/Members/Create");
             }
 
             try
-            {
-                string userId = this.userManager.GetUserId(this.User);
+            {                
                 string memberId = await this.membersService.CreateAsync(inputModel, userId);
                 if (memberId == MemberCreateWithoutApplicationUserBadResult)
                 {

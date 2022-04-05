@@ -25,6 +25,6 @@ namespace AOMMembers.Web.ViewModels.Worldviews
         [Display(Name = WorldviewInterestsCountDisplayName)]
         public int InterestsCount { get; set; }
 
-        public InterestListViewModel Interests { get; set; }
+        public HashSet<InterestViewModel> Interests { get; set; }
     }
 }

@@ -21,7 +21,7 @@ namespace AOMMembers.Services.Data.Services
             this.relationshipsRespository = relationshipsRespository;
             this.membersRespository = membersRespository;
             this.citizensRespository = citizensRespository;
-        }        
+        }
 
         public async Task<string> CreateAsync(RelationshipInputModel inputModel, string userId)
         {
@@ -57,6 +57,20 @@ namespace AOMMembers.Services.Data.Services
             Relationship relationship = await this.relationshipsRespository.GetByIdAsync(id);
 
             return relationship == null;
+        }
+
+        public async Task<RelationshipViewModel> GetViewModelByIdAsync(string id)
+        {
+            Relationship relationship = await this.relationshipsRespository.GetByIdAsync(id);
+            RelationshipViewModel viewModel = new RelationshipViewModel
+            {
+                Id = relationship.Id,
+                Kind = relationship.Kind,
+                Description = relationship.Description,                
+                RelationshipCitizenFullName = relationship.Citizen.FirstName + " " + relationship.Citizen.SecondName + " " + relationship.Citizen.LastName
+            };
+
+            return viewModel;
         }
 
         public async Task<RelationshipDetailsViewModel> GetDetailsByIdAsync(string id)

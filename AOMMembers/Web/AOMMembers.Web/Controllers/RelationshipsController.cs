@@ -21,10 +21,18 @@ namespace AOMMembers.Web.Controllers
             this.relationshipsService = relationshipsService;
         }
 
-        // GET: RelationshipsController
-        public ActionResult Index()
+        // GET: RelationshipsController/Index/"Id"
+        public async Task<ActionResult> Index(string id)
         {
-            return this.View();
+            if (await this.relationshipsService.IsAbsent(id))
+            {
+                return this.NotFound();
+            }
+
+            RelationshipViewModel viewModel = await this.relationshipsService.GetViewModelByIdAsync(id);
+            IEnumerable<RelationshipViewModel> viewModelWrapper = new[] { viewModel };
+
+            return this.View(viewModelWrapper);
         }
 
         // GET: RelationshipsController/Details/"Id"
@@ -35,7 +43,9 @@ namespace AOMMembers.Web.Controllers
                 return this.NotFound();
             }
 
-            return this.View();
+            RelationshipDetailsViewModel viewModel = await this.relationshipsService.GetDetailsByIdAsync(id);
+
+            return this.View(viewModel);
         }
 
         // GET: RelationshipsController/Create

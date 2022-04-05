@@ -22,6 +22,6 @@ namespace AOMMembers.Web.ViewModels.PublicImages
         [Display(Name = PublicImageMediaMaterialsCountDisplayName)]
         public int MediaMaterialsCount { get; set; }
 
-        public MediaMaterialListViewModel MediaMaterials { get; set; }
+        public HashSet<MediaMaterialViewModel> MediaMaterials { get; set; }
     }
 }

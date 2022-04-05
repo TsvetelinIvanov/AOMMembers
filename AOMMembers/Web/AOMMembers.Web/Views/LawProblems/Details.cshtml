@@ -1,13 +1,13 @@
 ﻿@model AOMMembers.Web.ViewModels.LawProblems.LawProblemDetailsViewModel
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Детайли за проблема с правораздавателните органи";
 }
 
-<h1>Details</h1>
+<h1>@this.ViewData["Title"]</h1>
 
 <div>
-    <h4>LawProblem</h4>
+    <h4>Проблем с правораздавателните органи</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -55,6 +55,12 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-controller="LawStates" asp-action="Index" asp-route-id="@Model.LawStateId">Виж състоянието на отношенията с правораздавателните органи</a> | 
+    <a asp-action="Index" asp-route-id="@Model.Id">Обратно към проблема с правораздавателните органи</a>
+                    @if (this.User.IsInRole(GlobalConstants.MemberRoleName) || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                    {
+                        @: | 
+                        <a asp-action="Edit" asp-route-id="@Model.Id">Редактирай</a> @: | 
+                        <a asp-action="Delete" asp-route-id="@Model.Id">Изтрий</a>
+                    }
 </div>

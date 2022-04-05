@@ -1,12 +1,12 @@
 ﻿@model AOMMembers.Web.ViewModels.LawStates.LawStateEditModel
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Редактирай записа на състоянието на отношенията с правораздавателните органи";
 }
 
-<h1>Edit</h1>
+<h1>@this.ViewData["Title"]</h1>
 
-<h4>LawState</h4>
+<h4>Състояние на отношенията с правораздавателните органи</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -15,7 +15,8 @@
             <div class="form-group">
                 <label asp-for="Condition" class="control-label"></label>
                 @*<input asp-for="Condition" class="form-control" placeholder=@Model.Condition />*@
-                <input asp-for="Condition" class="form-control" value=@Model.Condition />
+                @*<input asp-for="Condition" class="form-control" value=@Model.Condition />*@
+                <input asp-for="Condition" class="form-control" />
                 <span asp-validation-for="Condition" class="text-danger"></span>
             </div>
             @*<div class="form-group">
@@ -45,14 +46,14 @@
             </div>*@
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Запомни" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" asp-route-id="@Model.Id">Обратно към състоянието на отношенията с правораздавателните органи</a>
 </div>
 
 @section Scripts {

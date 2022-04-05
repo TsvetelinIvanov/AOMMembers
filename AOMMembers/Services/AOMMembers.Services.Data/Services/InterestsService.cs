@@ -19,7 +19,7 @@ namespace AOMMembers.Services.Data.Services
             this.mapper = mapper;
             this.interestsRespository = interestsRespository;
             this.worldviewsRespository = worldviewsRespository;
-        }        
+        }
 
         public async Task<string> CreateAsync(InterestInputModel inputModel, string userId)
         {
@@ -47,6 +47,14 @@ namespace AOMMembers.Services.Data.Services
             Interest interest = await this.interestsRespository.GetByIdAsync(id);
 
             return interest == null;
+        }
+
+        public async Task<InterestViewModel> GetViewModelByIdAsync(string id)
+        {
+            Interest interest = await this.interestsRespository.GetByIdAsync(id);
+            InterestViewModel viewModel = this.mapper.Map<InterestViewModel>(interest);
+
+            return viewModel;
         }
 
         public async Task<InterestDetailsViewModel> GetDetailsByIdAsync(string id)

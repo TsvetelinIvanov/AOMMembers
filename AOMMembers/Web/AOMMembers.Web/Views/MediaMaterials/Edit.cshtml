@@ -1,12 +1,12 @@
 ﻿@model AOMMembers.Web.ViewModels.MediaMaterials.MediaMaterialEditModel
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Редактирай описанието на материала от медиите";
 }
 
-<h1>Edit</h1>
+<h1>@this.ViewData["Title"]</h1>
 
-<h4>MediaMaterial</h4>
+<h4>Материал от медиите</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -15,43 +15,50 @@
             <div class="form-group">
                 <label asp-for="Kind" class="control-label"></label>
                 @*<input asp-for="Kind" class="form-control" placeholder=@Model.Kind />*@
-                <input asp-for="Kind" class="form-control" value=@Model.Kind />
+                @*<input asp-for="Kind" class="form-control" value=@Model.Kind />*@
+                <input asp-for="Kind" class="form-control" />
                 <span asp-validation-for="Kind" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="MediaName" class="control-label"></label>
                 @*<input asp-for="MediaName" class="form-control" placeholder=@Model.MediaName />*@
-                <input asp-for="MediaName" class="form-control" value=@Model.MediaName />
+                @*<input asp-for="MediaName" class="form-control" value=@Model.MediaName />*@
+                <input asp-for="MediaName" class="form-control" />
                 <span asp-validation-for="MediaName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="IssueDate" class="control-label"></label>
                 @*<input asp-for="IssueDate" class="form-control" placeholder=@Model.IssueDate />*@
-                <input asp-for="IssueDate" class="form-control" value=@Model.IssueDate />
+                @*<input asp-for="IssueDate" class="form-control" value=@Model.IssueDate />*@
+                <input asp-for="IssueDate" class="form-control" />
                 <span asp-validation-for="IssueDate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Author" class="control-label"></label>
                 @*<input asp-for="Author" class="form-control" placeholder=@Model.Author />*@
-                <input asp-for="Author" class="form-control" value=@Model.Author />
+                @*<input asp-for="Author" class="form-control" value=@Model.Author />*@
+                <input asp-for="Author" class="form-control" />
                 <span asp-validation-for="Author" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Heading" class="control-label"></label>
-               @*<input asp-for="Heading" class="form-control" placeholder=@Model.Heading />*@
-                <input asp-for="Heading" class="form-control" value=@Model.Heading />
+                @*<input asp-for="Heading" class="form-control" placeholder=@Model.Heading />*@
+                @*<input asp-for="Heading" class="form-control" value=@Model.Heading />*@
+                <input asp-for="Heading" class="form-control" />
                 <span asp-validation-for="Heading" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
                 @*<input asp-for="Description" class="form-control" placeholder=@Model.Description />*@
-                <input asp-for="Description" class="form-control" value=@Model.Description />
+                @*<input asp-for="Description" class="form-control" value=@Model.Description />*@
+                <input asp-for="Description" class="form-control" />
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="MediaMaterialLink" class="control-label"></label>
                 @*<input asp-for="MediaMaterialLink" class="form-control" placeholder=@Model.MediaMaterialLink />*@
-                <input asp-for="MediaMaterialLink" class="form-control" value=@Model.MediaMaterialLink />
+                @*<input asp-for="MediaMaterialLink" class="form-control" value=@Model.MediaMaterialLink />*@
+                <input asp-for="MediaMaterialLink" class="form-control" />
                 <span asp-validation-for="MediaMaterialLink" class="text-danger"></span>
             </div>
             @*<div class="form-group">
@@ -81,14 +88,14 @@
             </div>*@
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Запомни" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" asp-route-id="@Model.Id">Обратно към материала от медиите</a>
 </div>
 
 @section Scripts {

@@ -3,6 +3,8 @@ using AOMMembers.Data.Common.Repositories;
 using AOMMembers.Data.Models;
 using AOMMembers.Services.Data.Interfaces;
 using AOMMembers.Web.ViewModels.Members;
+using AOMMembers.Web.ViewModels.Relationships;
+using AOMMembers.Web.ViewModels.PartyPositions;
 
 namespace AOMMembers.Services.Data.Services
 {
@@ -23,7 +25,12 @@ namespace AOMMembers.Services.Data.Services
             this.mediaMaterialsRespository = mediaMaterialsRespository;
             this.relationshipsRespository = relationshipsRespository;
             this.partyPositionsRespository = partyPositionsRespository;
-        }        
+        }
+
+        public bool IsCreated(string userId)
+        {
+            return this.membersRespository.AllAsNoTracking().Any(m => m.ApplicationUserId == userId);
+        }
 
         public async Task<string> CreateAsync(MemberInputModel inputModel, string userId)
         {
@@ -50,12 +57,58 @@ namespace AOMMembers.Services.Data.Services
             return member == null;
         }
 
+        public IEnumerable<MemberViewModel> GetViewModels()
+        {
+            List<MemberViewModel> memberViewModels = new List<MemberViewModel>();
+            IEnumerable<Member> members = this.membersRespository.All();
+            foreach (Member member in members)
+            {
+                PartyPosition partyPosition = member.PartyPositions.FirstOrDefault(pp => pp.IsCurrent);
+                string partyPositionName = partyPosition != null ? partyPosition.Name : "---";
+
+                MemberViewModel viewModel = new MemberViewModel
+                {
+                    Id = member.Id,
+                    FullName = member.FullName,
+                    Email = member.Email,
+                    PhoneNumber = member.PhoneNumber,
+                    PictureUrl = member.PictureUrl,
+                    CurrentPartyPosition = partyPositionName,
+                    RelationshipsCount = member.Relationships.Count
+                };
+
+                memberViewModels.Add(viewModel);
+            }            
+
+            return memberViewModels;
+        }
+
         public async Task<MemberDetailsViewModel> GetDetailsByIdAsync(string id)
         {
             Member member = await this.membersRespository.GetByIdAsync(id);
 
-            PartyPosition partyPosition = member.PartyPositions.FirstOrDefault(pp => pp.IsCurrent);
-            string partyPositionName = partyPosition != null ? partyPosition.Name : "---";
+            PartyPosition currentPartyPosition = member.PartyPositions.FirstOrDefault(pp => pp.IsCurrent);
+            string partyPositionName = currentPartyPosition != null ? currentPartyPosition.Name : "---";
+
+            HashSet<RelationshipViewModel> relationships = new HashSet<RelationshipViewModel>();
+            foreach (Relationship relationship in member.Relationships)
+            {
+                RelationshipViewModel relationshipViewModel = new RelationshipViewModel
+                {
+                    Id = relationship.Id,
+                    Kind = relationship.Kind,
+                    Description = relationship.Description,
+                    RelationshipCitizenFullName = relationship.Citizen.FirstName + " " + relationship.Citizen.SecondName + " " + relationship.Citizen.LastName
+                };
+                relationships.Add(relationshipViewModel);
+            }
+
+            HashSet<PartyPositionViewModel> partyPositions = new HashSet<PartyPositionViewModel>();
+            foreach (PartyPosition partyPosition in member.PartyPositions)
+            {
+                PartyPositionViewModel partyPositionViewModel = this.mapper.Map<PartyPositionViewModel>(partyPosition);
+                partyPositions.Add(partyPositionViewModel);
+            }
 
             MemberDetailsViewModel detailsViewModel = new MemberDetailsViewModel
             {
@@ -67,7 +120,12 @@ namespace AOMMembers.Services.Data.Services
                 CreatedOn = member.CreatedOn,
                 ModifiedOn = member.ModifiedOn,
                 CurrentPartyPosition = partyPositionName,
-                RelationshipsCount = member.Relationships.Count
+                RelationshipsCount = member.Relationships.Count,
+                ApplicationUserId = member.ApplicationUserId,
+                CitizenId = member.CitizenId,
+                PublicImageId = member.PublicImageId,
+                Relationships = relationships,
+                PartyPositions = partyPositions
             };
 
             return detailsViewModel;

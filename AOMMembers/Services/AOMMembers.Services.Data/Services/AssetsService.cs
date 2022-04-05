@@ -51,6 +51,14 @@ namespace AOMMembers.Services.Data.Services
             return asset == null;
         }
 
+        public async Task<AssetViewModel> GetViewModelByIdAsync(string id)
+        {
+            Asset asset = await this.assetsRespository.GetByIdAsync(id);
+            AssetViewModel viewModel = this.mapper.Map<AssetViewModel>(asset);
+
+            return viewModel;
+        }
+
         public async Task<AssetDetailsViewModel> GetDetailsByIdAsync(string id)
         {
             Asset asset = await this.assetsRespository.GetByIdAsync(id);

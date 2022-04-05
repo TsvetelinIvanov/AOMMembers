@@ -3,6 +3,7 @@ using AOMMembers.Data.Common.Repositories;
 using AOMMembers.Data.Models;
 using AOMMembers.Services.Data.Interfaces;
 using AOMMembers.Web.ViewModels.MaterialStates;
+using AOMMembers.Web.ViewModels.Assets;
 using static AOMMembers.Common.DataBadResults;
 
 namespace AOMMembers.Services.Data.Services
@@ -20,7 +21,12 @@ namespace AOMMembers.Services.Data.Services
             this.materialStatesRespository = materialStatesRespository;
             this.citizensRespository = citizensRespository;
             this.assetsRespository = assetsRespository;
-        }        
+        }
+
+        public bool IsCreated(string userId)
+        {
+            return this.materialStatesRespository.AllAsNoTracking().Any(ms => ms.Citizen.Member.ApplicationUserId == userId);
+        }
 
         public async Task<string> CreateAsync(MaterialStateInputModel inputModel, string userId)
         {
@@ -54,9 +60,35 @@ namespace AOMMembers.Services.Data.Services
             return materialState == null;
         }
 
+        public async Task<MaterialStateViewModel> GetViewModelByIdAsync(string id)
+        {
+            MaterialState materialState = await this.materialStatesRespository.GetByIdAsync(id);
+            MaterialStateViewModel viewModel = new MaterialStateViewModel
+            {
+                Id = materialState.Id,
+                Riches = materialState.Riches,
+                Money = materialState.Money,
+                MonthIncome = materialState.MonthIncome,
+                Description = materialState.Description,
+                TaxDeclarationLink = materialState.TaxDeclarationLink,                
+                AssetsCount = materialState.Assets.Count
+                
+            };
+
+            return viewModel;
+        }
+
         public async Task<MaterialStateDetailsViewModel> GetDetailsByIdAsync(string id)
         {
             MaterialState materialState = await this.materialStatesRespository.GetByIdAsync(id);
+
+            HashSet<AssetViewModel> assets = new HashSet<AssetViewModel>();
+            foreach (Asset asset in materialState.Assets)
+            {
+                AssetViewModel assetViewModel = this.mapper.Map<AssetViewModel>(asset);
+                assets.Add(assetViewModel);
+            }
+
             MaterialStateDetailsViewModel detailsViewModel = new MaterialStateDetailsViewModel
             {
                 Id = materialState.Id,
@@ -68,7 +100,8 @@ namespace AOMMembers.Services.Data.Services
                 CitizenId = materialState.CitizenId,
                 CreatedOn = materialState.CreatedOn,
                 ModifiedOn = materialState.ModifiedOn,
-                AssetsCount = materialState.Assets.Count
+                AssetsCount = materialState.Assets.Count,
+                Assets = assets
             };
 
             return detailsViewModel;

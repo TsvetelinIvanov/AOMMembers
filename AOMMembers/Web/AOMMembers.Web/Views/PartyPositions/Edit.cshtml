@@ -1,12 +1,12 @@
 ﻿@model AOMMembers.Web.ViewModels.PartyPositions.PartyPositionEditModel
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Редактирай описанието на партийната позиция";
 }
 
-<h1>Edit</h1>
+<h1>@this.ViewData["Title"]</h1>
 
-<h4>PartyPosition</h4>
+<h4>Партийна позиция</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -15,32 +15,36 @@
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 @*<input asp-for="Name" class="form-control" placeholder=@Model.Name />*@
-                <input asp-for="Name" class="form-control" value=@Model.Description />
+                @*<input asp-for="Name" class="form-control" value=@Model.Name />*@
+                <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
                 @*<input asp-for="Description" class="form-control" placeholder=@Model.Description />*@
-                <input asp-for="Description" class="form-control" value=@Model.Description />
+                @*<input asp-for="Description" class="form-control" value=@Model.Description />*@
+                <input asp-for="Description" class="form-control" />
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
                     @*<input class="form-check-input" asp-for="IsCurrent" placeholder=@Model.IsCurrent /> @Html.DisplayNameFor(model => model.IsCurrent)*@
-                    <input class="form-check-input" asp-for="IsCurrent" value=@Model.IsCurrent /> @Html.DisplayNameFor(model => model.IsCurrent)
-                    @*<input class="form-check-input" asp-for="IsCurrent" /> @Html.DisplayNameFor(model => model.IsCurrent)*@
+                    @*<input class="form-check-input" asp-for="IsCurrent" value=@Model.IsCurrent /> @Html.DisplayNameFor(model => model.IsCurrent)*@
+                    <input class="form-check-input" asp-for="IsCurrent" /> @Html.DisplayNameFor(model => model.IsCurrent)
                 </label>
             </div>
             <div class="form-group">
                 <label asp-for="StartDate" class="control-label"></label>
                 @*<input asp-for="StartDate" class="form-control" placeholder=@Model.StartDate />*@
-                <input asp-for="StartDate" class="form-control" value=@Model.StartDate />
+                @*<input asp-for="StartDate" class="form-control" value=@Model.StartDate />*@
+                <input asp-for="StartDate" class="form-control" />
                 <span asp-validation-for="StartDate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="EndDate" class="control-label"></label>
                 @*<input asp-for="EndDate" class="form-control" placeholder=@Model.EndDate />*@
-                <input asp-for="EndDate" class="form-control" value=@Model.EndDate />
+                @*<input asp-for="EndDate" class="form-control" value=@Model.EndDate />*@
+                <input asp-for="EndDate" class="form-control" />
                 <span asp-validation-for="EndDate" class="text-danger"></span>
             </div>
             @*<div class="form-group">
@@ -77,7 +81,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" asp-route-id="@Model.Id">Обратно към партийната позиция</a>
 </div>
 
 @section Scripts {

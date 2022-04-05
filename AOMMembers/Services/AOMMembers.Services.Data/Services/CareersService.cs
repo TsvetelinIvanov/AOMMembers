@@ -20,7 +20,12 @@ namespace AOMMembers.Services.Data.Services
             this.careersRespository = careersRespository;
             this.citizensRespository = citizensRespository;
             this.workPositionsRespository = workPositionsRespository;
-        }        
+        }
+
+        public bool IsCreated(string userId)
+        {
+            return this.careersRespository.AllAsNoTracking().Any(c => c.Citizen.Member.ApplicationUserId == userId);
+        }
 
         public async Task<string> CreateAsync(CareerInputModel inputModel, string userId)
         {
@@ -49,6 +54,25 @@ namespace AOMMembers.Services.Data.Services
             Career career = await this.careersRespository.GetByIdAsync(id);
 
             return career == null;
+        }
+
+        public async Task<CareerViewModel> GetViewModelByIdAsync(string id)
+        {            
+            Career career = await this.careersRespository.GetByIdAsync(id);
+
+            WorkPosition workPosition = career.WorkPositions.FirstOrDefault(wp => wp.IsCurrent);
+            string workPositionName = workPosition != null ? workPosition.Name : "---";
+
+            CareerViewModel viewModel = new CareerViewModel
+            {
+                Id = career.Id,
+                Description = career.Description,
+                CVLink = career.CVLink,                
+                CurrentWorkPosition = workPositionName,
+                WorkPositionsCount = career.WorkPositions.Count
+            };
+
+            return viewModel;
         }
 
         public async Task<CareerDetailsViewModel> GetDetailsByIdAsync(string id)

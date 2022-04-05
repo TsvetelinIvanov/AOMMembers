@@ -21,10 +21,18 @@ namespace AOMMembers.Web.Controllers
             this.careersService = careersService;
         }
 
-        // GET: CareersController
-        public ActionResult Index()
+        // GET: CareersController/Index/"Id"
+        public async Task<ActionResult> Index(string id)
         {
-            return this.View();
+            if (await this.careersService.IsAbsent(id))
+            {
+                return this.NotFound();
+            }
+
+            CareerViewModel viewModel = await this.careersService.GetViewModelByIdAsync(id);
+            IEnumerable<CareerViewModel> viewModelWrapper = new[] { viewModel };
+
+            return this.View(viewModelWrapper);
         }
 
         // GET: CareersController/Details/"Id"
@@ -35,13 +43,21 @@ namespace AOMMembers.Web.Controllers
                 return this.NotFound();
             }
 
-            return this.View();
+            CareerDetailsViewModel viewModel = await this.careersService.GetDetailsByIdAsync(id);
+
+            return this.View(viewModel);
         }
 
         // GET: CareersController/Create
         [Authorize(Roles = AdministratorRoleName + ", " + MemberRoleName)]
         public ActionResult Create()
         {
+            string userId = this.userManager.GetUserId(this.User);
+            if (this.careersService.IsCreated(userId))
+            {
+                return this.BadRequest(CreateCreatedEntityBadResult);
+            }
+
             return this.View(new CareerInputModel());
         }
 
@@ -51,14 +67,19 @@ namespace AOMMembers.Web.Controllers
         [Authorize(Roles = AdministratorRoleName + ", " + MemberRoleName)]
         public async Task<ActionResult> Create(CareerInputModel inputModel)
         {
+            string userId = this.userManager.GetUserId(this.User);
+            if (this.careersService.IsCreated(userId))
+            {
+                return this.BadRequest(CreateCreatedEntityBadResult);
+            }
+
             if (!ModelState.IsValid)
             {
-                return Redirect("/Careers/Create");
+                return this.Redirect("/Careers/Create");
             }
 
             try
-            {
-                string userId = this.userManager.GetUserId(this.User);
+            {                
                 string careerId = await this.careersService.CreateAsync(inputModel, userId);
                 if (careerId == CareerCreateWithoutCitizenBadResult)
                 {

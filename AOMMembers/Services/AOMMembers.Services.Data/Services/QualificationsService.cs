@@ -19,7 +19,7 @@ namespace AOMMembers.Services.Data.Services
             this.mapper = mapper;
             this.qualificationsRespository = qualificationsRespository;
             this.educationsRespository = educationsRespository;
-        }        
+        }
 
         public async Task<string> CreateAsync(QualificationInputModel inputModel, string userId)
         {
@@ -50,6 +50,14 @@ namespace AOMMembers.Services.Data.Services
             Qualification qualification = await this.qualificationsRespository.GetByIdAsync(id);
 
             return qualification == null;
+        }
+
+        public async Task<QualificationViewModel> GetViewModelByIdAsync(string id)
+        {
+            Qualification qualification = await this.qualificationsRespository.GetByIdAsync(id);
+            QualificationViewModel viewModel = this.mapper.Map<QualificationViewModel>(qualification);
+
+            return viewModel;
         }
 
         public async Task<QualificationDetailsViewModel> GetDetailsByIdAsync(string id)

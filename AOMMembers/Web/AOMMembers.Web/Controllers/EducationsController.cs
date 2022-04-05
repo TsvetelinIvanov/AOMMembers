@@ -21,10 +21,18 @@ namespace AOMMembers.Web.Controllers
             this.educationsService = educationsService;
         }
 
-        // GET: EducationsController
-        public ActionResult Index()
+        // GET: EducationsController/Index/"Id"
+        public async Task<ActionResult> Index(string id)
         {
-            return this.View();
+            if (await this.educationsService.IsAbsent(id))
+            {
+                return this.NotFound();
+            }
+
+            EducationViewModel viewModel = await this.educationsService.GetViewModelByIdAsync(id);
+            IEnumerable<EducationViewModel> viewModelWrapper = new[] { viewModel };
+
+            return this.View(viewModelWrapper);
         }
 
         // GET: EducationsController/Details/"Id"
@@ -35,13 +43,21 @@ namespace AOMMembers.Web.Controllers
                 return this.NotFound();
             }
 
-            return this.View();
+            EducationDetailsViewModel viewModel = await this.educationsService.GetDetailsByIdAsync(id);            
+
+            return this.View(viewModel);
         }
 
         // GET: EducationsController/Create
         [Authorize(Roles = AdministratorRoleName + ", " + MemberRoleName)]
         public ActionResult Create()
         {
+            string userId = this.userManager.GetUserId(this.User);
+            if (this.educationsService.IsCreated(userId))
+            {
+                return this.BadRequest(CreateCreatedEntityBadResult);
+            }
+
             return this.View(new EducationInputModel());
         }
 
@@ -51,14 +67,19 @@ namespace AOMMembers.Web.Controllers
         [Authorize(Roles = AdministratorRoleName + ", " + MemberRoleName)]
         public async Task<ActionResult> Create(EducationInputModel inputModel)
         {
+            string userId = this.userManager.GetUserId(this.User);
+            if (this.educationsService.IsCreated(userId))
+            {
+                return this.BadRequest(CreateCreatedEntityBadResult);
+            }
+
             if (!ModelState.IsValid)
             {
                 return Redirect("/Educations/Create");
             }
 
             try
-            {
-                string userId = this.userManager.GetUserId(this.User);
+            {                
                 string educationId = await this.educationsService.CreateAsync(inputModel, userId);
                 if (educationId == EducationCreateWithoutCitizenBadResult)
                 {

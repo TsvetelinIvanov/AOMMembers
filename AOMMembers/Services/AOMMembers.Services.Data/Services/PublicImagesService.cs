@@ -3,6 +3,7 @@ using AOMMembers.Data.Common.Repositories;
 using AOMMembers.Data.Models;
 using AOMMembers.Services.Data.Interfaces;
 using AOMMembers.Web.ViewModels.PublicImages;
+using AOMMembers.Web.ViewModels.MediaMaterials;
 using static AOMMembers.Common.DataBadResults;
 
 namespace AOMMembers.Services.Data.Services
@@ -20,7 +21,12 @@ namespace AOMMembers.Services.Data.Services
             this.publicImagesRespository = publicImagesRespository;
             this.membersRespository = membersRespository;
             this.mediaMaterialsRespository = mediaMaterialsRespository;
-        }        
+        }
+
+        public bool IsCreated(string userId)
+        {
+            return this.publicImagesRespository.AllAsNoTracking().Any(pi => pi.Member.ApplicationUserId == userId);
+        }
 
         public async Task<string> CreateAsync(PublicImageInputModel inputModel, string userId)
         {
@@ -50,9 +56,30 @@ namespace AOMMembers.Services.Data.Services
             return publicImage == null;
         }
 
+        public async Task<PublicImageViewModel> GetViewModelByIdAsync(string id)
+        {
+            PublicImage publicImage = await this.publicImagesRespository.GetByIdAsync(id);
+            PublicImageViewModel viewModel = new PublicImageViewModel
+            {
+                Id = publicImage.Id,
+                Rating = publicImage.Rating,                
+                MediaMaterialsCount = publicImage.MediaMaterials.Count
+            };
+
+            return viewModel;
+        }
+
         public async Task<PublicImageDetailsViewModel> GetDetailsByIdAsync(string id)
         {
             PublicImage publicImage = await this.publicImagesRespository.GetByIdAsync(id);
+
+            HashSet<MediaMaterialViewModel> mediaMaterials = new HashSet<MediaMaterialViewModel>();
+            foreach (MediaMaterial mediaMaterial in publicImage.MediaMaterials)
+            {
+                MediaMaterialViewModel mediaMaterialViewModel = this.mapper.Map<MediaMaterialViewModel>(mediaMaterial);
+                mediaMaterials.Add(mediaMaterialViewModel);
+            }
+
             PublicImageDetailsViewModel detailsViewModel = new PublicImageDetailsViewModel
             {
                 Id = publicImage.Id,
@@ -60,7 +87,8 @@ namespace AOMMembers.Services.Data.Services
                 MemberId = publicImage.MemberId,
                 CreatedOn = publicImage.CreatedOn,
                 ModifiedOn = publicImage.ModifiedOn,
-                MediaMaterialsCount = publicImage.MediaMaterials.Count
+                MediaMaterialsCount = publicImage.MediaMaterials.Count,
+                MediaMaterials = mediaMaterials
             };
 
             return detailsViewModel;

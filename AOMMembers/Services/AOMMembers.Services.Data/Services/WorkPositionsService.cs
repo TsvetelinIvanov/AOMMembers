@@ -19,7 +19,7 @@ namespace AOMMembers.Services.Data.Services
             this.mapper = mapper;
             this.workPositionsRespository = workPositionsRespository;
             this.careersRespository = careersRespository;
-        }        
+        }
 
         public async Task<string> CreateAsync(WorkPositionInputModel inputModel, string userId)
         {
@@ -51,6 +51,14 @@ namespace AOMMembers.Services.Data.Services
             WorkPosition workPosition = await this.workPositionsRespository.GetByIdAsync(id);
 
             return workPosition == null;
+        }
+
+        public async Task<WorkPositionViewModel> GetViewModelByIdAsync(string id)
+        {
+            WorkPosition workPosition = await this.workPositionsRespository.GetByIdAsync(id);
+            WorkPositionViewModel viewModel = this.mapper.Map<WorkPositionViewModel>(workPosition);
+
+            return viewModel;
         }
 
         public async Task<WorkPositionDetailsViewModel> GetDetailsByIdAsync(string id)

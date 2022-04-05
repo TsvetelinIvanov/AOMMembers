@@ -1,12 +1,12 @@
 ﻿@model AOMMembers.Web.ViewModels.Citizens.CitizenEditModel
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Редактирай описанието на гражданските си данни";
 }
 
-<h1>Edit</h1>
+<h1>@this.ViewData["Title"]</h1>
 
-<h4>Citizen</h4>
+<h4>Гражданин</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -15,43 +15,50 @@
             <div class="form-group">
                 <label asp-for="FirstName" class="control-label"></label>
                 @*<input asp-for="FirstName" class="form-control" placeholder=@Model.FirstName />*@
-                <input asp-for="FirstName" class="form-control" value=@Model.FirstName />
+                @*<input asp-for="FirstName" class="form-control" value=@Model.FirstName />*@
+                <input asp-for="FirstName" class="form-control" />
                 <span asp-validation-for="FirstName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="SecondName" class="control-label"></label>
                 @*<input asp-for="SecondName" class="form-control" placeholder=@Model.SecondName />*@
-                <input asp-for="SecondName" class="form-control" value=@Model.SecondName />
+                @*<input asp-for="SecondName" class="form-control" value=@Model.SecondName />*@
+                <input asp-for="SecondName" class="form-control" />
                 <span asp-validation-for="SecondName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="LastName" class="control-label"></label>
                 @*<input asp-for="LastName" class="form-control" placeholder=@Model.LastName />*@
-                <input asp-for="LastName" class="form-control" value=@Model.LastName />
+                @*<input asp-for="LastName" class="form-control" value=@Model.LastName />*@
+                <input asp-for="LastName" class="form-control" />
                 <span asp-validation-for="LastName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Gender" class="control-label"></label>
                 @*<input asp-for="Gender" class="form-control" placeholder=@Model.Gender />*@
-                <input asp-for="Gender" class="form-control" value=@Model.Gender />
+                @*<input asp-for="Gender" class="form-control" value=@Model.Gender />*@
+                <input asp-for="Gender" class="form-control" />
                 <span asp-validation-for="Gender" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Age" class="control-label"></label>
                 @*<input asp-for="Age" class="form-control" placeholder=@Model.Age />*@
-                <input asp-for="Age" class="form-control" value=@Model.Age />
+                @*<input asp-for="Age" class="form-control" value=@Model.Age />*@
+                <input asp-for="Age" class="form-control" />
                 <span asp-validation-for="Age" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="BirthDate" class="control-label"></label>
                 @*<input asp-for="BirthDate" class="form-control" placeholder=@Model.BirthDate />*@
-                <input asp-for="BirthDate" class="form-control" value=@Model.BirthDate />
+                @*<input asp-for="BirthDate" class="form-control" value=@Model.BirthDate />*@
+                <input asp-for="BirthDate" class="form-control" />
                 <span asp-validation-for="BirthDate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="DeathDate" class="control-label"></label>
                 @*<input asp-for="DeathDate" class="form-control" placeholder=@Model.DeathDate />*@
-                <input asp-for="DeathDate" class="form-control" value=@Model.DeathDate />
+                @*<input asp-for="DeathDate" class="form-control" value=@Model.DeathDate />*@
+                <input asp-for="DeathDate" class="form-control" />
                 <span asp-validation-for="DeathDate" class="text-danger"></span>
             </div>
             @*<div class="form-group">
@@ -106,14 +113,14 @@
             </div>*@
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Запомни" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" asp-route-id="@Model.Id">Обратно към гражданските данни</a>
 </div>
 
 @section Scripts {

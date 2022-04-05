@@ -8,6 +8,8 @@ namespace AOMMembers.Services.Data.Interfaces
 
         Task<bool> IsAbsent(string id);
 
+        Task<RelationshipViewModel> GetViewModelByIdAsync(string id);
+
         Task<RelationshipDetailsViewModel> GetDetailsByIdAsync(string id);
 
         Task<bool> IsFromMember(string id, string userId);

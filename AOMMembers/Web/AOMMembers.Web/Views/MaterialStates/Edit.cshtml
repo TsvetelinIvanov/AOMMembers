@@ -1,12 +1,12 @@
 ﻿@model AOMMembers.Web.ViewModels.MaterialStates.MaterialStateEditModel
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Редактирай описанието на материалното си състояние";
 }
 
-<h1>Edit</h1>
+<h1>@this.ViewData["Title"]</h1>
 
-<h4>MaterialState</h4>
+<h4>Материално състояние</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -14,32 +14,37 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Riches" class="control-label"></label>
-                 @*<input asp-for="Riches" class="form-control" placeholder=@Model.Riches />*@
-                <input asp-for="Riches" class="form-control" value=@Model.Riches />
+                @*<input asp-for="Riches" class="form-control" placeholder=@Model.Riches />*@
+                @*<input asp-for="Riches" class="form-control" value=@Model.Riches />*@
+                <input asp-for="Riches" class="form-control" />
                 <span asp-validation-for="Riches" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Money" class="control-label"></label>
-                 @*<input asp-for="Money" class="form-control" placeholder=@Model.Money />*@
-                <input asp-for="Money" class="form-control" value=@Model.Money />
+                @*<input asp-for="Money" class="form-control" placeholder=@Model.Money />*@
+                @*<input asp-for="Money" class="form-control" value=@Model.Money />*@
+                <input asp-for="Money" class="form-control" />
                 <span asp-validation-for="Money" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="MonthIncome" class="control-label"></label>
-                 @*<input asp-for="MonthIncome" class="form-control" placeholder=@Model.MonthIncome />*@
-                <input asp-for="MonthIncome" class="form-control" value=@Model.MonthIncome />
+                @*<input asp-for="MonthIncome" class="form-control" placeholder=@Model.MonthIncome />*@
+                @*<input asp-for="MonthIncome" class="form-control" value=@Model.MonthIncome />*@
+                <input asp-for="MonthIncome" class="form-control" />
                 <span asp-validation-for="MonthIncome" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
-                 @*<input asp-for="Description" class="form-control" placeholder=@Model.Description />*@
-                <input asp-for="Description" class="form-control" value=@Model.Description />
+                @*<input asp-for="Description" class="form-control" placeholder=@Model.Description />*@
+                @*<input asp-for="Description" class="form-control" value=@Model.Description />*@
+                <input asp-for="Description" class="form-control" />
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="TaxDeclarationLink" class="control-label"></label>
-                 @*<input asp-for="TaxDeclarationLink" class="form-control" placeholder=@Model.TaxDeclarationLink />*@
-                <input asp-for="TaxDeclarationLink" class="form-control" value=@Model.TaxDeclarationLink />
+                @*<input asp-for="TaxDeclarationLink" class="form-control" placeholder=@Model.TaxDeclarationLink />*@
+                @*<input asp-for="TaxDeclarationLink" class="form-control" value=@Model.TaxDeclarationLink />*@
+                <input asp-for="TaxDeclarationLink" class="form-control" />
                 <span asp-validation-for="TaxDeclarationLink" class="text-danger"></span>
             </div>
             @*<div class="form-group">
@@ -76,7 +81,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" asp-route-id="@Model.Id">Обратно към материалното състояние</a>
 </div>
 
 @section Scripts {

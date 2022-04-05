@@ -8,6 +8,8 @@ namespace AOMMembers.Services.Data.Interfaces
 
         Task<bool> IsAbsent(string id);
 
+        Task<AssetViewModel> GetViewModelByIdAsync(string id);
+
         Task<AssetDetailsViewModel> GetDetailsByIdAsync(string id);
 
         Task<bool> IsFromMember(string id, string userId);

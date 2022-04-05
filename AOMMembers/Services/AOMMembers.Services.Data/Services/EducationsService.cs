@@ -3,6 +3,7 @@ using AOMMembers.Data.Common.Repositories;
 using AOMMembers.Data.Models;
 using AOMMembers.Services.Data.Interfaces;
 using AOMMembers.Web.ViewModels.Educations;
+using AOMMembers.Web.ViewModels.Qualifications;
 using static AOMMembers.Common.DataBadResults;
 
 namespace AOMMembers.Services.Data.Services
@@ -20,7 +21,12 @@ namespace AOMMembers.Services.Data.Services
             this.educationsRespository = educationsRespository;
             this.citizensRespository = citizensRespository;
             this.qualificationsRespository = qualificationsRespository;
-        }        
+        }
+
+        public bool IsCreated(string userId)
+        {
+            return this.educationsRespository.AllAsNoTracking().Any(e => e.Citizen.Member.ApplicationUserId == userId);
+        }
 
         public async Task<string> CreateAsync(EducationInputModel inputModel, string userId)
         {
@@ -51,9 +57,31 @@ namespace AOMMembers.Services.Data.Services
             return education == null;
         }
 
+        public async Task<EducationViewModel> GetViewModelByIdAsync(string id)
+        {
+            Education education = await this.educationsRespository.GetByIdAsync(id);
+            EducationViewModel viewModel = new EducationViewModel
+            {
+                Id = education.Id,
+                Description = education.Description,
+                CVLink = education.CVLink,                
+                QualificationsCount = education.Qualifications.Count
+            };
+
+            return viewModel;
+        }
+
         public async Task<EducationDetailsViewModel> GetDetailsByIdAsync(string id)
         {
             Education education = await this.educationsRespository.GetByIdAsync(id);
+
+            HashSet<QualificationViewModel> qualifications = new HashSet<QualificationViewModel>();
+            foreach (Qualification qualification in education.Qualifications)
+            {
+                QualificationViewModel qualificationViewModel = this.mapper.Map<QualificationViewModel>(qualification);
+                qualifications.Add(qualificationViewModel);
+            }
+
             EducationDetailsViewModel detailsViewModel = new EducationDetailsViewModel
             {
                 Id = education.Id,
@@ -61,8 +89,9 @@ namespace AOMMembers.Services.Data.Services
                 CVLink = education.CVLink,
                 CitizenId = education.CitizenId,
                 CreatedOn = education.CreatedOn,
-                ModifiedOn = education.ModifiedOn,                
-                QualificationsCount = education.Qualifications.Count
+                ModifiedOn = education.ModifiedOn,
+                QualificationsCount = education.Qualifications.Count,
+                Qualifications = qualifications
             };
 
             return detailsViewModel;

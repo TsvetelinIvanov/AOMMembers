@@ -21,10 +21,18 @@ namespace AOMMembers.Web.Controllers
             this.interestsService = interestsService;
         }
 
-        // GET: InterestsController
-        public ActionResult Index()
+        // GET: InterestsController/Index/"Id"
+        public async Task<ActionResult> Index(string id)
         {
-            return this.View();
+            if (await this.interestsService.IsAbsent(id))
+            {
+                return this.NotFound();
+            }
+
+            InterestViewModel viewModel = await this.interestsService.GetViewModelByIdAsync(id);
+            IEnumerable<InterestViewModel> viewModelWrapper = new[] { viewModel };
+
+            return this.View(viewModelWrapper);
         }
 
         // GET: InterestsController/Details/"Id"
@@ -35,7 +43,9 @@ namespace AOMMembers.Web.Controllers
                 return this.NotFound();
             }
 
-            return this.View();
+            InterestDetailsViewModel viewModel = await this.interestsService.GetDetailsByIdAsync(id);
+
+            return this.View(viewModel);
         }
 
         // GET: InterestsController/Create

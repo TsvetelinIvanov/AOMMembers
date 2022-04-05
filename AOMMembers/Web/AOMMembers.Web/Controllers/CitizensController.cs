@@ -21,10 +21,18 @@ namespace AOMMembers.Web.Controllers
             this.citizensService = citizensService;
         }
 
-        // GET: CitizensController
-        public ActionResult Index()
+        // GET: CitizensController/Index/"Id"
+        public async Task<ActionResult> Index(string id)
         {
-            return this.View();
+            if (await this.citizensService.IsAbsent(id))
+            {
+                return this.NotFound();
+            }
+
+            CitizenViewModel viewModel = await this.citizensService.GetViewModelByIdAsync(id);
+            IEnumerable<CitizenViewModel> viewModelWrapper = new[] { viewModel };
+
+            return this.View(viewModelWrapper);
         }
 
         // GET: CitizensController/Details/"Id"
@@ -35,13 +43,21 @@ namespace AOMMembers.Web.Controllers
                 return this.NotFound();
             }
 
-            return this.View();
+            CitizenDetailsViewModel viewModel = await this.citizensService.GetDetailsByIdAsync(id);
+
+            return this.View(viewModel);
         }
 
         // GET: CitizensController/Create
         [Authorize(Roles = AdministratorRoleName + ", " + MemberRoleName)]
         public ActionResult Create()
         {
+            string userId = this.userManager.GetUserId(this.User);
+            if (this.citizensService.IsCreated(userId))
+            {
+                return this.BadRequest(CreateCreatedEntityBadResult);
+            }
+
             return this.View(new CitizenInputModel());
         }
 
@@ -51,14 +67,19 @@ namespace AOMMembers.Web.Controllers
         [Authorize(Roles = AdministratorRoleName + ", " + MemberRoleName)]
         public async Task<ActionResult> Create(CitizenInputModel inputModel)
         {
+            string userId = this.userManager.GetUserId(this.User);
+            if (this.citizensService.IsCreated(userId))
+            {
+                return this.BadRequest(CreateCreatedEntityBadResult);
+            }
+
             if (!ModelState.IsValid)
             {
                 return Redirect("/Citizens/Create");
             }
 
             try
-            {
-                string userId = this.userManager.GetUserId(this.User);
+            {                
                 string citizenId = await this.citizensService.CreateAsync(inputModel, userId);
                 if (citizenId == CitizenCreateWithoutMemberBadResult)
                 {

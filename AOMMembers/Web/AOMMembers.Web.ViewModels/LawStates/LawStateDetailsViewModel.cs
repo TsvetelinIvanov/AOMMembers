@@ -22,6 +22,6 @@ namespace AOMMembers.Web.ViewModels.LawStates
         [Display(Name = LawStateLawProblemsCountDisplayName)]
         public int LawProblemsCount { get; set; }
 
-        public LawProblemListViewModel LawProblems { get; set; }
+        public HashSet<LawProblemViewModel> LawProblems { get; set; }
     }
 }

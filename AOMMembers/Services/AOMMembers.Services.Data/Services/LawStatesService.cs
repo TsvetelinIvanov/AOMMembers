@@ -3,6 +3,7 @@ using AOMMembers.Data.Common.Repositories;
 using AOMMembers.Data.Models;
 using AOMMembers.Services.Data.Interfaces;
 using AOMMembers.Web.ViewModels.LawStates;
+using AOMMembers.Web.ViewModels.LawProblems;
 using static AOMMembers.Common.DataBadResults;
 
 namespace AOMMembers.Services.Data.Services
@@ -20,7 +21,12 @@ namespace AOMMembers.Services.Data.Services
             this.lawStatesRespository = lawStatesRespository;
             this.citizensRespository = citizensRespository;
             this.lawProblemsRespository = lawProblemsRespository;
-        }        
+        }
+
+        public bool IsCreated(string userId)
+        {
+            return this.lawStatesRespository.AllAsNoTracking().Any(ls => ls.Citizen.Member.ApplicationUserId == userId);
+        }
 
         public async Task<string> CreateAsync(LawStateInputModel inputModel, string userId)
         {
@@ -50,17 +56,39 @@ namespace AOMMembers.Services.Data.Services
             return lawState == null;
         }
 
+        public async Task<LawStateViewModel> GetViewModelByIdAsync(string id)
+        {
+            LawState lawState = await this.lawStatesRespository.GetByIdAsync(id);
+            LawStateViewModel viewModel = new LawStateViewModel
+            {
+                Id = lawState.Id,
+                Condition = lawState.Condition,                
+                LawProblemsCount = lawState.LawProblems.Count
+            };
+
+            return viewModel;
+        }
+
         public async Task<LawStateDetailsViewModel> GetDetailsByIdAsync(string id)
         {
             LawState lawState = await this.lawStatesRespository.GetByIdAsync(id);
+
+            HashSet<LawProblemViewModel> lawProblems = new HashSet<LawProblemViewModel>();
+            foreach (LawProblem lawProblem in lawState.LawProblems)
+            {
+                LawProblemViewModel lawProblemViewModel = this.mapper.Map<LawProblemViewModel>(lawProblem);
+                lawProblems.Add(lawProblemViewModel);
+            }
+
             LawStateDetailsViewModel detailsViewModel = new LawStateDetailsViewModel
             {
                 Id = lawState.Id,
-                Condition = lawState.Condition,               
+                Condition = lawState.Condition,
                 CitizenId = lawState.CitizenId,
                 CreatedOn = lawState.CreatedOn,
                 ModifiedOn = lawState.ModifiedOn,
-                LawProblemsCount = lawState.LawProblems.Count
+                LawProblemsCount = lawState.LawProblems.Count,
+                LawProblems = lawProblems
             };
 
             return detailsViewModel;
@@ -71,7 +99,7 @@ namespace AOMMembers.Services.Data.Services
             LawState lawState = await this.lawStatesRespository.GetByIdAsync(id);
 
             return lawState.Citizen.Member.ApplicationUserId == userId;
-        }
+        }        
 
         public async Task<LawStateEditModel> GetEditModelByIdAsync(string id)
         {

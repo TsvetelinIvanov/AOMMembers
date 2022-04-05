@@ -1,14 +1,85 @@
-﻿@model AOMMembers.Web.ViewModels.Settings.SettingsListViewModel
+﻿@model IEnumerable<AOMMembers.Web.ViewModels.Settings.SettingViewModel>
 
 @{
-    this.ViewData["Title"] = "Settings";
+    this.ViewData["Title"] = "Допълнителна характеристика";
 }
 
 <h1>@this.ViewData["Title"]</h1>
 
-@foreach (var setting in this.Model.Settings)
+@if (this.User.IsInRole(GlobalConstants.MemberRoleName) || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
 {
-    <div>@setting.Id: @setting.NameAndValue</div>
+<p>
+    <a asp-action="Create">Създай нова</a>
+</p>
 }
 
-<a asp-action="InsertSetting" class="btn btn-primary">Insert new</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Value)
+            </th>            
+            @*<th>
+                @Html.DisplayNameFor(model => model.Citizen)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsDeleted)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DeletedOn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedOn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ModifiedOn)
+            </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.NameAndValue)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Value)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.Citizen.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsDeleted)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeletedOn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedOn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ModifiedOn)
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.NameAndValue)
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.Id">Виж детайли</a>
+                    @if (this.User.IsInRole(GlobalConstants.MemberRoleName) || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                    {
+                        @: | 
+                        <a asp-action="Edit" asp-route-id="@item.Id">Редактирай</a> @: | 
+                        <a asp-action="Delete" asp-route-id="@item.Id">Изтрий</a>
+                    }
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

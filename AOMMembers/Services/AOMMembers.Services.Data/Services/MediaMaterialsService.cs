@@ -19,7 +19,7 @@ namespace AOMMembers.Services.Data.Services
             this.mapper = mapper;
             this.mediaMaterialsRespository = mediaMaterialsRespository;
             this.publicImagesRespository = publicImagesRespository;
-        }        
+        }
 
         public async Task<string> CreateAsync(MediaMaterialInputModel inputModel, string userId)
         {
@@ -53,6 +53,14 @@ namespace AOMMembers.Services.Data.Services
             MediaMaterial mediaMaterial = await this.mediaMaterialsRespository.GetByIdAsync(id);
 
             return mediaMaterial == null;
+        }
+
+        public async Task<MediaMaterialViewModel> GetViewModelByIdAsync(string id)
+        {
+            MediaMaterial mediaMaterial = await this.mediaMaterialsRespository.GetByIdAsync(id);
+            MediaMaterialViewModel viewModel = this.mapper.Map<MediaMaterialViewModel>(mediaMaterial);
+
+            return viewModel;
         }
 
         public async Task<MediaMaterialDetailsViewModel> GetDetailsByIdAsync(string id)

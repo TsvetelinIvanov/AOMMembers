@@ -28,6 +28,6 @@ namespace AOMMembers.Web.ViewModels.Careers
         [Display(Name = CareerWorkPositionsCountDisplayName)]
         public int WorkPositionsCount { get; set; }       
 
-        public WorkPositionListViewModel WorkPositions { get; set; }
+        public HashSet<WorkPositionViewModel> WorkPositions { get; set; }
     }
 }

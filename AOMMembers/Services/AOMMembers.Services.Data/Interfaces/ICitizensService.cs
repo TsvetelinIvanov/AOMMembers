@@ -4,9 +4,13 @@ namespace AOMMembers.Services.Data.Interfaces
 {
     public interface ICitizensService
     {
+        bool IsCreated(string userId);
+
         Task<string> CreateAsync(CitizenInputModel inputModel, string userId);
 
         Task<bool> IsAbsent(string id);
+
+        Task<CitizenViewModel> GetViewModelByIdAsync(string id);
 
         Task<CitizenDetailsViewModel> GetDetailsByIdAsync(string id);
 

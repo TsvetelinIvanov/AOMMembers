@@ -1,12 +1,12 @@
 ﻿@model AOMMembers.Web.ViewModels.Members.MemberEditModel
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Редактирай записа на данните за членство";
 }
 
-<h1>Edit</h1>
+<h1>@this.ViewData["Title"]</h1>
 
-<h4>Member</h4>
+<h4>Член</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -14,26 +14,30 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="FullName" class="control-label"></label>
-               @*<input asp-for="FullName" class="form-control" placeholder=@Model.FullName />*@
-                <input asp-for="FullName" class="form-control" value=@Model.FullName />
+                @*<input asp-for="FullName" class="form-control" placeholder=@Model.FullName />*@
+                @*<input asp-for="FullName" class="form-control" value=@Model.FullName />*@
+                <input asp-for="FullName" class="form-control" />
                 <span asp-validation-for="FullName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Email" class="control-label"></label>
                 @*<input asp-for="Email" class="form-control" placeholder=@Model.Email />*@
-                <input asp-for="Email" class="form-control" value=@Model.Email />
+                @*<input asp-for="Email" class="form-control" value=@Model.Email />*@
+                <input asp-for="Email" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="PhoneNumber" class="control-label"></label>
                 @*<input asp-for="PhoneNumber" class="form-control" placeholder=@Model.PhoneNumber />*@
-                <input asp-for="PhoneNumber" class="form-control" value=@Model.PhoneNumber />
+                @*<input asp-for="PhoneNumber" class="form-control" value=@Model.PhoneNumber />*@
+                <input asp-for="PhoneNumber" class="form-control" />
                 <span asp-validation-for="PhoneNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="PictureUrl" class="control-label"></label>
                 @*<input asp-for="PictureUrl" class="form-control" placeholder=@Model.PictureUrl />*@
-                <input asp-for="PictureUrl" class="form-control" value=@Model.PictureUrl />
+                @*<input asp-for="PictureUrl" class="form-control" value=@Model.PictureUrl />*@
+                <input asp-for="PictureUrl" class="form-control" />
                 <span asp-validation-for="PictureUrl" class="text-danger"></span>
             </div>
             @*<div class="form-group">
@@ -73,14 +77,14 @@
             </div>*@
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Запомни" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Обратно към данните на членовете</a>
 </div>
 
 @section Scripts {

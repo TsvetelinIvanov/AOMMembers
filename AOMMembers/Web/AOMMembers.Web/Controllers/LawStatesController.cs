@@ -21,10 +21,18 @@ namespace AOMMembers.Web.Controllers
             this.lawStatesService = lawStatesService;
         }
 
-        // GET: LawStatesController
-        public ActionResult Index()
+        // GET: LawStatesController/Index/"Id"
+        public async Task<ActionResult> Index(string id)
         {
-            return this.View();
+            if (await this.lawStatesService.IsAbsent(id))
+            {
+                return this.NotFound();
+            }
+
+            LawStateViewModel viewModel = await this.lawStatesService.GetViewModelByIdAsync(id);
+            IEnumerable<LawStateViewModel> viewModelWrapper = new[] { viewModel };
+
+            return this.View(viewModelWrapper);
         }
 
         // GET: LawStatesController/Details/5
@@ -35,13 +43,21 @@ namespace AOMMembers.Web.Controllers
                 return this.NotFound();
             }
 
-            return this.View();
+            LawStateDetailsViewModel viewModel = await this.lawStatesService.GetDetailsByIdAsync(id);
+
+            return this.View(viewModel);
         }
 
         // GET: LawStatesController/Create
         [Authorize(Roles = AdministratorRoleName + ", " + MemberRoleName)]
         public ActionResult Create()
         {
+            string userId = this.userManager.GetUserId(this.User);
+            if (this.lawStatesService.IsCreated(userId))
+            {
+                return this.BadRequest(CreateCreatedEntityBadResult);
+            }
+
             return this.View(new LawStateInputModel());
         }
 
@@ -51,14 +67,19 @@ namespace AOMMembers.Web.Controllers
         [Authorize(Roles = AdministratorRoleName + ", " + MemberRoleName)]
         public async Task<ActionResult> Create(LawStateInputModel inputModel)
         {
+            string userId = this.userManager.GetUserId(this.User);
+            if (this.lawStatesService.IsCreated(userId))
+            {
+                return this.BadRequest(CreateCreatedEntityBadResult);
+            }
+
             if (!ModelState.IsValid)
             {
                 return Redirect("/LawStates/Create");
             }
 
             try
-            {
-                string userId = this.userManager.GetUserId(this.User);
+            {                
                 string lawStateId = await this.lawStatesService.CreateAsync(inputModel, userId);
                 if (lawStateId == LawStateCreateWithoutCitizenBadResult)
                 {

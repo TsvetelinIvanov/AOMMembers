@@ -21,10 +21,18 @@ namespace AOMMembers.Web.Controllers
             this.societyActivitiesService = societyActivitiesService;
         }
 
-        // GET: SocietyActivitiesController
-        public ActionResult Index()
+        // GET: SocietyActivitiesController/Index/"Id"
+        public async Task<ActionResult> Index(string id)
         {
-            return this.View();
+            if (await this.societyActivitiesService.IsAbsent(id))
+            {
+                return this.NotFound();
+            }
+
+            SocietyActivityViewModel viewModel = await this.societyActivitiesService.GetViewModelByIdAsync(id);
+            IEnumerable<SocietyActivityViewModel> viewModelWrapper = new[] { viewModel };
+
+            return this.View(viewModelWrapper);
         }
 
         // GET: SocietyActivitiesController/Details/"Id"
@@ -35,7 +43,9 @@ namespace AOMMembers.Web.Controllers
                 return this.NotFound();
             }
 
-            return this.View();
+            SocietyActivityDetailsViewModel viewModel = await this.societyActivitiesService.GetDetailsByIdAsync(id);
+
+            return this.View(viewModel);
         }
 
         // GET: SocietyActivitiesController/Create

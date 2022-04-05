@@ -19,7 +19,7 @@ namespace AOMMembers.Services.Data.Services
             this.mapper = mapper;
             this.partyPositionsRespository = partyPositionsRespository;
             this.membersRespository = membersRespository;
-        }       
+        }
 
         public async Task<string> CreateAsync(PartyPositionInputModel inputModel, string userId)
         {
@@ -51,6 +51,14 @@ namespace AOMMembers.Services.Data.Services
             PartyPosition partyPosition = await this.partyPositionsRespository.GetByIdAsync(id);
 
             return partyPosition == null;
+        }
+
+        public async Task<PartyPositionViewModel> GetViewModelByIdAsync(string id)
+        {
+            PartyPosition partyPosition = await this.partyPositionsRespository.GetByIdAsync(id);
+            PartyPositionViewModel viewModel = this.mapper.Map<PartyPositionViewModel>(partyPosition);
+
+            return viewModel;
         }
 
         public async Task<PartyPositionDetailsViewModel> GetDetailsByIdAsync(string id)

@@ -21,10 +21,18 @@ namespace AOMMembers.Web.Controllers
             this.qualificationsService = qualificationsService;
         }
 
-        // GET: QualificationsController
-        public ActionResult Index()
+        // GET: QualificationsController/Index/"Id"
+        public async Task<ActionResult> Index(string id)
         {
-            return this.View();
+            if (await this.qualificationsService.IsAbsent(id))
+            {
+                return this.NotFound();
+            }
+
+            QualificationViewModel viewModel = await this.qualificationsService.GetViewModelByIdAsync(id);
+            IEnumerable<QualificationViewModel> viewModelWrapper = new[] { viewModel };
+
+            return this.View(viewModelWrapper);
         }
 
         // GET: QualificationsController/Details/"Id"
@@ -35,7 +43,9 @@ namespace AOMMembers.Web.Controllers
                 return this.NotFound();
             }
 
-            return this.View();
+            QualificationDetailsViewModel viewModel = await this.qualificationsService.GetDetailsByIdAsync(id);
+
+            return this.View(viewModel);
         }
 
         // GET: QualificationsController/Create

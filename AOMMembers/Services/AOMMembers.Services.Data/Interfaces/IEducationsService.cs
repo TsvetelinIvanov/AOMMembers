@@ -4,9 +4,13 @@ namespace AOMMembers.Services.Data.Interfaces
 {
     public interface IEducationsService
     {
+        bool IsCreated(string userId);
+
         Task<string> CreateAsync(EducationInputModel inputModel, string userId);
 
         Task<bool> IsAbsent(string id);
+
+        Task<EducationViewModel> GetViewModelByIdAsync(string id);
 
         Task<EducationDetailsViewModel> GetDetailsByIdAsync(string id);
 

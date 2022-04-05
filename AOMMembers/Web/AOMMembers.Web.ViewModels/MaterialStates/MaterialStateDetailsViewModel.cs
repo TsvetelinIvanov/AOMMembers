@@ -34,6 +34,6 @@ namespace AOMMembers.Web.ViewModels.MaterialStates
         [Display(Name = MaterialStateAssetsCountDisplayName)]
         public int AssetsCount { get; set; }
 
-        public AssetListViewModel Assets { get; set; }
+        public HashSet<AssetViewModel> Assets { get; set; }
     }
 }

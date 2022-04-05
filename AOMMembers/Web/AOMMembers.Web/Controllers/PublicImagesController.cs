@@ -21,10 +21,18 @@ namespace AOMMembers.Web.Controllers
             this.publicImagesService = publicImagesService;
         }
 
-        // GET: PublicImagesController
-        public ActionResult Index()
+        // GET: PublicImagesController/Index/"Id"
+        public async Task<ActionResult> Index(string id)
         {
-            return this.View();
+            if (await this.publicImagesService.IsAbsent(id))
+            {
+                return this.NotFound();
+            }
+
+            PublicImageViewModel viewModel = await this.publicImagesService.GetViewModelByIdAsync(id);
+            IEnumerable<PublicImageViewModel> viewModelWrapper = new[] { viewModel };
+
+            return this.View(viewModelWrapper);
         }
 
         // GET: PublicImagesController/Details/"Id"
@@ -35,13 +43,21 @@ namespace AOMMembers.Web.Controllers
                 return this.NotFound();
             }
 
-            return this.View();
+            PublicImageDetailsViewModel viewModel = await this.publicImagesService.GetDetailsByIdAsync(id);
+
+            return this.View(viewModel);            
         }
 
         // GET: PublicImagesController/Create
         [Authorize(Roles = AdministratorRoleName + ", " + MemberRoleName)]
         public ActionResult Create()
         {
+            string userId = this.userManager.GetUserId(this.User);
+            if (this.publicImagesService.IsCreated(userId))
+            {
+                return this.BadRequest(CreateCreatedEntityBadResult);
+            }
+
             return this.View(new PublicImageInputModel());
         }
 
@@ -51,14 +67,19 @@ namespace AOMMembers.Web.Controllers
         [Authorize(Roles = AdministratorRoleName + ", " + MemberRoleName)]
         public async Task<ActionResult> Create(PublicImageInputModel inputModel)
         {
+            string userId = this.userManager.GetUserId(this.User);
+            if (this.publicImagesService.IsCreated(userId))
+            {
+                return this.BadRequest(CreateCreatedEntityBadResult);
+            }
+
             if (!ModelState.IsValid)
             {
                 return Redirect("/PublicImages/Create");
             }
 
             try
-            {
-                string userId = this.userManager.GetUserId(this.User);
+            {                
                 string publicImageId = await this.publicImagesService.CreateAsync(inputModel, userId);
                 if (publicImageId == PublicImageCreateWithoutMemberBadResult)
                 {

@@ -3,6 +3,10 @@ using AOMMembers.Data.Models;
 using AutoMapper;
 using AOMMembers.Services.Data.Interfaces;
 using AOMMembers.Web.ViewModels.Citizens;
+using AOMMembers.Web.ViewModels.PartyMemberships;
+using AOMMembers.Web.ViewModels.SocietyHelps;
+using AOMMembers.Web.ViewModels.SocietyActivities;
+using AOMMembers.Web.ViewModels.Settings;
 using static AOMMembers.Common.DataBadResults;
 
 namespace AOMMembers.Services.Data.Services
@@ -46,7 +50,12 @@ namespace AOMMembers.Services.Data.Services
             this.societyHelpsRespository = societyHelpsRespository;
             this.societyActivitiesRespository = societyActivitiesRespository;
             this.settingsRespository = settingsRespository;            
-        }        
+        }
+
+        public bool IsCreated(string userId)
+        {
+            return this.citizensRespository.AllAsNoTracking().Any(c => c.Member.ApplicationUserId == userId);
+        }
 
         public async Task<string> CreateAsync(CitizenInputModel inputModel, string userId)
         {
@@ -82,6 +91,47 @@ namespace AOMMembers.Services.Data.Services
             return citizen == null;
         }
 
+        public async Task<CitizenViewModel> GetViewModelByIdAsync(string id)
+        {
+            Citizen citizen = await this.citizensRespository.GetByIdAsync(id);
+
+            string workPositionName = "---";
+            Career career = citizen.Career;
+            if (career != null)
+            {
+                WorkPosition workPosition = career.WorkPositions.FirstOrDefault(wp => wp.IsCurrent);
+                workPositionName = workPosition != null ? workPosition.Name : "---";
+            }
+
+            MaterialState materialState = citizen.MaterialState;
+            decimal materialStateRiches = materialState != null ? materialState.Riches : 0;
+            int assetsCount = materialState != null ? materialState.Assets.Count : 0;
+
+            LawState lawState = citizen.LawState;
+            string lawStateCondition = lawState != null ? lawState.Condition : "---";
+
+            CitizenViewModel viewModel = new CitizenViewModel
+            {
+                Id = citizen.Id,
+                FirstName = citizen.FirstName,
+                SecondName = citizen.SecondName,
+                LastName = citizen.LastName,
+                Gender = citizen.Gender,
+                Age = citizen.Age,
+                BirthDate = citizen.BirthDate,
+                DeathDate = citizen.DeathDate,                
+                CurrentWorkPosition = workPositionName,
+                MaterialState = materialStateRiches,
+                AssetsCount = assetsCount,
+                LawStateCondition = lawStateCondition,
+                PartyMembershipsCount = citizen.PartyMemberships.Count,
+                SocietyHelpsCount = citizen.SocietyHelps.Count,                
+                SocietyActivitiesCount = citizen.SocietyActivities.Count
+            };
+
+            return viewModel;
+        }
+
         public async Task<CitizenDetailsViewModel> GetDetailsByIdAsync(string id)
         {
             Citizen citizen = await this.citizensRespository.GetByIdAsync(id);
@@ -101,6 +151,34 @@ namespace AOMMembers.Services.Data.Services
             LawState lawState = citizen.LawState;
             string lawStateCondition = lawState != null ? lawState.Condition : "---";
 
+            HashSet<PartyMembershipViewModel> partyMemberships = new HashSet<PartyMembershipViewModel>();
+            foreach (PartyMembership partyMembership in citizen.PartyMemberships)
+            {
+                PartyMembershipViewModel partyMembershipViewModel = this.mapper.Map<PartyMembershipViewModel>(partyMembership);
+                partyMemberships.Add(partyMembershipViewModel);
+            }
+
+            HashSet<SocietyHelpViewModel> societyHelps = new HashSet<SocietyHelpViewModel>();
+            foreach (SocietyHelp societyHelp in citizen.SocietyHelps)
+            {
+                SocietyHelpViewModel societyHelpViewModel = this.mapper.Map<SocietyHelpViewModel>(societyHelp);
+                societyHelps.Add(societyHelpViewModel);
+            }
+
+            HashSet<SocietyActivityViewModel> societyActivities = new HashSet<SocietyActivityViewModel>();
+            foreach (SocietyActivity societyActivity in citizen.SocietyActivities)
+            {
+                SocietyActivityViewModel societyActivityViewModel = this.mapper.Map<SocietyActivityViewModel>(societyActivity);
+                societyActivities.Add(societyActivityViewModel);
+            }
+
+            HashSet<SettingViewModel> settings = new HashSet<SettingViewModel>();
+            foreach (Setting setting in citizen.Settings)
+            {
+                SettingViewModel settingViewModel = this.mapper.Map<SettingViewModel>(setting);
+                settings.Add(settingViewModel);
+            }
+
             CitizenDetailsViewModel detailsViewModel = new CitizenDetailsViewModel
             {
                 Id = citizen.Id,
@@ -119,7 +197,17 @@ namespace AOMMembers.Services.Data.Services
                 LawStateCondition = lawStateCondition,
                 PartyMembershipsCount = citizen.PartyMemberships.Count,
                 SocietyHelpsCount = citizen.SocietyHelps.Count,
-                SocietyActivitiesCount = citizen.SocietyActivities.Count
+                SocietyActivitiesCount = citizen.SocietyActivities.Count,
+                MemberId = citizen.MemberId,
+                EducationId = citizen.EducationId,
+                CareerId = citizen.CareerId,
+                MaterialStateId = citizen.MaterialStateId,
+                LawStateId = citizen.LawStateId,
+                WorldviewId = citizen.WorldviewId,
+                PartyMemberships = partyMemberships,
+                SocietyHelps = societyHelps,
+                SocietyActivities = societyActivities,
+                Settings = settings
             };
 
             return detailsViewModel;

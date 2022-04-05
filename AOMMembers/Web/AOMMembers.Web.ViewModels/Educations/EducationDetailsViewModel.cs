@@ -25,6 +25,6 @@ namespace AOMMembers.Web.ViewModels.Educations
         [Display(Name = EducationQualificationsCountDisplayName)]
         public int QualificationsCount { get; set; }
         
-        public QualificationListViewModel Qualifications { get; set; }
+        public HashSet<QualificationViewModel> Qualifications { get; set; }
     }
 }

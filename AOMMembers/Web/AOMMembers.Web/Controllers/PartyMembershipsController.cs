@@ -21,10 +21,18 @@ namespace AOMMembers.Web.Controllers
             this.partyMembershipsService = partyMembershipsService;
         }
 
-        // GET: PartyMembershipsController
-        public ActionResult Index()
+        // GET: PartyMembershipsController/Index/"Id"
+        public async Task<ActionResult> Index(string id)
         {
-            return this.View();
+            if (await this.partyMembershipsService.IsAbsent(id))
+            {
+                return this.NotFound();
+            }
+
+            PartyMembershipViewModel viewModel = await this.partyMembershipsService.GetViewModelByIdAsync(id);
+            IEnumerable<PartyMembershipViewModel> viewModelWrapper = new[] { viewModel };
+
+            return this.View(viewModelWrapper);
         }
 
         // GET: PartyMembershipsController/Details/"Id"
@@ -35,7 +43,9 @@ namespace AOMMembers.Web.Controllers
                 return this.NotFound();
             }
 
-            return this.View();
+            PartyMembershipDetailsViewModel viewModel = await this.partyMembershipsService.GetDetailsByIdAsync(id);
+
+            return this.View(viewModel);
         }
 
         // GET: PartyMembershipsController/Create

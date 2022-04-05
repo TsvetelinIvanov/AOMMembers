@@ -72,14 +72,14 @@ namespace AOMMembers.Web.ViewModels.Citizens
 
         public string? WorldviewId { get; set; }
 
-        public RelationshipListViewModel Relationships { get; set; }
+        //public HashSet<RelationshipViewModel> Relationships { get; set; }
 
-        public PartyMembershipListViewModel PartyMemberships { get; set; }
+        public HashSet<PartyMembershipViewModel> PartyMemberships { get; set; }
 
-        public SocietyHelpListViewModel SocietyHelps { get; set; }
+        public HashSet<SocietyHelpViewModel> SocietyHelps { get; set; }
 
-        public SocietyActivityListViewModel SocietyActivities { get; set; }
+        public HashSet<SocietyActivityViewModel> SocietyActivities { get; set; }
 
-        public SettingsListViewModel Settings { get; set; }
+        public HashSet<SettingViewModel> Settings { get; set; }
     }
 }

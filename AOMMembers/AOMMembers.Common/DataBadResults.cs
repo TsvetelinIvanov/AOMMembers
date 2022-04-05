@@ -5,6 +5,8 @@
         public const string UnauthorizedEditMessage = "Можете да редактирате само неща които сте създали!";
         public const string UnauthorizedDeleteMessage = "Можете да триете само неща които сте създали!";
 
+        public const string CreateCreatedEntityBadResult = "Вече имате създадена инстанция!";
+
         public const string MemberCreateWithoutApplicationUserBadResult = "Firstly, You must have \"ApplicationUser\" and then add \"Member\" to it!";
         public const string MemberCreateWithoutApplicationUserBadRequest = "Трябва първо да сте \"Потребител\" и след това да станете \"Член\"!";
         public const string MemberWithoutApplicationUserBadResult = "You must have \"ApplicationUser\" to do anything with \"Member\"!";
@@ -73,19 +75,19 @@
         public const string MediaMaterialWithoutPublicImageBadRequest = "Трябва да имате \"Публичен образ\" за да правите нещо с медийния материал!";
 
         public const string LawStateCreateWithoutCitizenBadResult = "Firstly, You must have \"Citizen\" and then add \"LawState\" to it!";
-        public const string LawStateCreateWithoutCitizenBadRequest = "Трябва първо да имате \"Гражданин\" и след това да добавите \"Гражданско състояние\" към него!";
+        public const string LawStateCreateWithoutCitizenBadRequest = "Трябва първо да имате \"Гражданин\" и след това да добавите \"Състояние на отношенията с правораздавателните органи\" към него!";
         public const string LawStateWithoutCitizenBadResult = "You must have \"Citizen\" to do anything with \"LawState\"!";
-        public const string LawStateWithoutCitizenBadRequest = "Трябва да имате \"Гражданин\" за да правите нещо с гражданското състояние!";
+        public const string LawStateWithoutCitizenBadRequest = "Трябва да имате \"Гражданин\" за да правите нещо със състоянието на отношенията с правораздавателните органи!";
 
         public const string LawProblemCreateWithoutLawStateBadResult = "Firstly, You must have \"LawState\" and then add law problems to it!";
-        public const string LawProblemCreateWithoutLawStateBadRequest = "Трябва първо да имате \"Гражданин\" и след това да добавяте проблеми с правосъдието към него!";
+        public const string LawProblemCreateWithoutLawStateBadRequest = "Трябва първо да имате \"Състояние на отношенията с правораздавателните органи\" и след това да добавяте проблеми с правораздавателните органи към него!";
         public const string LawProblemWithoutLawStateBadResult = "You must have \"LawState\" to do anything with \"LawProblem\"!";
-        public const string LawProblemWithoutLawStateBadRequest = "Трябва да имате \"Гражданско състояние\" за да правите нещо с проблемите с правосъдието!";
+        public const string LawProblemWithoutLawStateBadRequest = "Трябва да имате \"Състояние на отношенията с правораздавателните органи\" за да правите нещо с проблемите с правораздавателните органи!";
 
         public const string SocietyHelpCreateWithoutCitizenBadResult = "Firstly, You must have \"Citizen\" and then add society helps to it!";
-        public const string SocietyHelpCreateWithoutCitizenBadRequest = "Трябва първо да имате \"Гражданин\" и след това да добавяте помощите спрямо обществото към него!";
+        public const string SocietyHelpCreateWithoutCitizenBadRequest = "Трябва първо да имате \"Гражданин\" и след това да добавяте приносите му спрямо обществото към него!";
         public const string SocietyHelpWithoutCitizenBadResult = "You must have \"Citizen\" to do anything with \"SocietyHelp\"!";
-        public const string SocietyHelpWithoutCitizenBadRequest = "Трябва да имате \"Гражданин\" за да правите нещо с помощта към обществото!";
+        public const string SocietyHelpWithoutCitizenBadRequest = "Трябва да имате \"Гражданин\" за да правите нещо с приноса му към обществото!";
 
         public const string SocietyActivityCreateWithoutCitizenBadResult = "Firstly, You must have \"Citizen\" and then add society activities to it!";
         public const string SocietyActivityCreateWithoutCitizenBadRequest = "Трябва първо да имате \"Гражданин\" и след това да добавяте обществените дейностти към него!";
@@ -103,8 +105,8 @@
         public const string InterestWithoutWorldviewBadRequest = "Трябва да имате \"Светоглед\" за да правите нещо с интереса!";
 
         public const string SettingCreateWithoutCitizenBadResult = "Firstly, You must have \"Citizen\" and then add settings to it!";
-        public const string SettingCreateWithoutCitizenBadRequest = "Трябва първо да имате \"Гражданин\" и след това да добавяте неща към него!";
+        public const string SettingCreateWithoutCitizenBadRequest = "Трябва първо да имате \"Гражданин\" и след това да добавяте допълнителни характеристики към него!";
         public const string SettingWithoutCitizenBadResult = "You must have \"Citizen\" to do anything with \"Setting\"!";
-        public const string SettingWithoutCitizenBadRequest = "Трябва да имате \"Гражданин\" за да правите нещо с обекта!";
+        public const string SettingWithoutCitizenBadRequest = "Трябва да имате \"Гражданин\" за да правите нещо с допълнителната му характеристика!";
     }
 }

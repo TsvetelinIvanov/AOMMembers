@@ -4,9 +4,13 @@ namespace AOMMembers.Services.Data.Interfaces
 {
     public interface ILawStatesService
     {
+        bool IsCreated(string userId);
+
         Task<string> CreateAsync(LawStateInputModel inputModel, string userId);
 
         Task<bool> IsAbsent(string id);
+
+        Task<LawStateViewModel> GetViewModelByIdAsync(string id);
 
         Task<LawStateDetailsViewModel> GetDetailsByIdAsync(string id);
 

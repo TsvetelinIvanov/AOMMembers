@@ -1,14 +1,11 @@
 ﻿@model IEnumerable<AOMMembers.Web.ViewModels.PublicImages.PublicImageViewModel>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Публичен образ";
 }
 
-<h1>Index</h1>
+<h1>@this.ViewData["Title"]</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -61,9 +58,13 @@
                 @Html.DisplayFor(modelItem => item.MediaMaterialsCount)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Details" asp-route-id="@item.Id">Виж детайли</a>
+                    @if (this.User.IsInRole(GlobalConstants.MemberRoleName) || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                    {
+                        @: | 
+                        <a asp-action="Edit" asp-route-id="@item.Id">Редактирай</a> @: | 
+                        <a asp-action="Delete" asp-route-id="@item.Id">Изтрий</a>
+                    }
             </td>
         </tr>
 }

@@ -3,6 +3,7 @@ using AOMMembers.Data.Common.Repositories;
 using AOMMembers.Data.Models;
 using AOMMembers.Services.Data.Interfaces;
 using AOMMembers.Web.ViewModels.Worldviews;
+using AOMMembers.Web.ViewModels.Interests;
 using static AOMMembers.Common.DataBadResults;
 
 namespace AOMMembers.Services.Data.Services
@@ -20,6 +21,11 @@ namespace AOMMembers.Services.Data.Services
             this.worldviewsRespository = worldviewsRespository;
             this.citizensRespository = citizensRespository;
             this.interestsRespository = interestsRespository;
+        }
+
+        public bool IsCreated(string userId)
+        {
+            return this.worldviewsRespository.AllAsNoTracking().Any(w => w.Citizen.Member.ApplicationUserId == userId);
         }
 
         public async Task<string> CreateAsync(WorldviewInputModel inputModel, string userId)
@@ -51,9 +57,31 @@ namespace AOMMembers.Services.Data.Services
             return worldview == null;
         }
 
+        public async Task<WorldviewViewModel> GetViewModelByIdAsync(string id)
+        {
+            Worldview worldview = await this.worldviewsRespository.GetByIdAsync(id);
+            WorldviewViewModel viewModel = new WorldviewViewModel
+            {
+                Id = worldview.Id,
+                Description = worldview.Description,
+                Ideology = worldview.Ideology,               
+                InterestsCount = worldview.Interests.Count
+            };
+
+            return viewModel;
+        }
+
         public async Task<WorldviewDetailsViewModel> GetDetailsByIdAsync(string id)
         {
             Worldview worldview = await this.worldviewsRespository.GetByIdAsync(id);
+
+            HashSet<InterestViewModel> interests = new HashSet<InterestViewModel>();
+            foreach (Interest interest in worldview.Interests)
+            {
+                InterestViewModel interestViewModel = this.mapper.Map<InterestViewModel>(interest);
+                interests.Add(interestViewModel);
+            }
+
             WorldviewDetailsViewModel detailsViewModel = new WorldviewDetailsViewModel
             {
                 Id = worldview.Id,
@@ -62,7 +90,8 @@ namespace AOMMembers.Services.Data.Services
                 CitizenId = worldview.CitizenId,
                 CreatedOn = worldview.CreatedOn,
                 ModifiedOn = worldview.ModifiedOn,
-                InterestsCount = worldview.Interests.Count
+                InterestsCount = worldview.Interests.Count,
+                Interests = interests
             };
 
             return detailsViewModel;

@@ -4,9 +4,13 @@ namespace AOMMembers.Services.Data.Interfaces
 {
     public interface IMaterialStatesService
     {
+        bool IsCreated(string userId);
+
         Task<string> CreateAsync(MaterialStateInputModel inputModel, string userId);
 
         Task<bool> IsAbsent(string id);
+
+        Task<MaterialStateViewModel> GetViewModelByIdAsync(string id);
 
         Task<MaterialStateDetailsViewModel> GetDetailsByIdAsync(string id);
 

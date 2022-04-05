@@ -21,10 +21,18 @@ namespace AOMMembers.Web.Controllers
             this.partyPositionsService = partyPositionsService;
         }
 
-        // GET: PartyPositionsController
-        public ActionResult Index()
+        // GET: PartyPositionsController/Index/"Id"
+        public async Task<ActionResult> Index(string id)
         {
-            return this.View();
+            if (await this.partyPositionsService.IsAbsent(id))
+            {
+                return this.NotFound();
+            }
+
+            PartyPositionViewModel viewModel = await this.partyPositionsService.GetViewModelByIdAsync(id);
+            IEnumerable<PartyPositionViewModel> viewModelWrapper = new[] { viewModel };
+
+            return this.View(viewModelWrapper);
         }
 
         // GET: PartyPositionsController/Details/"Id"
@@ -35,7 +43,9 @@ namespace AOMMembers.Web.Controllers
                 return this.NotFound();
             }
 
-            return this.View();
+            PartyPositionDetailsViewModel viewModel = await this.partyPositionsService.GetDetailsByIdAsync(id);
+
+            return this.View(viewModel);
         }
 
         // GET: PartyPositionsController/Create

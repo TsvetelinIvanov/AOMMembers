@@ -21,10 +21,18 @@ namespace AOMMembers.Web.Controllers
             this.worldviewsService = worldviewsService;
         }
 
-        // GET: WorldviewsController
-        public ActionResult Index()
+        // GET: WorldviewsController/Index/"Id"
+        public async Task<ActionResult> Index(string id)
         {
-            return this.View();
+            if (await this.worldviewsService.IsAbsent(id))
+            {
+                return this.NotFound();
+            }
+
+            WorldviewViewModel viewModel = await this.worldviewsService.GetViewModelByIdAsync(id);
+            IEnumerable<WorldviewViewModel> viewModelWrapper = new[] { viewModel };
+
+            return this.View(viewModelWrapper);
         }
 
         // GET: WorldviewsController/Details/"Id"
@@ -35,13 +43,21 @@ namespace AOMMembers.Web.Controllers
                 return this.NotFound();
             }
 
-            return this.View();
+            WorldviewDetailsViewModel viewModel = await this.worldviewsService.GetDetailsByIdAsync(id);
+
+            return this.View(viewModel);
         }
 
         // GET: WorldviewsController/Create
         [Authorize(Roles = AdministratorRoleName + ", " + MemberRoleName)]
         public ActionResult Create()
         {
+            string userId = this.userManager.GetUserId(this.User);
+            if (this.worldviewsService.IsCreated(userId))
+            {
+                return this.BadRequest(CreateCreatedEntityBadResult);
+            }
+
             return this.View(new WorldviewInputModel());
         }
 
@@ -51,14 +67,19 @@ namespace AOMMembers.Web.Controllers
         [Authorize(Roles = AdministratorRoleName + ", " + MemberRoleName)]
         public async Task<ActionResult> Create(WorldviewInputModel inputModel)
         {
+            string userId = this.userManager.GetUserId(this.User);
+            if (this.worldviewsService.IsCreated(userId))
+            {
+                return this.BadRequest(CreateCreatedEntityBadResult);
+            }
+
             if (!ModelState.IsValid)
             {
                 return Redirect("/Worldviews/Create");
             }
 
             try
-            {
-                string userId = this.userManager.GetUserId(this.User);
+            {                
                 string worldviewId = await this.worldviewsService.CreateAsync(inputModel, userId);
                 if (worldviewId == WorldviewCreateWithoutCitizenBadResult)
                 {

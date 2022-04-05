@@ -21,10 +21,18 @@ namespace AOMMembers.Web.Controllers
             this.assetsService = assetsService;
         }
 
-        // GET: AssetsController
-        public ActionResult Index()
+        // GET: AssetsController/Index/"Id"
+        public async Task<ActionResult> Index(string id)
         {
-            return this.View();
+            if (await this.assetsService.IsAbsent(id))
+            {
+                return this.NotFound();
+            }
+
+            AssetViewModel viewModel = await this.assetsService.GetViewModelByIdAsync(id);
+            IEnumerable<AssetViewModel> viewModelWrapper = new[] { viewModel };
+
+            return this.View(viewModelWrapper);
         }
 
         // GET: AssetsController/Details/"Id"
@@ -35,7 +43,9 @@ namespace AOMMembers.Web.Controllers
                 return this.NotFound();
             }
 
-            return this.View();
+            AssetDetailsViewModel viewModel = await this.assetsService.GetDetailsByIdAsync(id);
+
+            return this.View(viewModel);
         }
 
         // GET: AssetsController/Create

@@ -21,10 +21,18 @@ namespace AOMMembers.Web.Controllers
             this.materialStatesService = materialStatesService;
         }
 
-        // GET: MaterialStatesController
-        public ActionResult Index()
+        // GET: MaterialStatesController/Index/"Id"
+        public async Task<ActionResult> Index(string id)
         {
-            return this.View();
+            if (await this.materialStatesService.IsAbsent(id))
+            {
+                return this.NotFound();
+            }
+
+            MaterialStateViewModel viewModel = await this.materialStatesService.GetViewModelByIdAsync(id);
+            IEnumerable<MaterialStateViewModel> viewModelWrapper = new[] { viewModel };
+
+            return this.View(viewModelWrapper);
         }
 
         // GET: MaterialStatesController/Details/"Id"
@@ -35,13 +43,21 @@ namespace AOMMembers.Web.Controllers
                 return this.NotFound();
             }
 
-            return this.View();
+            MaterialStateDetailsViewModel viewModel = await this.materialStatesService.GetDetailsByIdAsync(id);            
+
+            return this.View(viewModel);
         }
 
         // GET: MaterialStatesController/Create
         [Authorize(Roles = AdministratorRoleName + ", " + MemberRoleName)]
         public ActionResult Create()
         {
+            string userId = this.userManager.GetUserId(this.User);
+            if (this.materialStatesService.IsCreated(userId))
+            {
+                return this.BadRequest(CreateCreatedEntityBadResult);
+            }
+
             return this.View(new MaterialStateInputModel());
         }
 
@@ -51,14 +67,19 @@ namespace AOMMembers.Web.Controllers
         [Authorize(Roles = AdministratorRoleName + ", " + MemberRoleName)]
         public async Task<ActionResult> Create(MaterialStateInputModel inputModel)
         {
+            string userId = this.userManager.GetUserId(this.User);
+            if (this.materialStatesService.IsCreated(userId))
+            {
+                return this.BadRequest(CreateCreatedEntityBadResult);
+            }
+
             if (!ModelState.IsValid)
             {
                 return Redirect("/MaterialStates/Create");
             }
 
             try
-            {
-                string userId = this.userManager.GetUserId(this.User);
+            {                
                 string materialStateId = await this.materialStatesService.CreateAsync(inputModel, userId);
                 if (materialStateId == MaterialStateCreateWithoutCitizenBadResult)
                 {

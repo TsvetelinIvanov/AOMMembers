@@ -1,13 +1,13 @@
 ﻿@model AOMMembers.Web.ViewModels.Citizens.CitizenDetailsViewModel
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Детайли за гражданските данни";
 }
 
-<h1>Details</h1>
+<h1>@this.ViewData["Title"]</h1>
 
 <div>
-    <h4>Citizen</h4>
+    <h4>Гражданин</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -157,6 +157,246 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-controller="Members" asp-action="Index">Виж данните на членовете</a> | 
+    <a asp-action="Index" asp-route-id="@Model.Id">Обратно към гражданските данни</a>
+                    @if (this.User.IsInRole(GlobalConstants.MemberRoleName) || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                    {
+                        @: | 
+                        <a asp-action="Edit" asp-route-id="@Model.Id">Редактирай</a> @: | 
+                        <a asp-action="Delete" asp-route-id="@Model.Id">Изтрий</a> @: | 
+                        <a asp-controller="Educations" asp-action="Create">Създай описание на образованието си</a> @: | 
+                        <a asp-controller="Careers" asp-action="Create">Създай описание на кариерата си</a> @: | 
+                        <a asp-controller="MaterialStates" asp-action="Create">Създай описание на материалното си състояние</a> @: | 
+                        <a asp-controller="LawStates" asp-action="Create">Създай запис за състоянието на отношенията си с правораздавателните органи</a> @: | 
+                        <a asp-controller="Worldviews" asp-action="Create">Създай описание на мирогледа си</a> @: | 
+                        <a asp-controller="PartyMemberships" asp-action="Create">Създай описание на партийното си членство</a> @: | 
+                        <a asp-controller="SocietyHelps" asp-action="Create">Създай описание на приноса си към обществото</a> @: | 
+                        <a asp-controller="SocietyActivities" asp-action="Create">Създай описание на социалната си дейност</a> @: | 
+                        <a asp-controller="Settings" asp-action="Create">Създай допълнителна характеристика</a>                        
+                    }
 </div>
+
+<h3>Партийни членства</h3>
+
+@if (this.User.IsInRole(GlobalConstants.MemberRoleName) || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+{
+<p>
+    <a asp-controller="PartyMemberships" asp-action="Create">Създай ново</a>
+</p>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @DataDisplayNames.PartyMembershipPartyNameDisplayName
+            </th>
+            <th>
+                @DataDisplayNames.PartyMembershipDescriptionDisplayName
+            </th>
+            <th>
+                @DataDisplayNames.PartyMembershipIsCurrentDisplayName
+            </th>
+            <th>
+                @DataDisplayNames.PartyMembershipStartDateDisplayName
+            </th>
+            <th>
+                @DataDisplayNames.PartyMembershipEndDateDisplayName
+            </th>            
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.PartyMemberships) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PartyName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsCurrent)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndDate)
+            </td>            
+            <td>
+                <a asp-controller="PartyMemberships" asp-action="Details" asp-route-id="@item.Id">Виж детайли</a>
+                    @if (this.User.IsInRole(GlobalConstants.MemberRoleName) || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                    {
+                        @: | 
+                        <a asp-controller="PartyMemberships" asp-action="Edit" asp-route-id="@item.Id">Редактирай</a> @: | 
+                        <a asp-controller="PartyMemberships" asp-action="Delete" asp-route-id="@item.Id">Изтрий</a>
+                    }
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+
+<h3>Приноси към обществото</h3>
+
+@if (this.User.IsInRole(GlobalConstants.MemberRoleName) || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+{
+<p>
+    <a asp-controller="SocietyHelps" asp-action="Create">Създай нов</a>
+</p>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @DataDisplayNames.SocietyHelpNameDisplayName
+            </th>
+            <th>
+                @DataDisplayNames.SocietyHelpDescriptionDisplayName
+            </th>
+            <th>
+                @DataDisplayNames.SocietyHelpResultDisplayName
+            </th>
+            <th>
+                @DataDisplayNames.SocietyHelpEventLinkDisplayName
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.SocietyHelps) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Result)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EventLink)
+            </td>            
+            <td>
+                <a asp-controller="SocietyHelps" asp-action="Details" asp-route-id="@item.Id">Виж детайли</a>
+                    @if (this.User.IsInRole(GlobalConstants.MemberRoleName) || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                    {
+                        @: | 
+                        <a asp-controller="SocietyHelps" asp-action="Edit" asp-route-id="@item.Id">Редактирай</a> @: | 
+                        <a asp-controller="SocietyHelps" asp-action="Delete" asp-route-id="@item.Id">Изтрий</a>
+                    }
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<h3>Социални дейности</h3>
+
+@if (this.User.IsInRole(GlobalConstants.MemberRoleName) || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+{
+<p>
+    <a asp-controller="SocietyActivities" asp-action="Create">Създай нова</a>
+</p>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @DataDisplayNames.SocietyActivityNameDisplayName
+            </th>
+            <th>
+                @DataDisplayNames.SocietyActivityDescriptionDisplayName
+            </th>
+            <th>
+                @DataDisplayNames.SocietyActivityResultDisplayName
+            </th>
+            <th>
+                @DataDisplayNames.SocietyActivityEventLinkDisplayName
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.SocietyActivities) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Result)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EventLink)
+            </td>            
+            <td>
+                <a asp-controller="SocietyActivities" asp-action="Details" asp-route-id="@item.Id">Виж детайли</a>
+                    @if (this.User.IsInRole(GlobalConstants.MemberRoleName) || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                    {
+                        @: | 
+                        <a asp-controller="SocietyActivities" asp-action="Edit" asp-route-id="@item.Id">Редактирай</a> @: | 
+                        <a asp-controller="SocietyActivities" asp-action="Delete" asp-route-id="@item.Id">Изтрий</a>
+                    }
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<h3>Допълнителни характеристики</h3>
+
+@if (this.User.IsInRole(GlobalConstants.MemberRoleName) || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+{
+<p>
+    <a asp-controller="Settings" asp-action="Create">Създай нова</a>
+</p>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @DataDisplayNames.SettingNameDisplayName
+            </th>
+            <th>
+                @DataDisplayNames.SettingValueDisplayName
+            </th>            
+            <th>
+                @DataDisplayNames.SettingNameAndValueDisplayName
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Settings) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Value)
+            </td>            
+            <td>
+                @Html.DisplayFor(modelItem => item.NameAndValue)
+            </td>
+            <td>
+                <a asp-controller="Settings" asp-action="Details" asp-route-id="@item.Id">Виж детайли</a>
+                    @if (this.User.IsInRole(GlobalConstants.MemberRoleName) || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                    {
+                        @: | 
+                        <a asp-controller="Settings" asp-action="Edit" asp-route-id="@item.Id">Редактирай</a> @: | 
+                        <a asp-controller="Settings" asp-action="Delete" asp-route-id="@item.Id">Изтрий</a>
+                    }
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

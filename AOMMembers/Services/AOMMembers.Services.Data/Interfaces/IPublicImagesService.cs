@@ -4,9 +4,13 @@ namespace AOMMembers.Services.Data.Interfaces
 {
     public interface IPublicImagesService
     {
+        bool IsCreated(string userId);
+
         Task<string> CreateAsync(PublicImageInputModel inputModel, string userId);
 
         Task<bool> IsAbsent(string id);
+
+        Task<PublicImageViewModel> GetViewModelByIdAsync(string id);
 
         Task<PublicImageDetailsViewModel> GetDetailsByIdAsync(string id);
 

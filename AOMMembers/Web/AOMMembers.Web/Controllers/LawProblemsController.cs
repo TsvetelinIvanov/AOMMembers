@@ -21,10 +21,18 @@ namespace AOMMembers.Web.Controllers
             this.lawProblemsService = lawProblemsService;
         }
 
-        // GET: LawProblemsController
-        public ActionResult Index()
+        // GET: LawProblemsController/Index/"Id"
+        public async Task<ActionResult> Index(string id)
         {
-            return this.View();
+            if (await this.lawProblemsService.IsAbsent(id))
+            {
+                return this.NotFound();
+            }
+
+            LawProblemViewModel viewModel = await this.lawProblemsService.GetViewModelByIdAsync(id);
+            IEnumerable<LawProblemViewModel> viewModelWrapper = new[] { viewModel };
+
+            return this.View(viewModelWrapper);
         }
 
         // GET: LawProblemsController/Details/"Id"
@@ -35,7 +43,9 @@ namespace AOMMembers.Web.Controllers
                 return this.NotFound();
             }
 
-            return this.View();
+            LawProblemDetailsViewModel viewModel = await this.lawProblemsService.GetDetailsByIdAsync(id);
+
+            return this.View(viewModel);
         }
 
         // GET: LawProblemsController/Create

@@ -19,7 +19,7 @@ namespace AOMMembers.Services.Data.Services
             this.mapper = mapper;
             this.lawProblemsRespository = lawProblemsRespository;
             this.lawStatesRespository = lawStatesRespository;
-        }        
+        }
 
         public async Task<string> CreateAsync(LawProblemInputModel inputModel, string userId)
         {
@@ -48,6 +48,14 @@ namespace AOMMembers.Services.Data.Services
             LawProblem lawProblem = await this.lawProblemsRespository.GetByIdAsync(id);
 
             return lawProblem == null;
+        }
+
+        public async Task<LawProblemViewModel> GetViewModelByIdAsync(string id)
+        {
+            LawProblem lawProblem = await this.lawProblemsRespository.GetByIdAsync(id);
+            LawProblemViewModel viewModel = this.mapper.Map<LawProblemViewModel>(lawProblem);
+
+            return viewModel;
         }
 
         public async Task<LawProblemDetailsViewModel> GetDetailsByIdAsync(string id)

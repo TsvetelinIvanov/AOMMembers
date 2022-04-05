@@ -22,11 +22,12 @@
         public const string CitizenCurrentWorkPositionDisplayName = "Заемана в момента работна позиция";
         public const string CitizenMatrialStateDisplayName = "Материално състояние (общо богатство в български лева)";
         public const string CitizenAssetsCountDisplayName = "Брой притежавани активи";
-        public const string CitizenLawStateConditionDisplayName = "Гражданско състояние";
+        public const string CitizenLawStateConditionDisplayName = "Състояние на отношенията с правораздавателните органи";
         public const string CitizenPartyMembershipsCountDisplayName = "Брой на партии в които е членувал";
         public const string CitizenSocietyHelpsCountDisplayName = "Брой участия в дейности с обществена полза";
         public const string CitizenSocietyActivitiesCountDisplayName = "Брой участия в обществени дейности";
-                
+        public const string CitizenSettingsCountDisplayName = "Брой на допълнителните характеристики";
+
         public const string EducationDescriptionDisplayName = "Описание";
         public const string EducationCVLinkDisplayName = "Виж автобиографията";
         public const string EducationQualificationsCountDisplayName = "Брой получени квалификации";
@@ -85,13 +86,13 @@
         public const string MediaMaterialDescriptionDisplayName = "Описание";
         public const string MediaMaterialMediaMaterialLinkDisplayName = "Виж материала";
 
-        public const string LawStateConditionDisplayName = "Гражданско състояние";
-        public const string LawStateLawProblemsCountDisplayName = "Брой на проблемите със закона";
+        public const string LawStateConditionDisplayName = "Състояние на отношенията с правораздавателните органи";
+        public const string LawStateLawProblemsCountDisplayName = "Брой на проблемите с правораздавателните органи";
 
         public const string LawProblemDescriptionDisplayName = "Описание";
         public const string LawProblemLawProblemLinkDisplayName = "Виж свързани документи";
 
-        public const string SocietyHelpNameDisplayName = "Пдмощ към обществото";        
+        public const string SocietyHelpNameDisplayName = "Принос към обществото";        
         public const string SocietyHelpDescriptionDisplayName = "Описание";
         public const string SocietyHelpResultDisplayName = "Резултат";
         public const string SocietyHelpEventLinkDisplayName = "Виж материали свързани със събитието";
