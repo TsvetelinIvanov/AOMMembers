@@ -139,7 +139,7 @@ namespace AOMMembers.Services.Data.Services
                 return null;
             }
 
-            List<LawProblemViewModel> lawProblems = this.lawProblemsRespository.AllAsNoTracking()
+            List<LawProblemViewModel> lawProblems = this.lawProblemsRespository.All()
                 .Where(lp => lp.LawStateId == lawState.Id)
                 .OrderByDescending(lp => lp.CreatedOn)
                 .To<LawProblemViewModel>().ToList();

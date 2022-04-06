@@ -149,7 +149,7 @@ namespace AOMMembers.Services.Data.Services
                 return null;
             }
 
-            List<MediaMaterialViewModel> mediaMaterials = this.mediaMaterialsRespository.AllAsNoTracking()
+            List<MediaMaterialViewModel> mediaMaterials = this.mediaMaterialsRespository.All()
                 .Where(mm => mm.PublicImageId == publicImage.Id)
                 .OrderByDescending(mm => mm.CreatedOn)
                 .To<MediaMaterialViewModel>().ToList();

@@ -145,7 +145,7 @@ namespace AOMMembers.Services.Data.Services
                 return null;
             }
 
-            List<WorkPositionViewModel> workPositions = this.workPositionsRespository.AllAsNoTracking()
+            List<WorkPositionViewModel> workPositions = this.workPositionsRespository.All()
                 .Where(wp => wp.CareerId == career.Id)
                 .OrderByDescending(wp => wp.CreatedOn)
                 .To<WorkPositionViewModel>().ToList();

@@ -137,7 +137,7 @@ namespace AOMMembers.Services.Data.Services
                 return null;
             }
 
-            List<InterestViewModel> interests = this.interestsRespository.AllAsNoTracking()
+            List<InterestViewModel> interests = this.interestsRespository.All()
                 .Where(i => i.WorldviewId == worldview.Id)
                 .OrderByDescending(i => i.CreatedOn)
                 .To<InterestViewModel>().ToList();

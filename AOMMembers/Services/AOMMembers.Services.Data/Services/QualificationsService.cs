@@ -143,7 +143,7 @@ namespace AOMMembers.Services.Data.Services
                 return null;
             }
 
-            List<QualificationViewModel> qualifications = this.qualificationsRespository.AllAsNoTracking()
+            List<QualificationViewModel> qualifications = this.qualificationsRespository.All()
                 .Where(q => q.EducationId == education.Id)
                 .OrderByDescending(q => q.CreatedOn)
                 .To<QualificationViewModel>().ToList();

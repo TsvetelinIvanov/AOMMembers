@@ -143,7 +143,7 @@ namespace AOMMembers.Services.Data.Services
                 return null;
             }
 
-            List<SocietyActivityViewModel> societyActivities = this.societyActivitiesRespository.AllAsNoTracking()
+            List<SocietyActivityViewModel> societyActivities = this.societyActivitiesRespository.All()
                 .Where(sa => sa.CitizenId == citizen.Id)
                 .OrderByDescending(sa => sa.CreatedOn)
                 .To<SocietyActivityViewModel>().ToList();

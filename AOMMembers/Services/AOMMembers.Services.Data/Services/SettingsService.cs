@@ -139,7 +139,7 @@ namespace AOMMembers.Services.Data.Services
                 return null;
             }
 
-            List<SettingViewModel> settings = this.settingsRespository.AllAsNoTracking()
+            List<SettingViewModel> settings = this.settingsRespository.All()
                 .Where(s => s.CitizenId == citizen.Id)
                 .OrderByDescending(s => s.CreatedOn)
                 .To<SettingViewModel>().ToList();

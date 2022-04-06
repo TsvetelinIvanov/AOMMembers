@@ -145,7 +145,7 @@ namespace AOMMembers.Services.Data.Services
                 return null;
             }
 
-            List<PartyMembershipViewModel> partyMemberships = this.partyMembershipsRespository.AllAsNoTracking()
+            List<PartyMembershipViewModel> partyMemberships = this.partyMembershipsRespository.All()
                 .Where(pm => pm.CitizenId == citizen.Id)
                 .OrderByDescending(pm => pm.CreatedOn)
                 .To<PartyMembershipViewModel>().ToList();

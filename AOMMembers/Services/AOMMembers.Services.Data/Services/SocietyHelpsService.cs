@@ -143,7 +143,7 @@ namespace AOMMembers.Services.Data.Services
                 return null;
             }
 
-            List<SocietyHelpViewModel> societyHelps = this.societyHelpsRespository.AllAsNoTracking()
+            List<SocietyHelpViewModel> societyHelps = this.societyHelpsRespository.All()
                 .Where(sh => sh.CitizenId == citizen.Id)
                 .OrderByDescending(sh => sh.CreatedOn)
                 .To<SocietyHelpViewModel>().ToList();

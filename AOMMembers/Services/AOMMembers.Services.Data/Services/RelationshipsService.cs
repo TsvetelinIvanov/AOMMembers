@@ -172,7 +172,7 @@ namespace AOMMembers.Services.Data.Services
                 return null;
             }
 
-            List<RelationshipViewModel> relationships = this.relationshipsRespository.AllAsNoTracking()
+            List<RelationshipViewModel> relationships = this.relationshipsRespository.All()
                 .Where(r => r.MemberId == member.Id)
                 .OrderByDescending(r => r.CreatedOn)
                 .To<RelationshipViewModel>().ToList();
