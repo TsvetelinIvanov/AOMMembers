@@ -3,7 +3,16 @@
     this.ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
+@*<div class="text-center">
     <h1 class="display-4">Welcome to @GlobalConstants.SiteName</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>*@
+
+<div class="text-center">
+    <h1 class="display-4">Добре дошли в "@GlobalConstants.SiteName"</h1>
+    <p>Виж данните на <a asp-controller="Members" asp-action="Index">членовете на АОМ</a></p>
+    @if (this.User.IsInRole(GlobalConstants.MemberRoleName) || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                    {
+                        <p>@this.User.Identity.Name виж <a asp-controller="MemberCollections" asp-action="Collections">своите колекции</a></p>
+                    }
 </div>

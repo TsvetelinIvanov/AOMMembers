@@ -85,7 +85,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Description)
+                @DataDisplayNames.InterestDescriptionDisplayName
             </th>           
             <th></th>
         </tr>
@@ -94,7 +94,7 @@
 @foreach (var item in Model.Interests) {
         <tr>
             <td>
-                @DataDisplayNames.InterestDescriptionDisplayName
+                @Html.DisplayFor(modelItem => item.Description)
             </td>            
             <td>
                 <a asp-controller="Interests" asp-action="Details" asp-route-id="@item.Id">Виж детайли</a>

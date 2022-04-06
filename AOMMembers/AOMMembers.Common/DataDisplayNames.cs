@@ -10,6 +10,7 @@
         public const string MemberPhoneNumberDisplayName = "Телефонен номер";
         public const string MemberPictureUrlDisplayName = "Визуален образ";
         public const string MemberCurrentPartyPositionDisplayName = "Заемана в момента партийна длъжност";
+        public const string MemberPartyPositionsCountDisplayName = "Брой на заеманите досега партийни длъжности";
         public const string MemberRelationshipsCountDisplayName = "Брой на връзките с други хора";
 
         public const string CitizenFirstNameDisplayName = "Лично име";

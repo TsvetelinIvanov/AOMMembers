@@ -14,7 +14,7 @@
 
         public const string MemberRoleName = "Member";
 
-        public const string SiteName = "AOM Members";
+        public const string SiteName = "Членове на АОМ";
 
         public const string SiteGBKeywords = "automation, automatization, optimization, miritocracy, political party, democracy, liberalism, classical liberalism";
 
