@@ -6,16 +6,16 @@ namespace AOMMembers.Web.Areas.Administration.Controllers
 {
     public class DashboardController : AdministrationController
     {
-        private readonly ISettingsService settingsService;
+        private readonly IDashboardService dashboardService;
 
-        public DashboardController(ISettingsService settingsService)
+        public DashboardController(IDashboardService dashboardService)
         {
-            this.settingsService = settingsService;
+            this.dashboardService = dashboardService;
         }
 
         public IActionResult Index()
         {
-            IndexViewModel viewModel = new IndexViewModel { SettingsCount = this.settingsService.GetCountFromMember("CitizenId") };
+            IndexViewModel viewModel = dashboardService.GetIndexViewModel();
 
             return this.View(viewModel);
         }

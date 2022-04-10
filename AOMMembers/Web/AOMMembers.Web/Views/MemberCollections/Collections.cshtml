@@ -35,6 +35,12 @@
             @Html.DisplayFor(model => model.PartyMembershipsCount)
         </dd>
         <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.AssetsCount)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.AssetsCount)
+        </dd>
+        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.SocietyHelpsCount)
         </dt>
         <dd class = "col-sm-10">
@@ -327,6 +333,55 @@
     </tbody>
 </table>
 
+<h3>Активи</h3>
+
+@if (this.User.IsInRole(GlobalConstants.MemberRoleName) || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+{
+<p>
+    <a asp-controller="Assets" asp-action="Create">Създай нов</a>
+</p>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @DataDisplayNames.AssetNameDisplayName
+            </th>
+            <th>
+                @DataDisplayNames.AssetDescriptionDisplayName
+            </th>
+            <th>
+                @DataDisplayNames.AssetWorthinessDisplayName
+            </th>           
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Assets) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Worthiness)
+            </td>           
+            <td>
+                <a asp-controller="Assets" asp-action="Details" asp-route-id="@item.Id">Виж детайли</a>
+                    @if (this.User.IsInRole(GlobalConstants.MemberRoleName) || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                    {
+                        @: | 
+                        <a asp-controller="Assets" asp-action="Edit" asp-route-id="@item.Id">Редактирай</a> @: | 
+                        <a asp-controller="Assets" asp-action="Delete" asp-route-id="@item.Id">Изтрий</a>
+                    }
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
 
 <h3>Приноси към обществото</h3>
 

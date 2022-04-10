@@ -5,6 +5,28 @@
         public const string CreatedOnDisplayName = "Създадено на";
         public const string ModifiedOnDisplayName = "Последно променено на";
 
+        public const string DashboardApplicationUsersCountDisplayName = "Брой на регистриралите се потребители";
+        public const string DashboardMembersCountDisplayName = "Брой на регистрираните членове";
+        public const string DashboardCitizensCountDisplayName = "Брой на регистрираните граждани";
+        public const string DashboardEducationsCountDisplayName = "Брой на образованията";
+        public const string DashboardQualificationsCountDisplayName = "Брой на квалификациите";
+        public const string DashboardCareersCountDisplayName = "Брой на кариерите";
+        public const string DashboardWorkPositionsCountDisplayName = "Брой на работните позиции";
+        public const string DashboardRelationshipsCountDisplayName = "Брой на връзките";
+        public const string DashboardPartyPositionsCountDisplayName = "Брой на партийните позиции";
+        public const string DashboardPartyMembershipsCountDisplayName = "Брой на партийните членства";
+        public const string DashboardMaterialStatesCountDisplayName = "Брой на материалните състояния";
+        public const string DashboardAssetsCountDisplayName = "Брой на активите";
+        public const string DashboardPublicImagesCountDisplayName = "Брой на публичните образи";
+        public const string DashboardMediaMaterialsCountDisplayName = "Брой на материалите от медиите";
+        public const string DashboardLawStatesCountDisplayName = "Брой на състоянита описващи отношенията с правораздавателните органи";
+        public const string DashboardLawProblemsCountDisplayName = "Брой на проблемите с правораздавателните органи";
+        public const string DashboardSocietyHelpsCountDisplayName = "Брой на подкрепите към обществто";
+        public const string DashboardSocietyActivitiesCountDisplayName = "Брой на социалните активности";
+        public const string DashboardWorldviewsCountDisplayName = "Брой на светогледите";
+        public const string DashboardInterestsCountDisplayName = "Брой на интересите";
+        public const string DashboardSettingsCountDisplayName = "Брой на другите характеристики";
+
         public const string MemberFullNameDisplayName = "Пълно име";
         public const string MemberEmailDisplayName = "Електронна поща";
         public const string MemberPhoneNumberDisplayName = "Телефонен номер";

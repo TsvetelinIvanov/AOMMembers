@@ -141,9 +141,9 @@ namespace AOMMembers.Services.Data.Services
                 return null;
             }
             
-            List<AssetViewModel> assets = this.assetsRespository.All()
+            List<AssetViewModel> assets = this.assetsRespository.AllAsNoTracking()
                 .Where(a => a.MaterialStateId == materialState.Id)
-                .OrderByDescending(a => a.CreatedOn)                
+                .OrderByDescending(a => a.CreatedOn)
                 .To<AssetViewModel>().ToList();
 
             return assets;

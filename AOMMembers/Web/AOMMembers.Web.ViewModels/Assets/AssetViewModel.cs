@@ -9,10 +9,10 @@ namespace AOMMembers.Web.ViewModels.Assets
     {
         public string Id { get; set; }
 
-        [Display(Name = AssetNameDisplayName)]        
+        [Display(Name = AssetNameDisplayName)]
         public string Name { get; set; }
 
-        [Display(Name = AssetDescriptionDisplayName)]        
+        [Display(Name = AssetDescriptionDisplayName)]
         public string Description { get; set; }
 
         [Display(Name = AssetWorthinessDisplayName)]
