@@ -60,6 +60,7 @@ builder.Services.AddScoped<IDbQueryRunner, DbQueryRunner>();
 
 // Application services
 builder.Services.AddTransient<IApplicationUsersService, ApplicationUsersService>();
+//builder.Services.AddScoped<IApplicationUsersService, ApplicationUsersService>();
 builder.Services.AddTransient<IDashboardService, DashboardService>();
 builder.Services.AddTransient<IEmailSender, NullMessageSender>();
 builder.Services.AddTransient<IMembersService, MembersService>();
@@ -125,7 +126,8 @@ app.UseAuthorization();
 //app.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 app.MapControllerRoute(
     name: "Area",
-    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+    //pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+    pattern: "{area:exists}/{controller=Dashboard}/{action=Index}/{id?}");
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
