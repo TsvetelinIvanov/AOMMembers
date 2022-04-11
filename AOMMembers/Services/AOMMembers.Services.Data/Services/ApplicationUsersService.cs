@@ -79,13 +79,178 @@ namespace AOMMembers.Services.Data.Services
                 return;
             }
 
-            Member member = applicationUser.Member;
+            Member member = await this.membersRespository.GetByIdAsync(applicationUser.MemberId);
             if (member == null)
             {
-                member = this.membersRespository.AllWithDeleted().FirstOrDefault(m => m.IsDeleted && m.IsDeleted);
-                if (member != null)
+                member = this.membersRespository.AllWithDeleted().FirstOrDefault(m => m.IsDeleted && m.ApplicationUserId == applicationUser.Id);
+                if (member == null)
                 {
-                    membersRespository.Undelete(member);
+                    return;
+                }
+
+                this.membersRespository.Undelete(member);
+            }
+
+            Relationship[] relationships = relationshipsRespository.AllWithDeleted().Where(r => r.MemberId == member.Id && r.IsDeleted).ToArray();
+            foreach (Relationship relationship in relationships)
+            {
+                this.relationshipsRespository.Undelete(relationship);
+            }
+
+            PartyPosition[] partyPositions = partyPositionsRespository.AllWithDeleted().Where(pp =>pp.MemberId == member.Id && pp.IsDeleted).ToArray();
+            foreach (PartyPosition partyPosition in partyPositions)
+            {
+                this.partyPositionsRespository.Undelete(partyPosition);
+            }
+
+            PublicImage publicImage = await this.publicImagesRespository.GetByIdAsync(member.PublicImageId);
+            if (publicImage == null)
+            {
+                publicImage = this.publicImagesRespository.AllWithDeleted().FirstOrDefault(pi => pi.MemberId == member.Id && pi.IsDeleted);
+                if (publicImage != null)
+                {
+                    this.publicImagesRespository.Undelete(publicImage);
+                }
+            }
+
+            if (publicImage != null)
+            {
+                MediaMaterial[] mediaMaterials = mediaMaterialsRespository.AllWithDeleted().Where(mm => mm.PublicImageId == publicImage.Id && mm.IsDeleted).ToArray();
+                foreach (MediaMaterial mediaMaterial in mediaMaterials)
+                {
+                    this.mediaMaterialsRespository.Undelete(mediaMaterial);
+                }
+            }
+
+            Citizen citizen = await this.citizensRespository.GetByIdAsync(member.CitizenId);
+            if (citizen == null)
+            {
+                citizen = this.citizensRespository.AllWithDeleted().FirstOrDefault(c => c.IsDeleted && c.MemberId == member.Id);
+                if (citizen != null)
+                {
+                    this.citizensRespository.Undelete(citizen);
+                }
+            }
+
+            if (citizen != null)
+            {
+                PartyMembership[] partyMemberships = partyMembershipsRespository.AllWithDeleted().Where(pm => pm.CitizenId == citizen.Id && pm.IsDeleted).ToArray();
+                foreach (PartyMembership partyMembership in partyMemberships)
+                {
+                    this.partyMembershipsRespository.Undelete(partyMembership);
+                }
+
+                SocietyHelp[] societyHelps = societyHelpsRespository.AllWithDeleted().Where(sh => sh.CitizenId == citizen.Id && sh.IsDeleted).ToArray();
+                foreach (SocietyHelp societyHelp in societyHelps)
+                {
+                    this.societyHelpsRespository.Undelete(societyHelp);
+                }                
+
+                SocietyActivity[] societyActivities = societyActivitiesRespository.AllWithDeleted().Where(sa => sa.CitizenId == citizen.Id && sa.IsDeleted).ToArray();
+                foreach (SocietyActivity societyActivity in societyActivities)
+                {
+                    this.societyActivitiesRespository.Undelete(societyActivity);
+                }
+
+                Setting[] settings = settingsRespository.AllWithDeleted().Where(s => s.CitizenId == citizen.Id && s.IsDeleted).ToArray();
+                foreach (Setting setting in settings)
+                {
+                    this.settingsRespository.Undelete(setting);
+                }
+
+                Education education = await this.educationsRespository.GetByIdAsync(citizen.EducationId);
+                if (education == null)
+                {
+                    education = this.educationsRespository.AllWithDeleted().FirstOrDefault(e => e.CitizenId == citizen.Id && e.IsDeleted);
+                    if (education != null)
+                    {
+                        this.educationsRespository.Undelete(education);
+                    }
+                }
+
+                if (education != null)
+                {
+                    Qualification[] qualifications = qualificationsRespository.AllWithDeleted().Where(q => q.EducationId == education.Id && q.IsDeleted).ToArray();
+                    foreach (Qualification qualification in qualifications)
+                    {
+                        this.qualificationsRespository.Undelete(qualification);
+                    }
+                }
+
+                Career career = await this.careersRespository.GetByIdAsync(citizen.CareerId);
+                if (career == null)
+                {
+                    career = this.careersRespository.AllWithDeleted().FirstOrDefault(c => c.CitizenId == citizen.Id && c.IsDeleted);
+                    if (career != null)
+                    {
+                        this.careersRespository.Undelete(career);
+                    }
+                }
+
+                if (career != null)
+                {
+                    WorkPosition[] workPositions = workPositionsRespository.AllWithDeleted().Where(wp => wp.CareerId == career.Id && wp.IsDeleted).ToArray();
+                    foreach (WorkPosition workPosition in workPositions)
+                    {
+                        this.workPositionsRespository.Undelete(workPosition);
+                    }
+                }
+
+                MaterialState materialState = await this.materialStatesRespository.GetByIdAsync(citizen.MaterialStateId);
+                if (materialState == null)
+                {
+                    materialState = this.materialStatesRespository.AllWithDeleted().FirstOrDefault(ms => ms.CitizenId == citizen.Id && ms.IsDeleted);
+                    if (materialState != null)
+                    {
+                        this.materialStatesRespository.Undelete(materialState);
+                    }
+                }
+
+                if (materialState != null)
+                {
+                    Asset[] assets = assetsRespository.AllWithDeleted().Where(a => a.MaterialStateId == materialState.Id && a.IsDeleted).ToArray();
+                    foreach (Asset asset in assets)
+                    {
+                        this.assetsRespository.Undelete(asset);
+                    }
+                }
+
+                LawState lawState = await this.lawStatesRespository.GetByIdAsync(citizen.LawStateId);
+                if (lawState == null)
+                {
+                    lawState = this.lawStatesRespository.AllWithDeleted().FirstOrDefault(ls => ls.CitizenId == citizen.Id && ls.IsDeleted);
+                    if (lawState != null)
+                    {
+                        this.lawStatesRespository.Undelete(lawState);
+                    }
+                }
+
+                if (lawState != null)
+                {
+                    LawProblem[] lawProblems = lawProblemsRespository.AllWithDeleted().Where(lp => lp.LawStateId == lawState.Id && lp.IsDeleted).ToArray();
+                    foreach (LawProblem lawProblem in lawProblems)
+                    {
+                        this.lawProblemsRespository.Undelete(lawProblem);
+                    }
+                }
+
+                Worldview worldview = await this.worldviewsRespository.GetByIdAsync(citizen.WorldviewId);
+                if (worldview == null)
+                {
+                    worldview = this.worldviewsRespository.AllWithDeleted().FirstOrDefault(w => w.CitizenId == citizen.Id && w.IsDeleted);
+                    if (worldview != null)
+                    {
+                        this.worldviewsRespository.Undelete(worldview);
+                    }
+                }
+
+                if (worldview != null)
+                {
+                    Interest[] interests = interestsRespository.AllWithDeleted().Where(i => i.WorldviewId == worldview.Id && i.IsDeleted).ToArray();
+                    foreach (Interest interest in interests)
+                    {
+                        this.interestsRespository.Undelete(interest);
+                    }
                 }
             }
         }
