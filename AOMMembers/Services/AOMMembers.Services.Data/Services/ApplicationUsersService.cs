@@ -89,6 +89,7 @@ namespace AOMMembers.Services.Data.Services
                 }
 
                 this.membersRespository.Undelete(member);
+                await this.membersRespository.SaveChangesAsync();
             }
 
             Relationship[] relationships = relationshipsRespository.AllWithDeleted().Where(r => r.MemberId == member.Id && r.IsDeleted).ToArray();
@@ -97,11 +98,15 @@ namespace AOMMembers.Services.Data.Services
                 this.relationshipsRespository.Undelete(relationship);
             }
 
+            await this.relationshipsRespository.SaveChangesAsync();
+
             PartyPosition[] partyPositions = partyPositionsRespository.AllWithDeleted().Where(pp =>pp.MemberId == member.Id && pp.IsDeleted).ToArray();
             foreach (PartyPosition partyPosition in partyPositions)
             {
                 this.partyPositionsRespository.Undelete(partyPosition);
             }
+
+            await this.partyPositionsRespository.SaveChangesAsync();
 
             PublicImage publicImage = await this.publicImagesRespository.GetByIdAsync(member.PublicImageId);
             if (publicImage == null)
@@ -110,6 +115,7 @@ namespace AOMMembers.Services.Data.Services
                 if (publicImage != null)
                 {
                     this.publicImagesRespository.Undelete(publicImage);
+                    await this.publicImagesRespository.SaveChangesAsync();
                 }
             }
 
@@ -120,6 +126,8 @@ namespace AOMMembers.Services.Data.Services
                 {
                     this.mediaMaterialsRespository.Undelete(mediaMaterial);
                 }
+
+                await this.mediaMaterialsRespository.SaveChangesAsync();
             }
 
             Citizen citizen = await this.citizensRespository.GetByIdAsync(member.CitizenId);
@@ -129,6 +137,7 @@ namespace AOMMembers.Services.Data.Services
                 if (citizen != null)
                 {
                     this.citizensRespository.Undelete(citizen);
+                    await this.citizensRespository.SaveChangesAsync();
                 }
             }
 
@@ -140,11 +149,15 @@ namespace AOMMembers.Services.Data.Services
                     this.partyMembershipsRespository.Undelete(partyMembership);
                 }
 
+                await this.partyMembershipsRespository.SaveChangesAsync();
+
                 SocietyHelp[] societyHelps = societyHelpsRespository.AllWithDeleted().Where(sh => sh.CitizenId == citizen.Id && sh.IsDeleted).ToArray();
                 foreach (SocietyHelp societyHelp in societyHelps)
                 {
                     this.societyHelpsRespository.Undelete(societyHelp);
-                }                
+                }
+
+                await this.societyHelpsRespository.SaveChangesAsync();
 
                 SocietyActivity[] societyActivities = societyActivitiesRespository.AllWithDeleted().Where(sa => sa.CitizenId == citizen.Id && sa.IsDeleted).ToArray();
                 foreach (SocietyActivity societyActivity in societyActivities)
@@ -152,11 +165,15 @@ namespace AOMMembers.Services.Data.Services
                     this.societyActivitiesRespository.Undelete(societyActivity);
                 }
 
+                await this.societyActivitiesRespository.SaveChangesAsync();
+
                 Setting[] settings = settingsRespository.AllWithDeleted().Where(s => s.CitizenId == citizen.Id && s.IsDeleted).ToArray();
                 foreach (Setting setting in settings)
                 {
-                    this.settingsRespository.Undelete(setting);
+                    this.settingsRespository.Undelete(setting);                    
                 }
+
+                await this.settingsRespository.SaveChangesAsync();
 
                 Education education = await this.educationsRespository.GetByIdAsync(citizen.EducationId);
                 if (education == null)
@@ -165,7 +182,8 @@ namespace AOMMembers.Services.Data.Services
                     if (education != null)
                     {
                         this.educationsRespository.Undelete(education);
-                    }
+                        await this.educationsRespository.SaveChangesAsync();
+                    }                    
                 }
 
                 if (education != null)
@@ -173,8 +191,10 @@ namespace AOMMembers.Services.Data.Services
                     Qualification[] qualifications = qualificationsRespository.AllWithDeleted().Where(q => q.EducationId == education.Id && q.IsDeleted).ToArray();
                     foreach (Qualification qualification in qualifications)
                     {
-                        this.qualificationsRespository.Undelete(qualification);
+                        this.qualificationsRespository.Undelete(qualification);                        
                     }
+
+                    await this.qualificationsRespository.SaveChangesAsync();
                 }
 
                 Career career = await this.careersRespository.GetByIdAsync(citizen.CareerId);
@@ -184,6 +204,7 @@ namespace AOMMembers.Services.Data.Services
                     if (career != null)
                     {
                         this.careersRespository.Undelete(career);
+                        await this.careersRespository.SaveChangesAsync();
                     }
                 }
 
@@ -194,6 +215,8 @@ namespace AOMMembers.Services.Data.Services
                     {
                         this.workPositionsRespository.Undelete(workPosition);
                     }
+
+                    await this.workPositionsRespository.SaveChangesAsync();
                 }
 
                 MaterialState materialState = await this.materialStatesRespository.GetByIdAsync(citizen.MaterialStateId);
@@ -203,6 +226,7 @@ namespace AOMMembers.Services.Data.Services
                     if (materialState != null)
                     {
                         this.materialStatesRespository.Undelete(materialState);
+                        await this.materialStatesRespository.SaveChangesAsync();
                     }
                 }
 
@@ -213,6 +237,8 @@ namespace AOMMembers.Services.Data.Services
                     {
                         this.assetsRespository.Undelete(asset);
                     }
+
+                    await this.assetsRespository.SaveChangesAsync();
                 }
 
                 LawState lawState = await this.lawStatesRespository.GetByIdAsync(citizen.LawStateId);
@@ -222,6 +248,7 @@ namespace AOMMembers.Services.Data.Services
                     if (lawState != null)
                     {
                         this.lawStatesRespository.Undelete(lawState);
+                        await this.lawStatesRespository.SaveChangesAsync();
                     }
                 }
 
@@ -232,6 +259,8 @@ namespace AOMMembers.Services.Data.Services
                     {
                         this.lawProblemsRespository.Undelete(lawProblem);
                     }
+
+                    await this.lawProblemsRespository.SaveChangesAsync();
                 }
 
                 Worldview worldview = await this.worldviewsRespository.GetByIdAsync(citizen.WorldviewId);
@@ -241,6 +270,7 @@ namespace AOMMembers.Services.Data.Services
                     if (worldview != null)
                     {
                         this.worldviewsRespository.Undelete(worldview);
+                        await this.worldviewsRespository.SaveChangesAsync();
                     }
                 }
 
@@ -251,6 +281,8 @@ namespace AOMMembers.Services.Data.Services
                     {
                         this.interestsRespository.Undelete(interest);
                     }
+
+                    await this.interestsRespository.SaveChangesAsync();
                 }
             }
         }
