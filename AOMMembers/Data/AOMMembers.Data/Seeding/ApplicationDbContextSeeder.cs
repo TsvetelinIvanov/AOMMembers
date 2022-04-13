@@ -17,12 +17,32 @@ namespace AOMMembers.Data.Seeding
                 throw new ArgumentNullException(nameof(serviceProvider));
             }
 
-            var logger = serviceProvider.GetService<ILoggerFactory>().CreateLogger(typeof(ApplicationDbContextSeeder));
+            ILogger logger = serviceProvider.GetService<ILoggerFactory>().CreateLogger(typeof(ApplicationDbContextSeeder));
 
-            var seeders = new List<ISeeder>
+            List<ISeeder> seeders = new List<ISeeder>
                           {
                               new RolesSeeder(),
-                              new SettingsSeeder(),
+                              new ApplicationUsersSeeder(),
+                              new MembersSeeder(),
+                              new CitizensSeeder(),
+                              new PublicImagesSeeder(),
+                              new MediaMaterialsSeeder(),
+                              new RelationshipsSeeder(),
+                              new PartyPositionsSeeder(),
+                              new EducationsSeeder(),
+                              new QualificationsSeeder(),
+                              new CareersSeeder(),
+                              new WorkPositionsSeeder(),
+                              new MaterialStatesSeeder(),
+                              new AssetsSeeder(),
+                              new LawStatesSeeder(),
+                              new LawProblemsSeeder(),
+                              new WorldviewsSeeder(),
+                              new InterestsSeeder(),
+                              new PartyMembershipsSeeder(),
+                              new SocietyHelpsSeeder(),
+                              new SocietyActivitiesSeeder(),
+                              new SettingsSeeder()
                           };
 
             foreach (ISeeder seeder in seeders)
