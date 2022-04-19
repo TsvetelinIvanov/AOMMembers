@@ -5,12 +5,12 @@
     "\\AOMMembers\\Web",
     "\\AOMMembers\\Web\\AOMMembers.Web",
     "\\AOMMembers\\Web\\AOMMembers.Web\\Views",
-    "\\AOMMembers\\Web\\AOMMembers.Web\\Views\\Assets",
     "\\AOMMembers\\Web\\AOMMembers.Web\\Views\\Citizens",
+    "\\AOMMembers\\Web\\AOMMembers.Web\\Views\\Educations",
     "\\AOMMembers\\Web\\AOMMembers.Web\\Views\\MediaMaterials",
     "\\AOMMembers\\Web\\AOMMembers.Web\\Views\\Members",
     "\\AOMMembers\\Web\\AOMMembers.Web\\Views\\Worldviews"
   ],
-  "SelectedNode": "\\AOMMembers\\Web\\AOMMembers.Web\\Views\\Members\\Edit.cshtml",
+  "SelectedNode": "\\AOMMembers\\Web\\AOMMembers.Web\\Views\\Educations\\Details.cshtml",
   "PreviewInSolutionExplorer": false
 }

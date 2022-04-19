@@ -24,7 +24,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Data\AOMMembers.Data\AOMMembers.Data.csproj" />
-    <ProjectReference Include="..\..\Services\AOMMembers.Services.Data\AOMMembers.Services.Data.csproj" />    
+    <ProjectReference Include="..\..\Services\AOMMembers.Services.Data\AOMMembers.Services.Data.csproj" />
+    <ProjectReference Include="..\..\Web\AOMMembers.Web.ViewModels\AOMMembers.Web.ViewModels.csproj" />    
   </ItemGroup>
 
 </Project>
