@@ -53,7 +53,7 @@ namespace AOMMembers.Services.Data.Tests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<PartyPosition> partyPositionsRepository = new EfDeletableEntityRepository<PartyPosition>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
 
             Member member = new Member() { ApplicationUserId = TestUserId };
             member.Id = TestMemberId;
@@ -69,7 +69,7 @@ namespace AOMMembers.Services.Data.Tests
                 EndDate = TestEndDate
             };
 
-            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersrepository);
+            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersRepository);
             await service.CreateAsync(inputModel, TestUserId);
 
             Assert.Equal(1, dbContext.PartyPositions.Count());
@@ -82,7 +82,7 @@ namespace AOMMembers.Services.Data.Tests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<PartyPosition> partyPositionsRepository = new EfDeletableEntityRepository<PartyPosition>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
 
             Member member = new Member() { ApplicationUserId = TestUserId };
             member.Id = TestMemberId;
@@ -98,7 +98,7 @@ namespace AOMMembers.Services.Data.Tests
                 EndDate = TestEndDate
             };
 
-            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersrepository);
+            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersRepository);
             await service.CreateAsync(inputModel, TestUserId);
 
             PartyPosition partyPosition = dbContext.PartyPositions.FirstOrDefault();
@@ -114,7 +114,7 @@ namespace AOMMembers.Services.Data.Tests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<PartyPosition> partyPositionsRepository = new EfDeletableEntityRepository<PartyPosition>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
 
             Member member = new Member() { ApplicationUserId = TestUserId };
             member.Id = TestMemberId;
@@ -130,7 +130,7 @@ namespace AOMMembers.Services.Data.Tests
                 EndDate = TestEndDate
             };
 
-            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersrepository);
+            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersRepository);
             await service.CreateAsync(inputModel, TestUserId);
 
             PartyPosition partyPosition = dbContext.PartyPositions.First();
@@ -150,7 +150,7 @@ namespace AOMMembers.Services.Data.Tests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<PartyPosition> partyPositionsRepository = new EfDeletableEntityRepository<PartyPosition>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
 
             Member member = new Member() { ApplicationUserId = TestUserId };
             member.Id = TestMemberId;
@@ -166,7 +166,7 @@ namespace AOMMembers.Services.Data.Tests
                 EndDate = TestEndDate
             };
 
-            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersrepository);
+            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersRepository);
             string id = await service.CreateAsync(inputModel, TestUserId);
 
             PartyPosition partyPosition = dbContext.PartyPositions.First();
@@ -181,7 +181,7 @@ namespace AOMMembers.Services.Data.Tests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<PartyPosition> partyPositionsRepository = new EfDeletableEntityRepository<PartyPosition>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
 
             PartyPositionInputModel inputModel = new PartyPositionInputModel()
             {
@@ -192,7 +192,7 @@ namespace AOMMembers.Services.Data.Tests
                 EndDate = TestEndDate
             };
 
-            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersrepository);
+            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersRepository);
             string badResult = await service.CreateAsync(inputModel, TestUserId);
 
             Assert.Equal(PartyPositionCreateWithoutMemberBadResult, badResult);
@@ -208,7 +208,7 @@ namespace AOMMembers.Services.Data.Tests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<PartyPosition> partyPositionsRepository = new EfDeletableEntityRepository<PartyPosition>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
 
             Member member = new Member() { ApplicationUserId = TestUserId };
             member.Id = TestMemberId;
@@ -224,7 +224,7 @@ namespace AOMMembers.Services.Data.Tests
                 EndDate = TestEndDate
             };
 
-            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersrepository);
+            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersRepository);
             string badResult = await service.CreateAsync(inputModel, inexistantUserId);
 
             Assert.Equal(PartyPositionCreateWithoutMemberBadResult, badResult);
@@ -237,7 +237,7 @@ namespace AOMMembers.Services.Data.Tests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<PartyPosition> partyPositionsRepository = new EfDeletableEntityRepository<PartyPosition>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
 
             PartyPosition partyPosition = new PartyPosition()
             {
@@ -253,7 +253,7 @@ namespace AOMMembers.Services.Data.Tests
             await partyPositionsRepository.AddAsync(partyPosition);
             await partyPositionsRepository.SaveChangesAsync();
 
-            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersrepository);
+            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersRepository);
             bool isAbsent = await service.IsAbsent(TestPartyPositionId);
 
             Assert.False(isAbsent);
@@ -266,9 +266,9 @@ namespace AOMMembers.Services.Data.Tests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<PartyPosition> partyPositionsRepository = new EfDeletableEntityRepository<PartyPosition>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
 
-            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersrepository);
+            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersRepository);
             bool isAbsent = await service.IsAbsent(TestPartyPositionId);
 
             Assert.True(isAbsent);
@@ -281,7 +281,7 @@ namespace AOMMembers.Services.Data.Tests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<PartyPosition> partyPositionsRepository = new EfDeletableEntityRepository<PartyPosition>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
 
             PartyPosition partyPosition = new PartyPosition()
             {
@@ -297,7 +297,7 @@ namespace AOMMembers.Services.Data.Tests
             await partyPositionsRepository.AddAsync(partyPosition);
             await partyPositionsRepository.SaveChangesAsync();
 
-            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersrepository);
+            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersRepository);
             bool isAbsent = await service.IsAbsent(TestInexistantPartyPositionId);
 
             Assert.True(isAbsent);
@@ -310,7 +310,7 @@ namespace AOMMembers.Services.Data.Tests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<PartyPosition> partyPositionsRepository = new EfDeletableEntityRepository<PartyPosition>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
 
             PartyPosition partyPosition = new PartyPosition()
             {
@@ -326,7 +326,7 @@ namespace AOMMembers.Services.Data.Tests
             await partyPositionsRepository.AddAsync(partyPosition);
             await partyPositionsRepository.SaveChangesAsync();
 
-            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersrepository);
+            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersRepository);
             PartyPositionViewModel viewModel = await service.GetViewModelByIdAsync(TestPartyPositionId);
 
             Assert.NotNull(viewModel);
@@ -340,7 +340,7 @@ namespace AOMMembers.Services.Data.Tests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<PartyPosition> partyPositionsRepository = new EfDeletableEntityRepository<PartyPosition>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
 
             PartyPosition partyPosition = new PartyPosition()
             {
@@ -356,7 +356,7 @@ namespace AOMMembers.Services.Data.Tests
             await partyPositionsRepository.AddAsync(partyPosition);
             await partyPositionsRepository.SaveChangesAsync();
 
-            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersrepository);
+            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersRepository);
             PartyPositionViewModel viewModel = await service.GetViewModelByIdAsync(TestPartyPositionId);
 
             Assert.Equal(TestName, viewModel.Name);
@@ -373,7 +373,7 @@ namespace AOMMembers.Services.Data.Tests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<PartyPosition> partyPositionsRepository = new EfDeletableEntityRepository<PartyPosition>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
 
             PartyPosition partyPosition = new PartyPosition()
             {
@@ -389,7 +389,7 @@ namespace AOMMembers.Services.Data.Tests
             await partyPositionsRepository.AddAsync(partyPosition);
             await partyPositionsRepository.SaveChangesAsync();
 
-            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersrepository);
+            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersRepository);
             PartyPositionDetailsViewModel detailsViewModel = await service.GetDetailsByIdAsync(TestPartyPositionId);
 
             Assert.NotNull(detailsViewModel);
@@ -403,7 +403,7 @@ namespace AOMMembers.Services.Data.Tests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<PartyPosition> partyPositionsRepository = new EfDeletableEntityRepository<PartyPosition>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
 
             PartyPosition partyPosition = new PartyPosition()
             {
@@ -419,7 +419,7 @@ namespace AOMMembers.Services.Data.Tests
             await partyPositionsRepository.AddAsync(partyPosition);
             await partyPositionsRepository.SaveChangesAsync();
 
-            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersrepository);
+            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersRepository);
             PartyPositionDetailsViewModel detailsViewModel = await service.GetDetailsByIdAsync(TestPartyPositionId);
 
             Assert.Equal(TestName, detailsViewModel.Name);
@@ -437,7 +437,7 @@ namespace AOMMembers.Services.Data.Tests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<PartyPosition> partyPositionsRepository = new EfDeletableEntityRepository<PartyPosition>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
 
             Member member = new Member() { ApplicationUserId = TestUserId };
             member.Id = TestMemberId;
@@ -459,7 +459,7 @@ namespace AOMMembers.Services.Data.Tests
             await partyPositionsRepository.AddAsync(partyPosition);
             await partyPositionsRepository.SaveChangesAsync();
 
-            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersrepository);
+            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersRepository);
             bool isFromMember = await service.IsFromMember(TestPartyPositionId, TestUserId);
 
             Assert.True(isFromMember);
@@ -472,9 +472,9 @@ namespace AOMMembers.Services.Data.Tests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<PartyPosition> partyPositionsRepository = new EfDeletableEntityRepository<PartyPosition>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
 
-            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersrepository);
+            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersRepository);
             bool isFromMember = await service.IsFromMember(TestPartyPositionId, TestUserId);
 
             Assert.False(isFromMember);
@@ -487,7 +487,7 @@ namespace AOMMembers.Services.Data.Tests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<PartyPosition> partyPositionsRepository = new EfDeletableEntityRepository<PartyPosition>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
 
             Member member = new Member() { ApplicationUserId = TestUserId };
             member.Id = TestMemberId;
@@ -509,7 +509,7 @@ namespace AOMMembers.Services.Data.Tests
             await partyPositionsRepository.AddAsync(partyPosition);
             await partyPositionsRepository.SaveChangesAsync();
 
-            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersrepository);
+            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersRepository);
             bool isFromMember = await service.IsFromMember(TestInexistantPartyPositionId, TestUserId);
 
             Assert.False(isFromMember);
@@ -522,7 +522,7 @@ namespace AOMMembers.Services.Data.Tests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<PartyPosition> partyPositionsRepository = new EfDeletableEntityRepository<PartyPosition>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
 
             Member member = new Member() { ApplicationUserId = TestUserId };
             member.Id = TestMemberId;
@@ -544,7 +544,7 @@ namespace AOMMembers.Services.Data.Tests
             await partyPositionsRepository.AddAsync(partyPosition);
             await partyPositionsRepository.SaveChangesAsync();
 
-            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersrepository);
+            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersRepository);
             bool isFromMember = await service.IsFromMember(TestPartyPositionId, TestInexistantUserId);
 
             Assert.False(isFromMember);
@@ -557,7 +557,7 @@ namespace AOMMembers.Services.Data.Tests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<PartyPosition> partyPositionsRepository = new EfDeletableEntityRepository<PartyPosition>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
 
             Member member = new Member() { ApplicationUserId = TestUserId };
             member.Id = TestMemberId;
@@ -579,7 +579,7 @@ namespace AOMMembers.Services.Data.Tests
             await partyPositionsRepository.AddAsync(partyPosition);
             await partyPositionsRepository.SaveChangesAsync();
 
-            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersrepository);
+            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersRepository);
             bool isFromMember = await service.IsFromMember(TestInexistantPartyPositionId, TestInexistantUserId);
 
             Assert.False(isFromMember);
@@ -592,7 +592,7 @@ namespace AOMMembers.Services.Data.Tests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<PartyPosition> partyPositionsRepository = new EfDeletableEntityRepository<PartyPosition>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
 
             PartyPosition partyPosition = new PartyPosition()
             {
@@ -608,7 +608,7 @@ namespace AOMMembers.Services.Data.Tests
             await partyPositionsRepository.AddAsync(partyPosition);
             await partyPositionsRepository.SaveChangesAsync();
 
-            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersrepository);
+            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersRepository);
             PartyPositionEditModel editModel = await service.GetEditModelByIdAsync(TestPartyPositionId);
 
             Assert.NotNull(editModel);
@@ -622,7 +622,7 @@ namespace AOMMembers.Services.Data.Tests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<PartyPosition> partyPositionsRepository = new EfDeletableEntityRepository<PartyPosition>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
 
             PartyPosition partyPosition = new PartyPosition()
             {
@@ -638,7 +638,7 @@ namespace AOMMembers.Services.Data.Tests
             await partyPositionsRepository.AddAsync(partyPosition);
             await partyPositionsRepository.SaveChangesAsync();
 
-            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersrepository);
+            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersRepository);
             PartyPositionEditModel editModel = await service.GetEditModelByIdAsync(TestPartyPositionId);
 
             Assert.Equal(TestName, editModel.Name);
@@ -655,7 +655,7 @@ namespace AOMMembers.Services.Data.Tests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<PartyPosition> partyPositionsRepository = new EfDeletableEntityRepository<PartyPosition>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
 
             Member member = new Member() { ApplicationUserId = TestUserId };
             member.Id = TestMemberId;
@@ -686,7 +686,7 @@ namespace AOMMembers.Services.Data.Tests
                 EndDate = TestEndDate
             };
 
-            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersrepository);
+            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersRepository);
             bool isEdited = await service.EditAsync(TestPartyPositionId, editModel);
 
             Assert.True(isEdited);
@@ -699,7 +699,7 @@ namespace AOMMembers.Services.Data.Tests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<PartyPosition> partyPositionsRepository = new EfDeletableEntityRepository<PartyPosition>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
 
             Member member = new Member() { ApplicationUserId = TestUserId };
             member.Id = TestMemberId;
@@ -730,7 +730,7 @@ namespace AOMMembers.Services.Data.Tests
                 EndDate = TestEndDate
             };
 
-            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersrepository);
+            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersRepository);
             bool isEdited = await service.EditAsync(TestPartyPositionId, editModel);
 
             PartyPosition editedPartyPosition = dbContext.PartyPositions.First();
@@ -750,7 +750,7 @@ namespace AOMMembers.Services.Data.Tests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<PartyPosition> partyPositionsRepository = new EfDeletableEntityRepository<PartyPosition>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
 
             Member member = new Member() { ApplicationUserId = TestUserId };
             member.Id = TestMemberId;
@@ -781,7 +781,7 @@ namespace AOMMembers.Services.Data.Tests
                 EndDate = TestEndDate
             };
 
-            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersrepository);
+            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersRepository);
             bool isEdited = await service.EditAsync(TestInexistantPartyPositionId, editModel);
 
             Assert.False(isEdited);
@@ -794,7 +794,7 @@ namespace AOMMembers.Services.Data.Tests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<PartyPosition> partyPositionsRepository = new EfDeletableEntityRepository<PartyPosition>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
 
             PartyPositionEditModel editModel = new PartyPositionEditModel()
             {
@@ -805,7 +805,7 @@ namespace AOMMembers.Services.Data.Tests
                 EndDate = TestEndDate
             };
 
-            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersrepository);
+            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersRepository);
             bool isEdited = await service.EditAsync(TestPartyPositionId, editModel);
 
             Assert.False(isEdited);
@@ -818,7 +818,7 @@ namespace AOMMembers.Services.Data.Tests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<PartyPosition> partyPositionsRepository = new EfDeletableEntityRepository<PartyPosition>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
 
             PartyPosition partyPosition = new PartyPosition()
             {
@@ -834,7 +834,7 @@ namespace AOMMembers.Services.Data.Tests
             await partyPositionsRepository.AddAsync(partyPosition);
             await partyPositionsRepository.SaveChangesAsync();
 
-            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersrepository);
+            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersRepository);
             PartyPositionDeleteModel deleteModel = await service.GetDeleteModelByIdAsync(TestPartyPositionId);
 
             Assert.NotNull(deleteModel);
@@ -848,7 +848,7 @@ namespace AOMMembers.Services.Data.Tests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<PartyPosition> partyPositionsRepository = new EfDeletableEntityRepository<PartyPosition>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
 
             PartyPosition partyPosition = new PartyPosition()
             {
@@ -864,7 +864,7 @@ namespace AOMMembers.Services.Data.Tests
             await partyPositionsRepository.AddAsync(partyPosition);
             await partyPositionsRepository.SaveChangesAsync();
 
-            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersrepository);
+            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersRepository);
             PartyPositionDeleteModel deleteModel = await service.GetDeleteModelByIdAsync(TestPartyPositionId);
 
             Assert.Equal(TestName, deleteModel.Name);
@@ -881,7 +881,7 @@ namespace AOMMembers.Services.Data.Tests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<PartyPosition> partyPositionsRepository = new EfDeletableEntityRepository<PartyPosition>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
 
             Member member = new Member() { ApplicationUserId = TestUserId };
             member.Id = TestMemberId;
@@ -903,7 +903,7 @@ namespace AOMMembers.Services.Data.Tests
             await partyPositionsRepository.AddAsync(partyPosition);
             await partyPositionsRepository.SaveChangesAsync();
 
-            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersrepository);
+            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersRepository);
             bool isDeleted = await service.DeleteAsync(TestPartyPositionId);
 
             Assert.True(isDeleted);
@@ -916,7 +916,7 @@ namespace AOMMembers.Services.Data.Tests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<PartyPosition> partyPositionsRepository = new EfDeletableEntityRepository<PartyPosition>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
 
             Member member = new Member() { ApplicationUserId = TestUserId };
             member.Id = TestMemberId;
@@ -938,7 +938,7 @@ namespace AOMMembers.Services.Data.Tests
             await partyPositionsRepository.AddAsync(partyPosition);
             await partyPositionsRepository.SaveChangesAsync();
 
-            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersrepository);
+            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersRepository);
             bool isDeleted = await service.DeleteAsync(TestPartyPositionId);
 
             PartyPosition deleted = dbContext.PartyPositions.FirstOrDefault(pp => pp.IsDeleted == false);
@@ -956,7 +956,7 @@ namespace AOMMembers.Services.Data.Tests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<PartyPosition> partyPositionsRepository = new EfDeletableEntityRepository<PartyPosition>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
 
             Member member = new Member() { ApplicationUserId = TestUserId };
             member.Id = TestMemberId;
@@ -978,7 +978,7 @@ namespace AOMMembers.Services.Data.Tests
             await partyPositionsRepository.AddAsync(partyPosition);
             await partyPositionsRepository.SaveChangesAsync();
 
-            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersrepository);
+            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersRepository);
             bool isDeleted = await service.DeleteAsync(TestInexistantPartyPositionId);
 
             Assert.False(isDeleted);
@@ -991,9 +991,9 @@ namespace AOMMembers.Services.Data.Tests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<PartyPosition> partyPositionsRepository = new EfDeletableEntityRepository<PartyPosition>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
 
-            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersrepository);
+            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersRepository);
             bool isDeleted = await service.DeleteAsync(TestPartyPositionId);
 
             Assert.False(isDeleted);
@@ -1061,9 +1061,9 @@ namespace AOMMembers.Services.Data.Tests
             await dbContext.SaveChangesAsync();
 
             EfDeletableEntityRepository<PartyPosition> partyPositionsRepository = new EfDeletableEntityRepository<PartyPosition>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
 
-            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersrepository);
+            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersRepository);
             int count = service.GetCountFromMember(TestUserId);
 
             Assert.Equal(2, count);
@@ -1112,9 +1112,9 @@ namespace AOMMembers.Services.Data.Tests
             await dbContext.SaveChangesAsync();
 
             EfDeletableEntityRepository<PartyPosition> partyPositionsRepository = new EfDeletableEntityRepository<PartyPosition>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
 
-            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersrepository);
+            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersRepository);
             int count = service.GetCountFromMember(TestOtherUserId);
 
             Assert.Equal(0, count);
@@ -1127,9 +1127,9 @@ namespace AOMMembers.Services.Data.Tests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<PartyPosition> partyPositionsRepository = new EfDeletableEntityRepository<PartyPosition>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
 
-            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersrepository);
+            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersRepository);
             int count = service.GetCountFromMember(TestUserId);
 
             Assert.Equal(0, count);
@@ -1197,9 +1197,9 @@ namespace AOMMembers.Services.Data.Tests
             await dbContext.SaveChangesAsync();
 
             EfDeletableEntityRepository<PartyPosition> partyPositionsRepository = new EfDeletableEntityRepository<PartyPosition>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
 
-            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersrepository);
+            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersRepository);
             IEnumerable<PartyPositionViewModel> viewModels = service.GetAllFromMember(TestUserId);
 
             Assert.Equal(2, viewModels.Count());
@@ -1257,9 +1257,9 @@ namespace AOMMembers.Services.Data.Tests
             await dbContext.SaveChangesAsync();
 
             EfDeletableEntityRepository<PartyPosition> partyPositionsRepository = new EfDeletableEntityRepository<PartyPosition>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
 
-            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersrepository);
+            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersRepository);
             IEnumerable<PartyPositionViewModel> viewModels = service.GetAllFromMember(TestOtherUserId);
 
             Assert.Null(viewModels);
@@ -1272,9 +1272,9 @@ namespace AOMMembers.Services.Data.Tests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<PartyPosition> partyPositionsRepository = new EfDeletableEntityRepository<PartyPosition>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
 
-            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersrepository);
+            PartyPositionsService service = new PartyPositionsService(this.mapper, partyPositionsRepository, membersRepository);
             IEnumerable<PartyPositionViewModel> viewModels = service.GetAllFromMember(TestUserId);
 
             Assert.Null(viewModels);

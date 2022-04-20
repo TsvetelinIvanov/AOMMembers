@@ -56,8 +56,8 @@ namespace AOMMembers.Services.Data.Tests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<Relationship> relationshipsRepository = new EfDeletableEntityRepository<Relationship>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
-            EfDeletableEntityRepository<Citizen> citizensrepository = new EfDeletableEntityRepository<Citizen>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Citizen> citizensRepository = new EfDeletableEntityRepository<Citizen>(dbContext);
 
             Member member = new Member() { ApplicationUserId = TestUserId };
             member.Id = TestMemberId;
@@ -89,7 +89,7 @@ namespace AOMMembers.Services.Data.Tests
                 BirthDate = TestCitizenBirthDate
             };
 
-            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersrepository, citizensrepository);
+            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersRepository, citizensRepository);
             await service.CreateAsync(inputModel, TestUserId);
 
             Assert.Equal(1, dbContext.Relationships.Count());
@@ -102,8 +102,8 @@ namespace AOMMembers.Services.Data.Tests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<Relationship> relationshipsRepository = new EfDeletableEntityRepository<Relationship>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
-            EfDeletableEntityRepository<Citizen> citizensrepository = new EfDeletableEntityRepository<Citizen>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Citizen> citizensRepository = new EfDeletableEntityRepository<Citizen>(dbContext);
 
             Member member = new Member() { ApplicationUserId = TestUserId };
             member.Id = TestMemberId;
@@ -135,7 +135,7 @@ namespace AOMMembers.Services.Data.Tests
                 BirthDate = TestCitizenBirthDate
             };
 
-            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersrepository, citizensrepository);
+            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersRepository, citizensRepository);
             await service.CreateAsync(inputModel, TestUserId);
 
             Relationship relationship = dbContext.Relationships.FirstOrDefault();
@@ -151,8 +151,8 @@ namespace AOMMembers.Services.Data.Tests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<Relationship> relationshipsRepository = new EfDeletableEntityRepository<Relationship>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
-            EfDeletableEntityRepository<Citizen> citizensrepository = new EfDeletableEntityRepository<Citizen>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Citizen> citizensRepository = new EfDeletableEntityRepository<Citizen>(dbContext);
 
             Member member = new Member() { ApplicationUserId = TestUserId };
             member.Id = TestMemberId;
@@ -184,7 +184,7 @@ namespace AOMMembers.Services.Data.Tests
                 BirthDate = TestCitizenBirthDate
             };
 
-            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersrepository, citizensrepository);
+            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersRepository, citizensRepository);
             await service.CreateAsync(inputModel, TestUserId);
 
             Relationship relationship = dbContext.Relationships.First();
@@ -202,8 +202,8 @@ namespace AOMMembers.Services.Data.Tests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<Relationship> relationshipsRepository = new EfDeletableEntityRepository<Relationship>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
-            EfDeletableEntityRepository<Citizen> citizensrepository = new EfDeletableEntityRepository<Citizen>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Citizen> citizensRepository = new EfDeletableEntityRepository<Citizen>(dbContext);
 
             Member member = new Member() { ApplicationUserId = TestUserId };
             member.Id = TestMemberId;
@@ -235,7 +235,7 @@ namespace AOMMembers.Services.Data.Tests
                 BirthDate = TestCitizenBirthDate
             };
 
-            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersrepository, citizensrepository);
+            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersRepository, citizensRepository);
             string id = await service.CreateAsync(inputModel, TestUserId);
 
             Relationship relationship = dbContext.Relationships.First();
@@ -250,8 +250,8 @@ namespace AOMMembers.Services.Data.Tests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<Relationship> relationshipsRepository = new EfDeletableEntityRepository<Relationship>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
-            EfDeletableEntityRepository<Citizen> citizensrepository = new EfDeletableEntityRepository<Citizen>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Citizen> citizensRepository = new EfDeletableEntityRepository<Citizen>(dbContext);
 
             Citizen citizen = new Citizen()
             {
@@ -278,7 +278,7 @@ namespace AOMMembers.Services.Data.Tests
                 BirthDate = TestCitizenBirthDate
             };
 
-            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersrepository, citizensrepository);            
+            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersRepository, citizensRepository);            
             string badResult = await service.CreateAsync(inputModel, TestUserId);
 
             Assert.Equal(RelationshipCreateWithoutMemberBadResult, badResult);
@@ -294,8 +294,8 @@ namespace AOMMembers.Services.Data.Tests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<Relationship> relationshipsRepository = new EfDeletableEntityRepository<Relationship>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
-            EfDeletableEntityRepository<Citizen> citizensrepository = new EfDeletableEntityRepository<Citizen>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Citizen> citizensRepository = new EfDeletableEntityRepository<Citizen>(dbContext);
 
             Member member = new Member() { ApplicationUserId = TestUserId };
             member.Id = TestMemberId;
@@ -327,7 +327,7 @@ namespace AOMMembers.Services.Data.Tests
                 BirthDate = TestCitizenBirthDate
             };
 
-            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersrepository, citizensrepository);
+            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersRepository, citizensRepository);
             string badResult = await service.CreateAsync(inputModel, inexistantUserId);
 
             Assert.Equal(RelationshipCreateWithoutMemberBadResult, badResult);
@@ -340,24 +340,24 @@ namespace AOMMembers.Services.Data.Tests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<Relationship> relationshipsRepository = new EfDeletableEntityRepository<Relationship>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
-            EfDeletableEntityRepository<Citizen> citizensrepository = new EfDeletableEntityRepository<Citizen>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Citizen> citizensRepository = new EfDeletableEntityRepository<Citizen>(dbContext);
 
             Member member = new Member() { ApplicationUserId = TestUserId };
             member.Id = TestMemberId;
             await dbContext.Members.AddAsync(member);
 
-            Citizen citizen = new Citizen()
-            {
-                FirstName = TestOtherCitizenFirstName,
-                SecondName = TestCitizenSecondName,
-                LastName = TestCitizenLastName,
-                Gender = TestCitizenGender,
-                Age = TestCitizenAge,
-                BirthDate = TestCitizenBirthDate
-            };
-            citizen.Id = TestCitizenId;
-            await dbContext.Citizens.AddAsync(citizen);
+            //Citizen citizen = new Citizen()
+            //{
+            //    FirstName = TestOtherCitizenFirstName,
+            //    SecondName = TestCitizenSecondName,
+            //    LastName = TestCitizenLastName,
+            //    Gender = TestCitizenGender,
+            //    Age = TestCitizenAge,
+            //    BirthDate = TestCitizenBirthDate
+            //};
+            //citizen.Id = TestCitizenId;
+            //await dbContext.Citizens.AddAsync(citizen);
 
             await dbContext.SaveChangesAsync();
 
@@ -372,7 +372,7 @@ namespace AOMMembers.Services.Data.Tests
                 BirthDate = TestCitizenBirthDate
             };
 
-            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersrepository, citizensrepository);
+            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersRepository, citizensRepository);
             string badResult = await service.CreateAsync(inputModel, TestUserId);
 
             Assert.Equal(RelationshipCreateWithInexistantCitizenBadResult, badResult);
@@ -385,8 +385,8 @@ namespace AOMMembers.Services.Data.Tests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<Relationship> relationshipsRepository = new EfDeletableEntityRepository<Relationship>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
-            EfDeletableEntityRepository<Citizen> citizensrepository = new EfDeletableEntityRepository<Citizen>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Citizen> citizensRepository = new EfDeletableEntityRepository<Citizen>(dbContext);
 
             Relationship relationship = new Relationship()
             {
@@ -400,7 +400,7 @@ namespace AOMMembers.Services.Data.Tests
             await relationshipsRepository.AddAsync(relationship);
             await relationshipsRepository.SaveChangesAsync();
 
-            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersrepository, citizensrepository);
+            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersRepository, citizensRepository);
             bool isAbsent = await service.IsAbsent(TestRelationshipId);
 
             Assert.False(isAbsent);
@@ -413,10 +413,10 @@ namespace AOMMembers.Services.Data.Tests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<Relationship> relationshipsRepository = new EfDeletableEntityRepository<Relationship>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
-            EfDeletableEntityRepository<Citizen> citizensrepository = new EfDeletableEntityRepository<Citizen>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Citizen> citizensRepository = new EfDeletableEntityRepository<Citizen>(dbContext);
 
-            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersrepository, citizensrepository);
+            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersRepository, citizensRepository);
             bool isAbsent = await service.IsAbsent(TestRelationshipId);
 
             Assert.True(isAbsent);
@@ -429,8 +429,8 @@ namespace AOMMembers.Services.Data.Tests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<Relationship> relationshipsRepository = new EfDeletableEntityRepository<Relationship>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
-            EfDeletableEntityRepository<Citizen> citizensrepository = new EfDeletableEntityRepository<Citizen>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Citizen> citizensRepository = new EfDeletableEntityRepository<Citizen>(dbContext);
 
             Relationship relationship = new Relationship()
             {
@@ -444,7 +444,7 @@ namespace AOMMembers.Services.Data.Tests
             await relationshipsRepository.AddAsync(relationship);
             await relationshipsRepository.SaveChangesAsync();
 
-            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersrepository, citizensrepository);
+            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersRepository, citizensRepository);
             bool isAbsent = await service.IsAbsent(TestInexistantRelationshipId);
 
             Assert.True(isAbsent);
@@ -457,8 +457,8 @@ namespace AOMMembers.Services.Data.Tests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<Relationship> relationshipsRepository = new EfDeletableEntityRepository<Relationship>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
-            EfDeletableEntityRepository<Citizen> citizensrepository = new EfDeletableEntityRepository<Citizen>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Citizen> citizensRepository = new EfDeletableEntityRepository<Citizen>(dbContext);
 
             Relationship relationship = new Relationship()
             {
@@ -472,7 +472,7 @@ namespace AOMMembers.Services.Data.Tests
             await relationshipsRepository.AddAsync(relationship);
             await relationshipsRepository.SaveChangesAsync();
 
-            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersrepository, citizensrepository);
+            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersRepository, citizensRepository);
             RelationshipViewModel viewModel = await service.GetViewModelByIdAsync(TestRelationshipId);
 
             Assert.NotNull(viewModel);
@@ -486,8 +486,8 @@ namespace AOMMembers.Services.Data.Tests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<Relationship> relationshipsRepository = new EfDeletableEntityRepository<Relationship>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
-            EfDeletableEntityRepository<Citizen> citizensrepository = new EfDeletableEntityRepository<Citizen>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Citizen> citizensRepository = new EfDeletableEntityRepository<Citizen>(dbContext);
 
             Relationship relationship = new Relationship()
             {
@@ -501,7 +501,7 @@ namespace AOMMembers.Services.Data.Tests
             await relationshipsRepository.AddAsync(relationship);
             await relationshipsRepository.SaveChangesAsync();
 
-            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersrepository, citizensrepository);
+            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersRepository, citizensRepository);
             RelationshipViewModel viewModel = await service.GetViewModelByIdAsync(TestRelationshipId);
 
             Assert.Equal(TestKind, viewModel.Kind);
@@ -515,8 +515,8 @@ namespace AOMMembers.Services.Data.Tests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<Relationship> relationshipsRepository = new EfDeletableEntityRepository<Relationship>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
-            EfDeletableEntityRepository<Citizen> citizensrepository = new EfDeletableEntityRepository<Citizen>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Citizen> citizensRepository = new EfDeletableEntityRepository<Citizen>(dbContext);
 
             Relationship relationship = new Relationship()
             {
@@ -530,7 +530,7 @@ namespace AOMMembers.Services.Data.Tests
             await relationshipsRepository.AddAsync(relationship);
             await relationshipsRepository.SaveChangesAsync();
 
-            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersrepository, citizensrepository);
+            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersRepository, citizensRepository);
             RelationshipDetailsViewModel detailsViewModel = await service.GetDetailsByIdAsync(TestRelationshipId);
 
             Assert.NotNull(detailsViewModel);
@@ -544,8 +544,8 @@ namespace AOMMembers.Services.Data.Tests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<Relationship> relationshipsRepository = new EfDeletableEntityRepository<Relationship>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
-            EfDeletableEntityRepository<Citizen> citizensrepository = new EfDeletableEntityRepository<Citizen>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Citizen> citizensRepository = new EfDeletableEntityRepository<Citizen>(dbContext);
 
             Relationship relationship = new Relationship()
             {
@@ -559,7 +559,7 @@ namespace AOMMembers.Services.Data.Tests
             await relationshipsRepository.AddAsync(relationship);
             await relationshipsRepository.SaveChangesAsync();
 
-            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersrepository, citizensrepository);
+            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersRepository, citizensRepository);
             RelationshipDetailsViewModel detailsViewModel = await service.GetDetailsByIdAsync(TestRelationshipId);
 
             Assert.Equal(TestKind, detailsViewModel.Kind);
@@ -575,8 +575,8 @@ namespace AOMMembers.Services.Data.Tests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<Relationship> relationshipsRepository = new EfDeletableEntityRepository<Relationship>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
-            EfDeletableEntityRepository<Citizen> citizensrepository = new EfDeletableEntityRepository<Citizen>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Citizen> citizensRepository = new EfDeletableEntityRepository<Citizen>(dbContext);
 
             Member member = new Member() { ApplicationUserId = TestUserId };
             member.Id = TestMemberId;
@@ -596,7 +596,7 @@ namespace AOMMembers.Services.Data.Tests
             await relationshipsRepository.AddAsync(relationship);
             await relationshipsRepository.SaveChangesAsync();
 
-            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersrepository, citizensrepository);
+            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersRepository, citizensRepository);
             bool isFromMember = await service.IsFromMember(TestRelationshipId, TestUserId);
 
             Assert.True(isFromMember);
@@ -609,10 +609,10 @@ namespace AOMMembers.Services.Data.Tests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<Relationship> relationshipsRepository = new EfDeletableEntityRepository<Relationship>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
-            EfDeletableEntityRepository<Citizen> citizensrepository = new EfDeletableEntityRepository<Citizen>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Citizen> citizensRepository = new EfDeletableEntityRepository<Citizen>(dbContext);
 
-            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersrepository, citizensrepository);
+            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersRepository, citizensRepository);
             bool isFromMember = await service.IsFromMember(TestRelationshipId, TestUserId);
 
             Assert.False(isFromMember);
@@ -625,8 +625,8 @@ namespace AOMMembers.Services.Data.Tests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<Relationship> relationshipsRepository = new EfDeletableEntityRepository<Relationship>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
-            EfDeletableEntityRepository<Citizen> citizensrepository = new EfDeletableEntityRepository<Citizen>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Citizen> citizensRepository = new EfDeletableEntityRepository<Citizen>(dbContext);
 
             Member member = new Member() { ApplicationUserId = TestUserId };
             member.Id = TestMemberId;
@@ -646,7 +646,7 @@ namespace AOMMembers.Services.Data.Tests
             await relationshipsRepository.AddAsync(relationship);
             await relationshipsRepository.SaveChangesAsync();
 
-            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersrepository, citizensrepository);
+            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersRepository, citizensRepository);
             bool isFromMember = await service.IsFromMember(TestInexistantRelationshipId, TestUserId);
 
             Assert.False(isFromMember);
@@ -659,8 +659,8 @@ namespace AOMMembers.Services.Data.Tests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<Relationship> relationshipsRepository = new EfDeletableEntityRepository<Relationship>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
-            EfDeletableEntityRepository<Citizen> citizensrepository = new EfDeletableEntityRepository<Citizen>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Citizen> citizensRepository = new EfDeletableEntityRepository<Citizen>(dbContext);
 
             Member member = new Member() { ApplicationUserId = TestUserId };
             member.Id = TestMemberId;
@@ -680,7 +680,7 @@ namespace AOMMembers.Services.Data.Tests
             await relationshipsRepository.AddAsync(relationship);
             await relationshipsRepository.SaveChangesAsync();
 
-            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersrepository, citizensrepository);
+            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersRepository, citizensRepository);
             bool isFromMember = await service.IsFromMember(TestRelationshipId, TestInexistantUserId);
 
             Assert.False(isFromMember);
@@ -693,8 +693,8 @@ namespace AOMMembers.Services.Data.Tests
                  .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<Relationship> relationshipsRepository = new EfDeletableEntityRepository<Relationship>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
-            EfDeletableEntityRepository<Citizen> citizensrepository = new EfDeletableEntityRepository<Citizen>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Citizen> citizensRepository = new EfDeletableEntityRepository<Citizen>(dbContext);
 
             Member member = new Member() { ApplicationUserId = TestUserId };
             member.Id = TestMemberId;
@@ -714,7 +714,7 @@ namespace AOMMembers.Services.Data.Tests
             await relationshipsRepository.AddAsync(relationship);
             await relationshipsRepository.SaveChangesAsync();
 
-            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersrepository, citizensrepository);
+            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersRepository, citizensRepository);
             bool isFromMember = await service.IsFromMember(TestInexistantRelationshipId, TestInexistantUserId);
 
             Assert.False(isFromMember);
@@ -727,8 +727,8 @@ namespace AOMMembers.Services.Data.Tests
                  .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<Relationship> relationshipsRepository = new EfDeletableEntityRepository<Relationship>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
-            EfDeletableEntityRepository<Citizen> citizensrepository = new EfDeletableEntityRepository<Citizen>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Citizen> citizensRepository = new EfDeletableEntityRepository<Citizen>(dbContext);
 
             Relationship relationship = new Relationship()
             {
@@ -742,7 +742,7 @@ namespace AOMMembers.Services.Data.Tests
             await relationshipsRepository.AddAsync(relationship);
             await relationshipsRepository.SaveChangesAsync();
 
-            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersrepository, citizensrepository);
+            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersRepository, citizensRepository);
             RelationshipEditModel editModel = await service.GetEditModelByIdAsync(TestRelationshipId);
 
             Assert.NotNull(editModel);
@@ -756,8 +756,8 @@ namespace AOMMembers.Services.Data.Tests
                  .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<Relationship> relationshipsRepository = new EfDeletableEntityRepository<Relationship>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
-            EfDeletableEntityRepository<Citizen> citizensrepository = new EfDeletableEntityRepository<Citizen>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Citizen> citizensRepository = new EfDeletableEntityRepository<Citizen>(dbContext);
 
             Relationship relationship = new Relationship()
             {
@@ -771,7 +771,7 @@ namespace AOMMembers.Services.Data.Tests
             await relationshipsRepository.AddAsync(relationship);
             await relationshipsRepository.SaveChangesAsync();
 
-            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersrepository, citizensrepository);
+            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersRepository, citizensRepository);
             RelationshipEditModel editModel = await service.GetEditModelByIdAsync(TestRelationshipId);
 
             Assert.Equal(TestKind, editModel.Kind);
@@ -785,8 +785,8 @@ namespace AOMMembers.Services.Data.Tests
                  .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<Relationship> relationshipsRepository = new EfDeletableEntityRepository<Relationship>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
-            EfDeletableEntityRepository<Citizen> citizensrepository = new EfDeletableEntityRepository<Citizen>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Citizen> citizensRepository = new EfDeletableEntityRepository<Citizen>(dbContext);
 
             Member member = new Member() { ApplicationUserId = TestUserId };
             member.Id = TestMemberId;
@@ -812,7 +812,7 @@ namespace AOMMembers.Services.Data.Tests
                 Description = TestEditedDescription
             };
 
-            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersrepository, citizensrepository);
+            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersRepository, citizensRepository);
             bool isEdited = await service.EditAsync(TestRelationshipId, editModel);
 
             Assert.True(isEdited);
@@ -825,8 +825,8 @@ namespace AOMMembers.Services.Data.Tests
                  .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<Relationship> relationshipsRepository = new EfDeletableEntityRepository<Relationship>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
-            EfDeletableEntityRepository<Citizen> citizensrepository = new EfDeletableEntityRepository<Citizen>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Citizen> citizensRepository = new EfDeletableEntityRepository<Citizen>(dbContext);
 
             Member member = new Member() { ApplicationUserId = TestUserId };
             member.Id = TestMemberId;
@@ -852,7 +852,7 @@ namespace AOMMembers.Services.Data.Tests
                 Description = TestEditedDescription
             };
 
-            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersrepository, citizensrepository);
+            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersRepository, citizensRepository);
             bool isEdited = await service.EditAsync(TestRelationshipId, editModel);
 
             Relationship editedRelationship = dbContext.Relationships.First();
@@ -869,8 +869,8 @@ namespace AOMMembers.Services.Data.Tests
                  .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<Relationship> relationshipsRepository = new EfDeletableEntityRepository<Relationship>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
-            EfDeletableEntityRepository<Citizen> citizensrepository = new EfDeletableEntityRepository<Citizen>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Citizen> citizensRepository = new EfDeletableEntityRepository<Citizen>(dbContext);
 
             Member member = new Member() { ApplicationUserId = TestUserId };
             member.Id = TestMemberId;
@@ -896,7 +896,7 @@ namespace AOMMembers.Services.Data.Tests
                 Description = TestEditedDescription
             };
 
-            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersrepository, citizensrepository);
+            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersRepository, citizensRepository);
             bool isEdited = await service.EditAsync(TestInexistantRelationshipId, editModel);
 
             Assert.False(isEdited);
@@ -909,8 +909,8 @@ namespace AOMMembers.Services.Data.Tests
                  .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<Relationship> relationshipsRepository = new EfDeletableEntityRepository<Relationship>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
-            EfDeletableEntityRepository<Citizen> citizensrepository = new EfDeletableEntityRepository<Citizen>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Citizen> citizensRepository = new EfDeletableEntityRepository<Citizen>(dbContext);
 
             RelationshipEditModel editModel = new RelationshipEditModel()
             {
@@ -918,7 +918,7 @@ namespace AOMMembers.Services.Data.Tests
                 Description = TestEditedDescription
             };
 
-            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersrepository, citizensrepository);
+            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersRepository, citizensRepository);
             bool isEdited = await service.EditAsync(TestInexistantRelationshipId, editModel);
 
             Assert.False(isEdited);
@@ -931,8 +931,8 @@ namespace AOMMembers.Services.Data.Tests
                   .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<Relationship> relationshipsRepository = new EfDeletableEntityRepository<Relationship>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
-            EfDeletableEntityRepository<Citizen> citizensrepository = new EfDeletableEntityRepository<Citizen>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Citizen> citizensRepository = new EfDeletableEntityRepository<Citizen>(dbContext);
 
             Relationship relationship = new Relationship()
             {
@@ -946,7 +946,7 @@ namespace AOMMembers.Services.Data.Tests
             await relationshipsRepository.AddAsync(relationship);
             await relationshipsRepository.SaveChangesAsync();
 
-            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersrepository, citizensrepository);
+            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersRepository, citizensRepository);
             RelationshipDeleteModel deleteModel = await service.GetDeleteModelByIdAsync(TestRelationshipId);
 
             Assert.NotNull(deleteModel);
@@ -960,8 +960,8 @@ namespace AOMMembers.Services.Data.Tests
                   .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<Relationship> relationshipsRepository = new EfDeletableEntityRepository<Relationship>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
-            EfDeletableEntityRepository<Citizen> citizensrepository = new EfDeletableEntityRepository<Citizen>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Citizen> citizensRepository = new EfDeletableEntityRepository<Citizen>(dbContext);
 
             Relationship relationship = new Relationship()
             {
@@ -975,7 +975,7 @@ namespace AOMMembers.Services.Data.Tests
             await relationshipsRepository.AddAsync(relationship);
             await relationshipsRepository.SaveChangesAsync();
 
-            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersrepository, citizensrepository);
+            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersRepository, citizensRepository);
             RelationshipDeleteModel deleteModel = await service.GetDeleteModelByIdAsync(TestRelationshipId);
 
             Assert.Equal(TestKind, deleteModel.Kind);
@@ -989,8 +989,8 @@ namespace AOMMembers.Services.Data.Tests
                   .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<Relationship> relationshipsRepository = new EfDeletableEntityRepository<Relationship>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
-            EfDeletableEntityRepository<Citizen> citizensrepository = new EfDeletableEntityRepository<Citizen>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Citizen> citizensRepository = new EfDeletableEntityRepository<Citizen>(dbContext);
 
             Member member = new Member() { ApplicationUserId = TestUserId };
             member.Id = TestMemberId;
@@ -1010,7 +1010,7 @@ namespace AOMMembers.Services.Data.Tests
             await relationshipsRepository.AddAsync(relationship);
             await relationshipsRepository.SaveChangesAsync();
 
-            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersrepository, citizensrepository);
+            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersRepository, citizensRepository);
             bool isDeleted = await service.DeleteAsync(TestRelationshipId);
 
             Assert.True(isDeleted);
@@ -1023,8 +1023,8 @@ namespace AOMMembers.Services.Data.Tests
                   .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<Relationship> relationshipsRepository = new EfDeletableEntityRepository<Relationship>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
-            EfDeletableEntityRepository<Citizen> citizensrepository = new EfDeletableEntityRepository<Citizen>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Citizen> citizensRepository = new EfDeletableEntityRepository<Citizen>(dbContext);
 
             Member member = new Member() { ApplicationUserId = TestUserId };
             member.Id = TestMemberId;
@@ -1044,7 +1044,7 @@ namespace AOMMembers.Services.Data.Tests
             await relationshipsRepository.AddAsync(relationship);
             await relationshipsRepository.SaveChangesAsync();
 
-            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersrepository, citizensrepository);
+            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersRepository, citizensRepository);
             bool isDeleted = await service.DeleteAsync(TestRelationshipId);
 
             Relationship deleted = dbContext.Relationships.FirstOrDefault(r => r.IsDeleted == false);
@@ -1062,8 +1062,8 @@ namespace AOMMembers.Services.Data.Tests
                   .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<Relationship> relationshipsRepository = new EfDeletableEntityRepository<Relationship>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
-            EfDeletableEntityRepository<Citizen> citizensrepository = new EfDeletableEntityRepository<Citizen>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Citizen> citizensRepository = new EfDeletableEntityRepository<Citizen>(dbContext);
 
             Member member = new Member() { ApplicationUserId = TestUserId };
             member.Id = TestMemberId;
@@ -1083,7 +1083,7 @@ namespace AOMMembers.Services.Data.Tests
             await relationshipsRepository.AddAsync(relationship);
             await relationshipsRepository.SaveChangesAsync();
 
-            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersrepository, citizensrepository);
+            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersRepository, citizensRepository);
             bool isDeleted = await service.DeleteAsync(TestInexistantRelationshipId);
 
             Assert.False(isDeleted);
@@ -1096,10 +1096,10 @@ namespace AOMMembers.Services.Data.Tests
                   .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<Relationship> relationshipsRepository = new EfDeletableEntityRepository<Relationship>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
-            EfDeletableEntityRepository<Citizen> citizensrepository = new EfDeletableEntityRepository<Citizen>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Citizen> citizensRepository = new EfDeletableEntityRepository<Citizen>(dbContext);
 
-            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersrepository, citizensrepository);
+            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersRepository, citizensRepository);
             bool isDeleted = await service.DeleteAsync(TestRelationshipId);
 
             Assert.False(isDeleted);
@@ -1161,10 +1161,10 @@ namespace AOMMembers.Services.Data.Tests
             await dbContext.SaveChangesAsync();
 
             EfDeletableEntityRepository<Relationship> relationshipsRepository = new EfDeletableEntityRepository<Relationship>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
-            EfDeletableEntityRepository<Citizen> citizensrepository = new EfDeletableEntityRepository<Citizen>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Citizen> citizensRepository = new EfDeletableEntityRepository<Citizen>(dbContext);
 
-            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersrepository, citizensrepository);
+            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersRepository, citizensRepository);
             int count = service.GetCountFromMember(TestUserId);
 
             Assert.Equal(2, count);
@@ -1209,10 +1209,10 @@ namespace AOMMembers.Services.Data.Tests
             await dbContext.SaveChangesAsync();
 
             EfDeletableEntityRepository<Relationship> relationshipsRepository = new EfDeletableEntityRepository<Relationship>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
-            EfDeletableEntityRepository<Citizen> citizensrepository = new EfDeletableEntityRepository<Citizen>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Citizen> citizensRepository = new EfDeletableEntityRepository<Citizen>(dbContext);
 
-            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersrepository, citizensrepository);
+            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersRepository, citizensRepository);
             int count = service.GetCountFromMember(TestOtherUserId);
 
             Assert.Equal(0, count);
@@ -1225,10 +1225,10 @@ namespace AOMMembers.Services.Data.Tests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<Relationship> relationshipsRepository = new EfDeletableEntityRepository<Relationship>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
-            EfDeletableEntityRepository<Citizen> citizensrepository = new EfDeletableEntityRepository<Citizen>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Citizen> citizensRepository = new EfDeletableEntityRepository<Citizen>(dbContext);
 
-            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersrepository, citizensrepository);
+            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersRepository, citizensRepository);
             int count = service.GetCountFromMember(TestUserId);
 
             Assert.Equal(0, count);
@@ -1290,10 +1290,10 @@ namespace AOMMembers.Services.Data.Tests
             await dbContext.SaveChangesAsync();
 
             EfDeletableEntityRepository<Relationship> relationshipsRepository = new EfDeletableEntityRepository<Relationship>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
-            EfDeletableEntityRepository<Citizen> citizensrepository = new EfDeletableEntityRepository<Citizen>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Citizen> citizensRepository = new EfDeletableEntityRepository<Citizen>(dbContext);
 
-            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersrepository, citizensrepository);
+            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersRepository, citizensRepository);
             IEnumerable<RelationshipViewModel> viewModels = service.GetAllFromMember(TestUserId);
 
             Assert.Equal(2, viewModels.Count());
@@ -1344,10 +1344,10 @@ namespace AOMMembers.Services.Data.Tests
             await dbContext.SaveChangesAsync();
 
             EfDeletableEntityRepository<Relationship> relationshipsRepository = new EfDeletableEntityRepository<Relationship>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
-            EfDeletableEntityRepository<Citizen> citizensrepository = new EfDeletableEntityRepository<Citizen>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Citizen> citizensRepository = new EfDeletableEntityRepository<Citizen>(dbContext);
 
-            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersrepository, citizensrepository);
+            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersRepository, citizensRepository);
             IEnumerable<RelationshipViewModel> viewModels = service.GetAllFromMember(TestOtherUserId);
 
             Assert.Null(viewModels);
@@ -1360,10 +1360,10 @@ namespace AOMMembers.Services.Data.Tests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<Relationship> relationshipsRepository = new EfDeletableEntityRepository<Relationship>(dbContext);
-            EfDeletableEntityRepository<Member> membersrepository = new EfDeletableEntityRepository<Member>(dbContext);
-            EfDeletableEntityRepository<Citizen> citizensrepository = new EfDeletableEntityRepository<Citizen>(dbContext);
+            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
+            EfDeletableEntityRepository<Citizen> citizensRepository = new EfDeletableEntityRepository<Citizen>(dbContext);
 
-            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersrepository, citizensrepository);
+            RelationshipsService service = new RelationshipsService(this.mapper, relationshipsRepository, membersRepository, citizensRepository);
             IEnumerable<RelationshipViewModel> viewModels = service.GetAllFromMember(TestUserId);
 
             Assert.Null(viewModels);

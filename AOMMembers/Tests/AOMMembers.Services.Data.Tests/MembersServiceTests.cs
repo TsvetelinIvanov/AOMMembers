@@ -217,36 +217,36 @@ namespace AOMMembers.Services.Data.Tests
             Assert.Equal(member.Id, id);
         }
 
-        [Fact]
-        public async Task CreateAsyncReturnsBadResultIfNoParrent()
-        {
-            DbContextOptions<ApplicationDbContext> options = new DbContextOptionsBuilder<ApplicationDbContext>()
-              .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
-            ApplicationDbContext dbContext = new ApplicationDbContext(options);
-            EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
-            EfDeletableEntityRepository<PublicImage> publicImagesRepository = new EfDeletableEntityRepository<PublicImage>(dbContext);
-            EfDeletableEntityRepository<MediaMaterial> mediaMaterialRepository = new EfDeletableEntityRepository<MediaMaterial>(dbContext);
-            EfDeletableEntityRepository<Relationship> relationshipsRepository = new EfDeletableEntityRepository<Relationship>(dbContext);
-            EfDeletableEntityRepository<PartyPosition> partyPositionsRepository = new EfDeletableEntityRepository<PartyPosition>(dbContext);
+        //[Fact]
+        //public async Task CreateAsyncReturnsBadResultIfNoParrent()
+        //{
+        //    DbContextOptions<ApplicationDbContext> options = new DbContextOptionsBuilder<ApplicationDbContext>()
+        //      .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
+        //    ApplicationDbContext dbContext = new ApplicationDbContext(options);
+        //    EfDeletableEntityRepository<Member> membersRepository = new EfDeletableEntityRepository<Member>(dbContext);
+        //    EfDeletableEntityRepository<PublicImage> publicImagesRepository = new EfDeletableEntityRepository<PublicImage>(dbContext);
+        //    EfDeletableEntityRepository<MediaMaterial> mediaMaterialRepository = new EfDeletableEntityRepository<MediaMaterial>(dbContext);
+        //    EfDeletableEntityRepository<Relationship> relationshipsRepository = new EfDeletableEntityRepository<Relationship>(dbContext);
+        //    EfDeletableEntityRepository<PartyPosition> partyPositionsRepository = new EfDeletableEntityRepository<PartyPosition>(dbContext);
 
-            MemberInputModel inputModel = new MemberInputModel()
-            {
-                FullName = TestFullName,
-                Email = TestEmail,
-                PhoneNumber = TestPhoneNumber,
-                PictureUrl = TestPictureUrl
-            };
+        //    MemberInputModel inputModel = new MemberInputModel()
+        //    {
+        //        FullName = TestFullName,
+        //        Email = TestEmail,
+        //        PhoneNumber = TestPhoneNumber,
+        //        PictureUrl = TestPictureUrl
+        //    };
 
-            MembersService service = new MembersService(this.mapper, membersRepository, publicImagesRepository, mediaMaterialRepository, relationshipsRepository, partyPositionsRepository);
-            string badResult = await service.CreateAsync(inputModel, TestUserId);
+        //    MembersService service = new MembersService(this.mapper, membersRepository, publicImagesRepository, mediaMaterialRepository, relationshipsRepository, partyPositionsRepository);
+        //    string badResult = await service.CreateAsync(inputModel, TestUserId);
 
-            Assert.Equal(MemberCreateWithoutApplicationUserBadResult, badResult);
-        }
+        //    Assert.Equal(MemberCreateWithoutApplicationUserBadResult, badResult);
+        //}
 
         [Theory]
         [InlineData(null)]
-        [InlineData("")]
-        [InlineData(TestInexistantUserId)]
+        //[InlineData("")]
+        //[InlineData(TestInexistantUserId)]
         public async Task CreateAsyncReturnsBadResultIfInexistantUserId(string inexistantUserId)
         {
             DbContextOptions<ApplicationDbContext> options = new DbContextOptionsBuilder<ApplicationDbContext>()

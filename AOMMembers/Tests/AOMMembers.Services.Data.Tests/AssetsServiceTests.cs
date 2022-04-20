@@ -49,7 +49,7 @@ namespace AOMMembers.Services.Data.Tests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<Asset> assetsRepository = new EfDeletableEntityRepository<Asset>(dbContext);
-            EfDeletableEntityRepository<MaterialState> materialStatesrepository = new EfDeletableEntityRepository<MaterialState>(dbContext);
+            EfDeletableEntityRepository<MaterialState> materialStatesRepository = new EfDeletableEntityRepository<MaterialState>(dbContext);
 
             Member member = new Member() { ApplicationUserId = TestUserId };
             await dbContext.Members.AddAsync(member);
@@ -67,7 +67,7 @@ namespace AOMMembers.Services.Data.Tests
                 Worthiness = TestWorthiness
             };
 
-            AssetsService service = new AssetsService(this.mapper, assetsRepository, materialStatesrepository);
+            AssetsService service = new AssetsService(this.mapper, assetsRepository, materialStatesRepository);
             await service.CreateAsync(inputModel, TestUserId);
 
             Assert.Equal(1, dbContext.Assets.Count());            
@@ -80,7 +80,7 @@ namespace AOMMembers.Services.Data.Tests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<Asset> assetsRepository = new EfDeletableEntityRepository<Asset>(dbContext);
-            EfDeletableEntityRepository<MaterialState> materialStatesrepository = new EfDeletableEntityRepository<MaterialState>(dbContext);
+            EfDeletableEntityRepository<MaterialState> materialStatesRepository = new EfDeletableEntityRepository<MaterialState>(dbContext);
 
             Member member = new Member() { ApplicationUserId = TestUserId };
             await dbContext.Members.AddAsync(member);
@@ -98,7 +98,7 @@ namespace AOMMembers.Services.Data.Tests
                 Worthiness = TestWorthiness
             };
 
-            AssetsService service = new AssetsService(this.mapper, assetsRepository, materialStatesrepository);
+            AssetsService service = new AssetsService(this.mapper, assetsRepository, materialStatesRepository);
             await service.CreateAsync(inputModel, TestUserId);            
 
             Asset asset = dbContext.Assets.FirstOrDefault();
@@ -114,7 +114,7 @@ namespace AOMMembers.Services.Data.Tests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<Asset> assetsRepository = new EfDeletableEntityRepository<Asset>(dbContext);
-            EfDeletableEntityRepository<MaterialState> materialStatesrepository = new EfDeletableEntityRepository<MaterialState>(dbContext);
+            EfDeletableEntityRepository<MaterialState> materialStatesRepository = new EfDeletableEntityRepository<MaterialState>(dbContext);
 
             Member member = new Member() { ApplicationUserId = TestUserId };
             await dbContext.Members.AddAsync(member);
@@ -132,7 +132,7 @@ namespace AOMMembers.Services.Data.Tests
                 Worthiness = TestWorthiness
             };
 
-            AssetsService service = new AssetsService(this.mapper, assetsRepository, materialStatesrepository);
+            AssetsService service = new AssetsService(this.mapper, assetsRepository, materialStatesRepository);
             await service.CreateAsync(inputModel, TestUserId);
 
             Asset asset = dbContext.Assets.First();
@@ -150,7 +150,7 @@ namespace AOMMembers.Services.Data.Tests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<Asset> assetsRepository = new EfDeletableEntityRepository<Asset>(dbContext);
-            EfDeletableEntityRepository<MaterialState> materialStatesrepository = new EfDeletableEntityRepository<MaterialState>(dbContext);
+            EfDeletableEntityRepository<MaterialState> materialStatesRepository = new EfDeletableEntityRepository<MaterialState>(dbContext);
 
             Member member = new Member() { ApplicationUserId = TestUserId };
             await dbContext.Members.AddAsync(member);
@@ -168,7 +168,7 @@ namespace AOMMembers.Services.Data.Tests
                 Worthiness = TestWorthiness
             };
 
-            AssetsService service = new AssetsService(this.mapper, assetsRepository, materialStatesrepository);
+            AssetsService service = new AssetsService(this.mapper, assetsRepository, materialStatesRepository);
             string id = await service.CreateAsync(inputModel, TestUserId);
 
             Asset asset = dbContext.Assets.First();
@@ -183,7 +183,7 @@ namespace AOMMembers.Services.Data.Tests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<Asset> assetsRepository = new EfDeletableEntityRepository<Asset>(dbContext);
-            EfDeletableEntityRepository<MaterialState> materialStatesrepository = new EfDeletableEntityRepository<MaterialState>(dbContext);
+            EfDeletableEntityRepository<MaterialState> materialStatesRepository = new EfDeletableEntityRepository<MaterialState>(dbContext);
             
             AssetInputModel inputModel = new AssetInputModel()
             {
@@ -192,7 +192,7 @@ namespace AOMMembers.Services.Data.Tests
                 Worthiness = TestWorthiness
             };
 
-            AssetsService service = new AssetsService(this.mapper, assetsRepository, materialStatesrepository);
+            AssetsService service = new AssetsService(this.mapper, assetsRepository, materialStatesRepository);
             string badResult = await service.CreateAsync(inputModel, TestUserId);
 
             Assert.Equal(AssetCreateWithoutMaterialStateBadResult, badResult);
@@ -208,7 +208,7 @@ namespace AOMMembers.Services.Data.Tests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<Asset> assetsRepository = new EfDeletableEntityRepository<Asset>(dbContext);
-            EfDeletableEntityRepository<MaterialState> materialStatesrepository = new EfDeletableEntityRepository<MaterialState>(dbContext);
+            EfDeletableEntityRepository<MaterialState> materialStatesRepository = new EfDeletableEntityRepository<MaterialState>(dbContext);
 
             Member member = new Member() { ApplicationUserId = TestUserId };
             await dbContext.Members.AddAsync(member);
@@ -226,7 +226,7 @@ namespace AOMMembers.Services.Data.Tests
                 Worthiness = TestWorthiness                
             };
 
-            AssetsService service = new AssetsService(this.mapper, assetsRepository, materialStatesrepository);
+            AssetsService service = new AssetsService(this.mapper, assetsRepository, materialStatesRepository);
             string badResult = await service.CreateAsync(inputModel, inexistantUserId);            
 
             Assert.Equal(AssetCreateWithoutMaterialStateBadResult, badResult);            
@@ -239,7 +239,7 @@ namespace AOMMembers.Services.Data.Tests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<Asset> assetsRepository = new EfDeletableEntityRepository<Asset>(dbContext);
-            EfDeletableEntityRepository<MaterialState> materialStatesrepository = new EfDeletableEntityRepository<MaterialState>(dbContext);
+            EfDeletableEntityRepository<MaterialState> materialStatesRepository = new EfDeletableEntityRepository<MaterialState>(dbContext);
             
             Asset asset = new Asset()
             {
@@ -252,7 +252,7 @@ namespace AOMMembers.Services.Data.Tests
             await assetsRepository.AddAsync(asset);
             await assetsRepository.SaveChangesAsync();
 
-            AssetsService service = new AssetsService(this.mapper, assetsRepository, materialStatesrepository);
+            AssetsService service = new AssetsService(this.mapper, assetsRepository, materialStatesRepository);
             bool isAbsent = await service.IsAbsent(TestAssetId);
 
             Assert.False(isAbsent);
@@ -265,9 +265,9 @@ namespace AOMMembers.Services.Data.Tests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             EfDeletableEntityRepository<Asset> assetsRepository = new EfDeletableEntityRepository<Asset>(dbContext);
-            EfDeletableEntityRepository<MaterialState> materialStatesrepository = new EfDeletableEntityRepository<MaterialState>(dbContext);
+            EfDeletableEntityRepository<MaterialState> materialStatesRepository = new EfDeletableEntityRepository<MaterialState>(dbContext);
 
-            AssetsService service = new AssetsService(this.mapper, assetsRepository, materialStatesrepository);
+            AssetsService service = new AssetsService(this.mapper, assetsRepository, materialStatesRepository);
             bool isAbsent = await service.IsAbsent(TestAssetId);
 
             Assert.True(isAbsent);
@@ -1023,7 +1023,7 @@ namespace AOMMembers.Services.Data.Tests
             Citizen otherCitizen = new Citizen() { Member = otherMember };
             await dbContext.Citizens.AddAsync(otherCitizen);
             MaterialState otherMaterialState = new MaterialState() { Citizen = otherCitizen };
-            materialState.Id = TestOtherMaterialStateId;
+            otherMaterialState.Id = TestOtherMaterialStateId;
             await dbContext.MaterialStates.AddAsync(otherMaterialState);
             await dbContext.SaveChangesAsync();
 
@@ -1161,7 +1161,7 @@ namespace AOMMembers.Services.Data.Tests
             Citizen otherCitizen = new Citizen() { Member = otherMember };
             await dbContext.Citizens.AddAsync(otherCitizen);
             MaterialState otherMaterialState = new MaterialState() { Citizen = otherCitizen };
-            materialState.Id = TestOtherMaterialStateId;
+            otherMaterialState.Id = TestOtherMaterialStateId;
             await dbContext.MaterialStates.AddAsync(otherMaterialState);
             await dbContext.SaveChangesAsync();
 
