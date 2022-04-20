@@ -88,7 +88,7 @@ WebApplication app = builder.Build();
 
 AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);//
 
-//// Seed data on application
+// Seed data on application
 //using (IServiceScope serviceScope = app.Services.CreateScope())
 //{
 //    ApplicationDbContext dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();

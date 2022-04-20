@@ -2,15 +2,15 @@
   "ExpandedNodes": [
     "",
     "\\AOMMembers",
+    "\\AOMMembers\\Data",
+    "\\AOMMembers\\Data\\AOMMembers.Data.Models",
+    "\\AOMMembers\\Tests",
+    "\\AOMMembers\\Tests\\AOMMembers.Services.Data.Tests",
     "\\AOMMembers\\Web",
     "\\AOMMembers\\Web\\AOMMembers.Web",
     "\\AOMMembers\\Web\\AOMMembers.Web\\Views",
-    "\\AOMMembers\\Web\\AOMMembers.Web\\Views\\Citizens",
-    "\\AOMMembers\\Web\\AOMMembers.Web\\Views\\Educations",
-    "\\AOMMembers\\Web\\AOMMembers.Web\\Views\\MediaMaterials",
-    "\\AOMMembers\\Web\\AOMMembers.Web\\Views\\Members",
     "\\AOMMembers\\Web\\AOMMembers.Web\\Views\\Worldviews"
   ],
-  "SelectedNode": "\\AOMMembers\\Web\\AOMMembers.Web\\Views\\Educations\\Details.cshtml",
+  "SelectedNode": "\\AOMMembers\\Tests\\AOMMembers.Services.Data.Tests\\ApplicationUsersServiceTests.cs",
   "PreviewInSolutionExplorer": false
 }

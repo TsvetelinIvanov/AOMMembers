@@ -14,6 +14,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using static AOMMembers.Common.DataConstants;
+using static AOMMembers.Common.DataDisplayNames;
+using static AOMMembers.Common.DataErrorMessages;
 
 namespace AOMMembers.Web.Areas.Identity.Pages.Account
 {
@@ -46,20 +49,26 @@ namespace AOMMembers.Web.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
-            [EmailAddress]
-            [Display(Name = "Email")]
+            [Required(ErrorMessage = RequiredErrorMessage)]
+            [EmailAddress(ErrorMessage = MemberEmailErrorMessage)]
+            //[Display(Name = "Email")]
+            [Display(Name = ApplicationUserEmailDisplayName)]
             public string Email { get; set; }
 
-            [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [Required(ErrorMessage = RequiredErrorMessage)]
             [DataType(DataType.Password)]
-            [Display(Name = "Password")]
+            //[Display(Name = "Password")]
+            [Display(Name = ApplicationUserPasswordDisplayName)]
+            //[StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [StringLength(ApplicationUserPasswordMaxLength, ErrorMessage = StringLengthErrorMessage, MinimumLength = ApplicationUserPasswordMinLength)]
             public string Password { get; set; }
 
+            [Required(ErrorMessage = RequiredErrorMessage)]
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            //[Display(Name = "Confirm password")]
+            [Display(Name = ApplicationUserConfirmPasswordDisplayName)]
+            //[Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Compare("Password", ErrorMessage = ApplicationUserConfirmPasswordErrorMessage)]
             public string ConfirmPassword { get; set; }
         }
 
@@ -106,6 +115,7 @@ namespace AOMMembers.Web.Areas.Identity.Pages.Account
                 foreach (IdentityError error in result.Errors)
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
+                    _logger.LogInformation(error.Description.ToString());
                 }
             }
 

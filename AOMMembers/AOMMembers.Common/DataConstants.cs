@@ -4,14 +4,14 @@
     {
         public const int IdMaxLength = 40;
 
-        public const int ApplicationUserUsernameMinLength = 5;
-        public const int ApplicationUserMaxLength = 20;
-        public const int ApplicationUserEmailMinLength = 9;
-        public const int ApplicationUserEmailMaxLength = 60;
+        //public const int ApplicationUserUsernameMinLength = 5;
+        //public const int ApplicationUserMaxLength = 20;
+        //public const int ApplicationUserEmailMinLength = 9;
+        //public const int ApplicationUserEmailMaxLength = 60;
         public const int ApplicationUserPasswordMinLength = 6;
-        public const int ApplicationUserPasswordMaxLength = 20;
-        public const int ApplicationUserPhoneNumberMinLength = 4;
-        public const int ApplicationUserPhoneNumberMaxLength = 40;
+        public const int ApplicationUserPasswordMaxLength = 100;
+        //public const int ApplicationUserPhoneNumberMinLength = 4;
+        //public const int ApplicationUserPhoneNumberMaxLength = 40;
 
         public const int MemberFullNameMinLength = 5;
         public const int MemberFullNameMaxLength = 100;

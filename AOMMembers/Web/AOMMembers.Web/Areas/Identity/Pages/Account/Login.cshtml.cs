@@ -12,6 +12,8 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using static AOMMembers.Common.DataDisplayNames;
+using static AOMMembers.Common.DataErrorMessages;
 
 namespace AOMMembers.Web.Areas.Identity.Pages.Account
 {
@@ -43,15 +45,18 @@ namespace AOMMembers.Web.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
-            [EmailAddress]
+            [Required(ErrorMessage = RequiredErrorMessage)]
+            [EmailAddress(ErrorMessage = MemberEmailErrorMessage)]
+            [Display(Name = ApplicationUserEmailDisplayName)]
             public string Email { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = RequiredErrorMessage)]
             [DataType(DataType.Password)]
+            [Display(Name = ApplicationUserPasswordDisplayName)]
             public string Password { get; set; }
 
-            [Display(Name = "Remember me?")]
+            //[Display(Name = "Remember me?")]
+            [Display(Name = ApplicationUserRememberPasswordDisplayName)]
             public bool RememberMe { get; set; }
         }
 

@@ -5,6 +5,11 @@
         public const string CreatedOnDisplayName = "Създадено на";
         public const string ModifiedOnDisplayName = "Последно променено на";
 
+        public const string ApplicationUserEmailDisplayName = "Електронна поща (използва се и като потребителско име)";
+        public const string ApplicationUserPasswordDisplayName = "Парола";
+        public const string ApplicationUserConfirmPasswordDisplayName = "Потвърждение на паролата";
+        public const string ApplicationUserRememberPasswordDisplayName = "Запомняне на паролата";
+
         public const string DashboardApplicationUsersCountDisplayName = "Брой на регистриралите се потребители";
         public const string DashboardMembersCountDisplayName = "Брой на регистрираните членове";
         public const string DashboardCitizensCountDisplayName = "Брой на регистрираните граждани";
