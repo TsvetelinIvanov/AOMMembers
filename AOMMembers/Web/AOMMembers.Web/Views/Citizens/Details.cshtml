@@ -159,6 +159,11 @@
 <div>
     <a asp-controller="Members" asp-action="Index">Виж данните на членовете</a> | 
     <a asp-action="Index" asp-route-id="@Model.Id">Обратно към гражданските данни</a>
+    <a asp-controller="Educations" asp-action="Index" asp-route-id="@Model.EducationId">Виж образованието</a> | 
+    <a asp-controller="Careers" asp-action="Index" asp-route-id="@Model.CareerId">Виж кариерата</a> | 
+    <a asp-controller="MaterialStates" asp-action="Index" asp-route-id="@Model.MaterialStateId">Виж материалното състояние</a> | 
+    <a asp-controller="LawStates" asp-action="Index" asp-route-id="@Model.LawStateId">Виж състоянието на отношенията с правораздавателните органи</a> | 
+    <a asp-controller="Worldviews" asp-action="Index" asp-route-id="@Model.WorldviewId">Виж мирогледа</a>
                     @if (this.User.IsInRole(GlobalConstants.MemberRoleName) || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
                     {
                         @: | 

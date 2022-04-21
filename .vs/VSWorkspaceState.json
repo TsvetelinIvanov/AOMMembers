@@ -2,8 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\AOMMembers",
-    "\\AOMMembers\\Data",
-    "\\AOMMembers\\Data\\AOMMembers.Data.Models",
+    "\\AOMMembers\\Services",
+    "\\AOMMembers\\Services\\AOMMembers.Services.Data",
+    "\\AOMMembers\\Services\\AOMMembers.Services.Data\\Services",
     "\\AOMMembers\\Tests",
     "\\AOMMembers\\Tests\\AOMMembers.Services.Data.Tests",
     "\\AOMMembers\\Web",
@@ -11,6 +12,6 @@
     "\\AOMMembers\\Web\\AOMMembers.Web\\Views",
     "\\AOMMembers\\Web\\AOMMembers.Web\\Views\\Worldviews"
   ],
-  "SelectedNode": "\\AOMMembers\\Tests\\AOMMembers.Services.Data.Tests\\ApplicationUsersServiceTests.cs",
+  "SelectedNode": "\\AOMMembers\\Services\\AOMMembers.Services.Data\\Services\\AssetsService.cs",
   "PreviewInSolutionExplorer": false
 }

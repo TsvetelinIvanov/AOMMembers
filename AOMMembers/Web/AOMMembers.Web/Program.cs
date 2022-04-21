@@ -105,7 +105,7 @@ AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly)
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();//
-    app.UseMigrationsEndPoint();    
+    app.UseMigrationsEndPoint();
 }
 else
 {

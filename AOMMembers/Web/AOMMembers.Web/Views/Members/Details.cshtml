@@ -91,7 +91,9 @@
     </dl>
 </div>
 <div>    
-    <a asp-action="Index">Обратно към данните на членовете</a>
+    <a asp-action="Index">Обратно към данните на членовете</a> | 
+    <a asp-controller="Citizens" asp-action="Index" asp-route-id="@Model.PublicImageId">Виж гражданските данни</a> | 
+    <a asp-controller="PublicImages" asp-action="Index" asp-route-id="@Model.CitizenId">Виж публичения образ</a>
                     @if (this.User.IsInRole(GlobalConstants.MemberRoleName) || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
                     {
                         @: | 
